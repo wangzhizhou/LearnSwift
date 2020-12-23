@@ -8,11 +8,11 @@ then
 fi
 
 SITE_ROOT="."
-SITE_PUB_DIR="${SITE_ROOT}/site"
-SITE_CONTENT_DIR="${SITE_ROOT}/docs"
-SITE_THEME_DIR="${SITE_ROOT}/themes"
-SITE_LAYOUT_DIR="${SITE_ROOT}/layouts"
-SITE_CONFIG_FILE="${SITE_ROOT}/config.toml"
+SITE_PUB_DIR="site"
+SITE_CONTENT_DIR="docs"
+SITE_THEME_DIR="themes"
+SITE_LAYOUT_DIR="layouts"
+SITE_CONFIG_FILE="config.toml"
 
 echo "Deleting old publication"
 rm -rf ${SITE_PUB_DIR}
