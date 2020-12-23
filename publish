@@ -8,7 +8,7 @@ then
 fi
 
 SITE_ROOT="."
-SITE_PUB_DIR="${SITE_ROOT}/public"
+SITE_PUB_DIR="${SITE_ROOT}/site"
 SITE_CONTENT_DIR="${SITE_ROOT}/docs"
 SITE_THEME_DIR="${SITE_ROOT}/themes"
 

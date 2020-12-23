@@ -1,9 +1,9 @@
 .DS_Store
-docs/public
 docs/resources
 themes/learns
 *webarchive
 resources
+site
 
 # Xcode
 #
