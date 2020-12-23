@@ -11,6 +11,8 @@ SITE_ROOT="."
 SITE_PUB_DIR="${SITE_ROOT}/site"
 SITE_CONTENT_DIR="${SITE_ROOT}/docs"
 SITE_THEME_DIR="${SITE_ROOT}/themes"
+SITE_LAYOUT_DIR="${SITE_ROOT}/layouts"
+SITE_CONFIG_FILE="${SITE_ROOT}/config.toml"
 
 echo "Deleting old publication"
 rm -rf ${SITE_PUB_DIR}
@@ -26,7 +28,13 @@ rm -rf ${SITE_PUB_DIR}/*
 echo "swiftui.jokerhub.cn" > ${SITE_PUB_DIR}/CNAME
 
 echo "Generating site"
-hugo -s "${SITE_ROOT}" -e production
+hugo -s "${SITE_ROOT}" \
+    -e production \
+	--contentDir="${SITE_CONTENT_DIR}" \
+	--themesDir="${SITE_THEME_DIR}" \
+	--layoutDir="${SITE_LAYOUT_DIR}" \
+	--config="${SITE_CONFIG_FILE}" \
+	--ignoreCache=true \
 
 echo "Updating gh-pages branch"
 cd ${SITE_PUB_DIR} && git add --all && git commit -m "Publishing to gh-pages (publish.sh)"
