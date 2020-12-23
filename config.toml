@@ -1,0 +1,104 @@
+baseURL = "https://swiftui.jokerhub.cn"
+languageCode = "zh-CN"
+defaultContentLanguage = "zh"
+theme = "learn"
+
+title = "Learn Swift"
+metaDataFormat = "yaml"
+defaultContentLanguageInSubdir= true
+
+[params]
+  editURL = "https://github.com/wangzhizhou/SwiftUI_Tutorial_zh/edit/master/docs/"
+  description = "SwiftUI官方教程中文版"
+  author = "王志舟"
+  showVisitedLinks = false
+  disableSearch = false
+  disableNextPrev = false
+  disableAssetsBusting = false
+  disableInlineCopyToClipBoard = true
+  disableShortcutsTitle = true
+  disableLanguageSwitchingButton = false
+  disableBreadcrumb = false
+  ordersectionsby = "weight"
+  themeVariant = "blue"
+  custom_css = []
+  disableMathJax = false
+
+[outputs]
+home = [ "HTML", "RSS", "JSON"]
+
+[Languages]
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fab fa-fw fa-github'></i> GitHub 仓库"
+identifier = "ds"
+url = "https://github.com/wangzhizhou/LearnSwift.git"
+weight = 1
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-fw fa-video'></i> SwiftUI 视频"
+url = "https://developer.apple.com/videos/all-videos/?q=swiftui"
+weight = 2
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-fw fa-receipt'></i> SwiftUI 文档"
+url = "https://developer.apple.com/documentation/swiftui/"
+weight = 3
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-fw fa-book'></i> Learn 主题"
+identifier = "learndoc"
+url = "https://learn.netlify.app/en/"
+weight = 4
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-tags'></i> Tags 标签"
+url = "/tags"
+weight = 5
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fab fa-apple'></i> SwiftUI 官方教程(英文)"
+identifier = "swiftUI tutorials"
+url = "https://developer.apple.com/tutorials/swiftui/tutorials/"
+weight = 6
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fab fa-sketch'></i> Font Awesome免费"
+identifier = "fontawesome"
+url = "https://fontawesome.com/icons?d=gallery&m=free"
+weight = 7
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-book-open'></i> Swift 官网"
+identifier = "swift"
+url = "https://swift.org"
+weight = 8
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-question-circle'></i> Apple 官方论坛"
+identifier = "forums"
+url = "https://developer.apple.com/forums/"
+weight = 9
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-file-code'></i> Apple 示例代码"
+identifier = "example code"
+url = "https://developer.apple.com/wwdc20/sample-code/"
+weight = 10
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-folder'></i> Apple 官方文档"
+identifier = "documentation"
+url = "https://developer.apple.com/documentation/"
+weight = 11
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-cogs'></i> Xcode 构建设置"
+identifier = "xcode"
+url = "https://xcodebuildsettings.com"
+weight = 12
+
+[[Languages.zh.menu.shortcuts]]
+name = "<i class='fas fa-archive'></i> SPM 查询"
+identifier = "SPM Index"
+url = "https://swiftpackageindex.com/"
+weight = 13
