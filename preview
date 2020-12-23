@@ -2,7 +2,13 @@
 #-*- utf-8 -*-
 
 pkill -9 hugo
-hugo --contentDir="docs" --themesDir="themes" --layoutDir="layouts" --config="config.toml" server -D --bind "0.0.0.0" &
+hugo \
+	--contentDir="docs" \
+	--themesDir="themes" \
+	--layoutDir="layouts" \
+	--config="config.toml" \
+	--ignoreCache=true \
+	server -D --bind "0.0.0.0" &
 sleep 2s
 open http://localhost:1313
 

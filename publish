@@ -7,9 +7,9 @@ then
     exit 1;
 fi
 
-SITE_ROOT="swiftui"
+SITE_ROOT="."
 SITE_PUB_DIR="${SITE_ROOT}/public"
-SITE_CONTENT_DIR="${SITE_ROOT}/content"
+SITE_CONTENT_DIR="${SITE_ROOT}/docs"
 SITE_THEME_DIR="${SITE_ROOT}/themes"
 
 echo "Deleting old publication"
