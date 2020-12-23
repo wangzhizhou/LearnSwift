@@ -34,6 +34,7 @@ hugo -s "${SITE_ROOT}" \
 	--themesDir="${SITE_THEME_DIR}" \
 	--layoutDir="${SITE_LAYOUT_DIR}" \
 	--config="${SITE_CONFIG_FILE}" \
+    --destination="${SITE_PUB_DIR}" \
 	--ignoreCache=true \
 
 echo "Updating gh-pages branch"
