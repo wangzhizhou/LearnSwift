@@ -6,7 +6,7 @@ weight: 20
 
 学习绘制形状和路径，并创建徽章和添加动画
 
-![drawing and animation](/tutorials/drawing_and_animation/images/drawing_and_animation.png?width=20pc)
+![drawing and animation](/swiftui/drawing_and_animation/images/drawing_and_animation.png?width=20pc)
 
 ### 包含章节
 
