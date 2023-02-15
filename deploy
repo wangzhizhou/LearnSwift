@@ -38,13 +38,15 @@ hugo -s "${SITE_ROOT}" \
 	--ignoreCache=true \
 
 echo "Updating gh-pages branch"
+git config user.name "joker-github-ci"
+git config user.email "824219521@qq.com"
 cd ${SITE_PUB_DIR} && git add --all && git commit -m "Publishing to gh-pages"
 
 echo "Pushing to github"
 cd - 
 
 if [ -n $"GITHUB_TOKEN" ]; then
-	echo $GITHUB_TOKEN
+	echo "$GITHUB_TOKEN"
 fi
 
 git push -uf --all
