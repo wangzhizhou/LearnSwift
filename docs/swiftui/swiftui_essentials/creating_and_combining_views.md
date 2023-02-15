@@ -160,7 +160,7 @@ Xcode可以提供实时的反馈，让你所做的改动立即转化成对应的
 
 **步骤1** 选择**文件->新建->文件**，选择`iOS`平台，选择`SwiftUI View`模板，并点击下一步(Next)，命名文件为`MapView.swift`，并点击创建(Create)
 
-**步骤2** 代码中导入MapKit引用，声明`MapView`遵循`UIViewRepresentable`协议。`UIViewRepresentable`协议要求实现两个方法`UIView(context:)`和`updateUIView(_:context:)`，第一个方法用来创建MKMapView，第二个方法用来配置视图响应状态变化
+**步骤2** 代码中导入MapKit引用，声明`MapView`遵循`UIViewRepresentable`协议。`UIViewRepresentable`协议要求实现两个方法`makeUIView(context:)`和`updateUIView(_:context:)`，第一个方法用来创建MKMapView，第二个方法用来配置视图响应状态变化
 
 **步骤3** 替换`body`，用`makeUIView(context:)`方法来代替，创建并返回一个空的`MKMapView`
 
