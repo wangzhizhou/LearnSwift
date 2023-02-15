@@ -1,4 +1,4 @@
-# Learn Swift  👉 [主页](https://swiftui.jokerhub.cn)
+# Learn Swift  👉 [主页](https://swift.jokerhub.cn)
 
 页面图片较多，建议拉取本地进行查看。
 

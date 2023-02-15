@@ -25,7 +25,7 @@ git worktree add ${SITE_PUB_DIR} -B gh-pages
 echo "Removing existing files"
 rm -rf ${SITE_PUB_DIR}/*
 
-echo "swiftui.jokerhub.cn" > ${SITE_PUB_DIR}/CNAME
+echo "swift.jokerhub.cn" > ${SITE_PUB_DIR}/CNAME
 
 echo "Generating site"
 hugo -s "${SITE_ROOT}" \
@@ -50,5 +50,5 @@ fi
 git push -uf --all
 
 if [ "$DEPLOY_TYPE" != "github" ]; then
-	open "http://swiftui.jokerhub.cn"
+	open "http://swift.jokerhub.cn"
 fi
