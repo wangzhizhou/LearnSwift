@@ -21,8 +21,6 @@ jobs:
         with:
           submodules: recursive
       - name: 运行部署脚本
-        env:
-          DEPLOY_TYPE: github
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
