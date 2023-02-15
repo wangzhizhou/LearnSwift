@@ -38,10 +38,17 @@ hugo -s "${SITE_ROOT}" \
 	--ignoreCache=true \
 
 echo "Updating gh-pages branch"
-cd ${SITE_PUB_DIR} && git add --all && git commit -m "Publishing to gh-pages (publish.sh)"
+cd ${SITE_PUB_DIR} && git add --all && git commit -m "Publishing to gh-pages"
 
 echo "Pushing to github"
 cd - 
-git push -uf --all
-open "http://swiftui.jokerhub.cn"
 
+if [ -n $"GITHUB_TOKEN" ]; then
+	echo "$GITHUB_TOKEN"
+fi
+
+git push -uf --all
+
+if [ "$DEPLOY_TYPE" != "github" ]; then
+	open "http://swiftui.jokerhub.cn"
+fi
