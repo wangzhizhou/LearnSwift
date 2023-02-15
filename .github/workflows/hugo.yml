@@ -41,6 +41,6 @@ jobs:
         with:
           submodules: recursive
       - name: 运行部署脚本
-        evn:
+        env:
           DEPLOY_TYPE: github
         run: ./deploy
