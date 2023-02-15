@@ -3,10 +3,10 @@ run-name: ${{ github.actor }} 触发
 on:
   push:
     branches: ["master"]
-    paths: ["docs/**""]
+    paths: ["docs/**"]
 
   workflow_dispatch:
-  
+
 jobs:
   publish:
     runs-on: ubuntu-latest
