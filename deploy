@@ -43,5 +43,7 @@ cd ${SITE_PUB_DIR} && git add --all && git commit -m "Publishing to gh-pages (pu
 echo "Pushing to github"
 cd - 
 git push -uf --all
-open "http://swiftui.jokerhub.cn"
 
+if [ "$DEPLOY_TYPE" != "github" ]; then
+	open "http://swiftui.jokerhub.cn"
+fi
