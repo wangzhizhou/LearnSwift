@@ -13,5 +13,5 @@
 ```bash
 $ git clone --recurse-submodules https://github.com/wangzhizhou/LearnSwift.git && \
 cd LearnSwift/ && \
-./preview_site.sh
+./preview
 ```
