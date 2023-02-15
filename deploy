@@ -42,6 +42,11 @@ cd ${SITE_PUB_DIR} && git add --all && git commit -m "Publishing to gh-pages"
 
 echo "Pushing to github"
 cd - 
+
+if [ -n $"GITHUB_TOKEN" ]; then
+	echo $GITHUB_TOKEN
+fi
+
 git push -uf --all
 
 if [ "$DEPLOY_TYPE" != "github" ]; then

@@ -20,7 +20,7 @@ defaults:
     shell: bash
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.108.0
@@ -35,5 +35,6 @@ jobs:
           submodules: recursive
       - name: 运行部署脚本
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           DEPLOY_TYPE: github
         run: ./deploy
