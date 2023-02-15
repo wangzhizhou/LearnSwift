@@ -44,7 +44,3 @@ echo "Pushing to github"
 cd - 
 
 git push -uf --all
-
-if [ "$DEPLOY_TYPE" != "github" ]; then
-	open "http://swift.jokerhub.cn"
-fi
