@@ -1,5 +1,5 @@
 ---
-title: "SwiftUI 教程"
+title: "SwiftUI"
 date: 2020-04-29T01:41:31+08:00
 weight: 1
 chapter: true

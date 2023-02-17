@@ -1,5 +1,5 @@
 ---
-title: "SwiftPM教程"
+title: "SwiftPM"
 date: 2020-07-25T20:05:58+08:00
 chapter: true
 weight: 3

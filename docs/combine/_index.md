@@ -1,9 +1,9 @@
 ---
-title: "Combine 教程"
+title: "Combine"
 date: 2020-07-25T20:05:58+08:00
 chapter: true
-weight: 2
-pre: "<b>2. </b>"
+weight: 4
+pre: "<b>4. </b>"
 ---
 
 # Combine
