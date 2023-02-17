@@ -12,3 +12,5 @@ draft = true
 # Some Chapter title
 
 Lorem Ipsum.
+
+$$a+b=c$$

@@ -13,16 +13,23 @@ defaultContentLanguageInSubdir= true
   author = "王志舟"
   showVisitedLinks = false
   disableSearch = false
-  disableNextPrev = false
+  disableNextPrev = true
   disableAssetsBusting = false
   disableInlineCopyToClipBoard = true
   disableShortcutsTitle = false
-  disableLanguageSwitchingButton = false
-  disableBreadcrumb = false
+  disableLandingPageButton = true
+  disableLanguageSwitchingButton = true
+  disableBreadcrumb = true
+  disableMermaid = false
+  customMermaidURL = "https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"
   ordersectionsby = "weight"
-  themeVariant = "blue"
+  themeVariant = "mine"
   custom_css = []
+  titleSeparator = "-"
+  
+  # 自定义参数
   disableMathJax = false
+  contentDirName = "docs"
 
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
