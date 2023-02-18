@@ -1,5 +1,5 @@
 baseURL = "https://swift.jokerhub.cn"
-languageCode = "zh-CN"
+languageCode = "zh-cn"
 defaultContentLanguage = "zh"
 theme = "learn"
 
@@ -13,7 +13,7 @@ defaultContentLanguageInSubdir= true
   author = "王志舟"
   showVisitedLinks = false
   disableSearch = false
-  disableNextPrev = true
+  disableNextPrev = false
   disableAssetsBusting = false
   disableInlineCopyToClipBoard = true
   disableShortcutsTitle = false

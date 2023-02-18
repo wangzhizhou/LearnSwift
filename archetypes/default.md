@@ -3,10 +3,6 @@ title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 ---
 
-{{%attachments title="项目文件" style="blue" pattern=".*zip" /%}}
-
----
-
 ### 第一节 
 
 **步骤1** 
