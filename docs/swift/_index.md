@@ -11,5 +11,3 @@ pre: "<b>2. </b>"
 # Some Chapter title
 
 Lorem Ipsum.
-
-$$a+b=c$$
