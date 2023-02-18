@@ -3,7 +3,11 @@ run-name: ${{ github.actor }} 触发
 on:
   push:
     branches: ["master"]
-    paths: ["docs/**"]
+    paths: 
+      - "docs/**"
+      - "layouts/**"
+      - "static/**"
+      - "config.toml"
 
   workflow_dispatch:
 
