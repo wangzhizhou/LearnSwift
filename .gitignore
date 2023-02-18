@@ -1,9 +1,9 @@
 .DS_Store
-docs/resources
-themes/learns
+themes/hugo-theme-learn
 *webarchive
-resources
-site
+site/
+public/
+.hugo_build.lock
 
 # Xcode
 #
@@ -95,4 +95,3 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
-public/
