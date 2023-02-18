@@ -11,7 +11,7 @@
 ## 拉取仓库并预览
 
 ```bash
-$ git clone --recurse-submodules https://github.com/wangzhizhou/LearnSwift.git && \
+git clone --recurse-submodules https://github.com/wangzhizhou/LearnSwift.git && \
 cd LearnSwift/ && \
 ./preview
 ```
