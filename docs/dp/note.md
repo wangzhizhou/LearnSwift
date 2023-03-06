@@ -56,8 +56,7 @@ BDD->TDD->UserCases->Architecture->ModularDesign
 
 沟通是关键，明确需求，细化实现，降低风险
 
-尽量少用单例模式，通常单例模式是反模式的，不利于维护，我们使用单例大部分场景，只是为了更方便的调用，仅此而已，但这不利于
-代码的模块化设计，因为会造成很多耦合点
+尽量少用单例模式，通常单例模式是反模式的，不利于维护，我们使用单例大部分场景，只是为了更方便的调用，仅此而已，但这不利于代码的模块化设计，因为会造成很多耦合点
 
 
 ### 写单元测试
@@ -73,8 +72,10 @@ BDD->TDD->UserCases->Architecture->ModularDesign
 
 善用Result类型，可以简化分支数量
 
+### 测试网络请求的方法
 
-
-
-
+- 端到端：通过检查客户端-服务端之间真实的请求进行，由于依赖真实的网络请求，所以效率比较低，无法单独进行测试。
+- 子类Mock：不适合对我们不清楚的类进行子类化
+- 协议Mock：UR Loading System
+- 请求拦截：URLProtocol/registerClass(AnyClass)/unregisterClass(AnyClass)
 
