@@ -92,6 +92,140 @@ struct MyPlugin: BuildToolPlugin {
 2. 普通构建命令：指定输入/输出路径，只用在输出路径缺失或者输入路径发生变化时执行
 
 
+### 创建包插件(Swift Packag Plugins)
+
+软件包插件是一种使用 `PackagePlugin API` 的类似于软件包清单的Swift代码，插件可以通过定义明确的扩展点扩展 Xcode或Swift软件包管理器的功能。
+
+Swift工具链版本需要在5.6版本及以上才支持包插件功能。Swift清单文件中需要指定工具链版本至少是5.6，清单文件中定义插件的示例：
+
+```swift
+.plugin(
+    name: "GenerateContributors",
+    capability:.command(
+        intent: .custom(
+            verb: "regenerate-contributors-list",
+            description: "Generates the CONSTRIBUTORS.txt file based on Git logs"
+        ),
+        permissions: [
+            .writeToPackageDirectory(reason: "Writes CONTRIBUTORS.txt to the source root.")
+        ]
+    )
+)
+```
+
+如果在Xcode中右键包名时，菜单里没有出现插件项时，重启Xcode可以解决。
+
+在软件包根目录中创建`Plugins/GenerateContributors/`目录，并新建`plugin.swift`文件，
+
+```swift
+import Foundation
+import PackagePlugin
+
+@main
+struct GenerateContributors: CommandPlugin {
+    
+    func performCommand(context: PackagePlugin.PluginContext, arguments: [String]) async throws {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/git")
+        process.arguments = ["log", "--pretty=format:- %an <%ae>%n"]
+        
+        let outputPipe = Pipe()
+        process.standardOutput = outputPipe
+        try process.run()
+        process.waitUntilExit()
+        
+        let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+        let output = String(decoding: outputData, as: UTF8.self)
+        
+        let contributors = Set(output.components(separatedBy: CharacterSet.newlines)).sorted().filter { !$0.isEmpty }
+        try contributors.joined(separator: "\n").write(toFile: "CONTRIBUTORS.txt", atomically: true, encoding: .utf8)
+    }
+}
+```
+
+#### 插件运行细节
+
+插件运行在沙盒中，网络连接以及除插件本身运行目录之外的非临时位置都会被禁止。自定义命令可以选择性声明是否写入软件包根目录，如果要包装已有的第三方工具，必须考虑如何将其限制在沙盒模式中。例如：可以通过配置生成文件的写入位置来实现
+
+#### 构建工具插件
+
+构建工具插件的两种不同类型区分的要点是工具是否定义了输出集。如果有输出集，可以创建构建时命令，输出与输入对比如果过时，构建系统会自动重新运行。如果没有输出集，可以创建构建前命令，构建前命令会在每次构建开始时运行，应该避免在构建前命令中执行耗时操作。
+
+##### 构建时命令
+
+构建时命令与自定义命令的不同之处在于，除了描述可执行文件，还需要指定输入输出
+
+```swift
+    ...
+    .executableTarget(name: "AssetConstantsExec"),
+    .plugin(name: "AssetConstants", capability: .buildTool(), dependencies: ["AssetConstantsExec"])
+```
+
+Plugins/AssetConstants/plugin.swift文件示例如下：
+
+```swift
+import PackagePlugin
+
+struct AssetConstants: BuildToolPlugin {
+    func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
+        guard let target = target as? SourceModuleTarget else {
+            return []
+        }
+        return try target.sourceFiles(withSuffix: "xcassets").map { asset in
+            let base = asset.path.stem
+            let input = asset.path
+            let output = context.pluginWorkDirectory.appending(["\(base).swift"])
+            
+            return .buildCommand(displayName: "Generating constrants for \(base)", executable: try context.tool(named: "AssetConstantsExec").path, arguments: [input.string, output.string],
+                                 inputFiles: [input],
+                                 outputFiles: [output]
+            )
+        }
+    }
+}
+```
+
+##### 预编译命令
+
+与构建时命令的区别之处在于，预编译命令返回的值是`.prebuildCommand`
+
+```swift
+import PackagePlugin
+
+struct AssetConstants: BuildToolPlugin {
+    func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
+        guard let target = target as? SourceModuleTarget else {
+                    return []
+                }
+
+        let resourcesDirectoryPath = context.pluginWorkDirectory
+                    .appending(subpath: target.name)
+                    .appending(subpath: "Resources")
+                let localizationDirectoryPath = resourcesDirectoryPath
+                    .appending(subpath: "Base.lproj")
+
+                try FileManager.default.createDirectory(atPath: localizationDirectoryPath.string, withIntermediateDirectories: true)
+
+        let swiftSourceFiles = target.sourceFiles(withSuffix: ".swift")
+                let inputFiles = swiftSourceFiles.map(\.path)
+
+        return [
+                    .prebuildCommand(
+                        displayName: "Generating localized strings from source files",
+                        executable: .init("/usr/bin/xcrun"),
+                        arguments: [
+                            "genstrings",
+                            "-SwiftUI",
+                            "-o", localizationDirectoryPath
+                        ] + inputFiles,
+                        outputFilesDirectory: localizationDirectoryPath
+                    )
+                ]
+    }
+}
+```
+
 ### 相关参考资料
 
 - [Swift 软件包插件简介](https://developer.apple.com/videos/play/wwdc2022/110359/)
+- [构建Swift软件包插件](https://developer.apple.com/videos/play/wwdc2022/110401/)
