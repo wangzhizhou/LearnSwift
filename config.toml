@@ -113,3 +113,9 @@ name = "<i class='fas fa-paper-plane'></i> TOML 语法"
 identifier = "TOML"
 url = "https://toml.io"
 weight = 14
+
+[[Languages.zh-cn.menu.shortcuts]]
+name = "<i class='fas fa-book-reader'></i> SaltTiger 书籍下载"
+identifier = "salttiger"
+url= "https://salttiger.com"
+weight = 15
