@@ -1,9 +1,9 @@
 ---
 title: "SwiftUI"
 date: 2020-04-29T01:41:31+08:00
-weight: 1
+weight: 2
 chapter: true
-pre: "<b>1. </b>"
+pre: "<b>2. </b>"
 ---
 
 SwiftUI是在苹果设备上创建用户界面的一种现代方法。可以更快的创建漂亮且充满活力的应用。
