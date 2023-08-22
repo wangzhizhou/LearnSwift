@@ -20,11 +20,14 @@ Swift 对新手程序员很友好。它是一种工业级编程语言，与脚�
 
 ---
 
-由于Swift官方已经整理了相当全面的文档资料，并且很容易进行访问和学习，更新也很及时，下面直接罗列一下官方文档链接：
+**简单入门Swift基础语法，可以学习 👉 [**A Swift Tour**](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/guidedtour)，强烈建议硬刚英文，因为技术性英文只需要坚持一段时间，就可以适应，并不很难，尤其现在又有很多翻译工具可以辅助。**
+
+---
+
+Swift官方已经整理了相当全面的文档资料，并且很容易进行访问和学习，更新也很及时，下面直接罗列一下官方文档链接：
 
 [**Introduction**](https://docs.swift.org/swift-book/documentation/the-swift-programming-language#welcome-to-swift) - [**Guide**](https://docs.swift.org/swift-book/documentation/the-swift-programming-language#language-guide) - [**Reference**](https://docs.swift.org/swift-book/documentation/the-swift-programming-language#language-reference) - [**Revision History**](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/revisionhistory)
 
-因为官方文档是英文的，有英文阅读能力的建议直接学习官方文档，对于一些官方文档中需要深入学习的部分，单独写文章进行挖掘。
-
+因为官方文档是英文的，有英文阅读能力的建议直接学习官方文档，不太擅长英文的也建议硬刚，对于一些官方文档中需要深入学习的部分，再单独写文章进行挖掘。
 
 > 当然也有对应的 [Swift语言中文翻译版本](https://swiftgg.gitbook.io/swift) ，由于相对于英文版时效性比较差，并不能保持和Swift当前版本一样的更新进度，优先推荐学习官方英文版。
