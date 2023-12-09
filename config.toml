@@ -67,7 +67,7 @@ url = "https://developer.apple.com/tutorials/swiftui/tutorials/"
 weight = 6
 
 [[Languages.zh-cn.menu.shortcuts]]
-name = "<i class='fab fa-sketch'></i> Font Awesome免费"
+name = "<i class='fab fa-sketch'></i> Font Awesome"
 identifier = "fontawesome"
 url = "https://fontawesome.com/icons?d=gallery&m=free"
 weight = 7
@@ -87,7 +87,7 @@ weight = 9
 [[Languages.zh-cn.menu.shortcuts]]
 name = "<i class='fas fa-file-code'></i> Apple 示例代码"
 identifier = "example code"
-url = "https://developer.apple.com/wwdc20/sample-code/"
+url = "https://developer.apple.com/sample-code"
 weight = 10
 
 [[Languages.zh-cn.menu.shortcuts]]
@@ -97,9 +97,9 @@ url = "https://developer.apple.com/documentation/"
 weight = 11
 
 [[Languages.zh-cn.menu.shortcuts]]
-name = "<i class='fas fa-cogs'></i> Xcode 构建设置"
-identifier = "xcode"
-url = "https://xcodebuildsettings.com"
+name = "<i class='fas fa-sun'></i> flaticon"
+identifier = "flaticon"
+url = "https://www.flaticon.com/"
 weight = 12
 
 [[Languages.zh-cn.menu.shortcuts]]
@@ -119,3 +119,9 @@ name = "<i class='fas fa-book-reader'></i> SaltTiger 书籍下载"
 identifier = "salttiger"
 url= "https://salttiger.com"
 weight = 15
+
+[[Languages.zh-cn.menu.shortcuts]]
+name = "<i class='fas fa-solid fa-vr-cardboard'></i> visionOS"
+identifier = 'visionOS'
+url = "https://developer.apple.com/documentation/visionos"
+weight = 16
