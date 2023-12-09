@@ -5,7 +5,7 @@ theme = "hugo-theme-learn"
 
 title = "Learn Swift"
 metaDataFormat = "yaml"
-defaultContentLanguageInSubdir= true
+defaultContentLanguageInSubdir= false
 
 [params]
   editURL = "https://github.com/wangzhizhou/LearnSwift/edit/master/docs/"
