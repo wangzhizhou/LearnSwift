@@ -42,3 +42,5 @@ Swift官方已经整理了相当全面的文档资料，并且很容易进行访
 {{% notice note %}}
 当然也有对应的 [**Swift语言中文翻译**](https://swiftgg.gitbook.io/swift)，由于相对于英文版时效性比较差，并不能保持和Swift当前版本一样的更新进度，优先推荐学习官方英文版。
 {{% /notice %}}
+
+如果你已经学习完基础的Swift语法，接触过一些Apple平台的项目，同时对视频学习也比较接爱，也可以直接学习WWDC历年的视频集合，不过由于视频太多，全部学习不太现实，可以找自己比较侧重和关心的部分重点学习，这里苹果也提供了一个针对开发者的App，可以直接在应用内访问相关的学习资源：[**Developer**](https://apps.apple.com/cn/app/apple-developer/id640199958)
