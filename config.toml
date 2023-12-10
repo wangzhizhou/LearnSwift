@@ -1,11 +1,11 @@
 baseURL = "https://swift.jokerhub.cn"
 languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"
-theme = "hugo-theme-learn"
+defaultContentLanguageInSubdir= false
 
+theme = "hugo-theme-learn"
 title = "Learn Swift"
 metaDataFormat = "yaml"
-defaultContentLanguageInSubdir= true
 
 [params]
   editURL = "https://github.com/wangzhizhou/LearnSwift/edit/master/docs/"
