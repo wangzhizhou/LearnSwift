@@ -20,9 +20,9 @@ weight: 3
 
 **步骤1** 打开工程项目，在项目导航下选择`LandmarkRow.swift`文件
 
-**步骤2** 在空白占位后面添加一个`if`表达式，`if`表达式判断是否当前地标是用户喜欢的，如果用户标记当前地标为喜欢就显示星标。可以在SwitUI的代码块中使用`if`语句来条件包含视图
+**步骤2** 在空白占位后面添加一个`if`表达式，`if`表达式判断是否当前地标是用户喜欢的，如果用户标记当前地标为喜欢就显示星标。可以在SwitUI的代码块中使用`if`语句来条件包含视图
 
-**步骤3** 由于系统图片是矢量类型的，可以使用`foregroundColor(_:)`来改变它的颜色。当地标landmark的`isFavorite`属性为真时，星标显示，稍后会讲怎么修改属性值。
+**步骤3** 由于系统图片是矢量类型的，可以使用`foregroundColor(_:)`来改变它的颜色。当地标landmark的`isFavorite`属性为真时，星标显示，稍后会讲怎么修改属性值。
 
 ![star](/swiftui/swiftui_essentials/images/swiftui-handle-user-input-star.png?width=50pc)
 
@@ -30,7 +30,7 @@ weight: 3
 
 可以定制地标列表，让它只显示用户喜欢的地标，或者显示所有的地标。要实现这个功能，需要给`LandmarkList`视图类型添加一些状态变量。
 
-`状态(State)`是一个值或者一个值的集合，会随着时间而改变，同时会影响视图的内容、行为或布局。在属性前面加上`@State`修饰词就是给视图添加了一个状态值
+`状态(State)`是一个值或者一个值的集合，会随着时间而改变，同时会影响视图的内容、行为或布局。在属性前面加上`@State`修饰词就是给视图添加了一个状态值
 
 ![state](/swiftui/swiftui_essentials/images/swiftui-handle-user-input-state.png?width=20pc)
 
@@ -70,7 +70,7 @@ weight: 3
 
 **步骤1** 创建一个名为`UserData.swift`的文件
 
-**步骤2** 声明一个遵循`ObservableObject`协议的新数据模型，`ObservableObject`协议来自响应式框架`Combine`。SwiftUI可以订阅可观察对象，并在数据发生改变时更新视图的显示内容
+**步骤2** 声明一个遵循`ObservableObject`协议的新数据模型，`ObservableObject`协议来自响应式框架`Combine`。SwiftUI可以订阅可观察对象，并在数据发生改变时更新视图的显示内容
 
 **步骤3** 添加存储属性`showFavoritesOnly`和`landmarks`，并赋予初始值。可观察对象需要对外公布内部数据的任何改动，因此订阅此可观察对象的订阅者就可以获得对应的数据改动信息
 

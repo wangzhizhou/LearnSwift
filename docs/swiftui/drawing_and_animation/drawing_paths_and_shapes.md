@@ -44,15 +44,15 @@ weight: 1
 
 ![Path](/swiftui/drawing_and_animation/images/swiftui-drawing-animation-path.png?width=20pc)
 
-**步骤3** 给路径添加起点，`move(to:)`方法可以把绘图光标移动到绘图中的一点，准备绘制的起点
+**步骤3** 给路径添加起点，`move(to:)`方法可以把绘图光标移动到绘图中的一点，准备绘制的起点
 
 ![path start point](/swiftui/drawing_and_animation/images/swiftui-drawing-animation-path-start-point.png?width=20pc)
 
-**步骤4** 使用六边形的绘制参数数据`HexagonParameters`，依次绘制六边形的边，形成大致轮廓.`addLine(to:)`方法会使用当前绘图光标所在点为起点，方法参数中指定的点为终点绘制直线。目前六边形看起来有点问题，不过不要担心，这是意料中的事，下面的步骤做完，六边形的形状就会和开头显示的徽章的六边形形状一致了
+**步骤4** 使用六边形的绘制参数数据`HexagonParameters`，依次绘制六边形的边，形成大致轮廓.`addLine(to:)`方法会使用当前绘图光标所在点为起点，方法参数中指定的点为终点绘制直线。目前六边形看起来有点问题，不过不要担心，这是意料中的事，下面的步骤做完，六边形的形状就会和开头显示的徽章的六边形形状一致了
 
 ![path fill](/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-path-fill.png?width=40pc)
 
-**步骤5** 使用`addQuadCurve(to:control:)`方法绘制贝塞尔曲线，让六边形的角变的更圆润些。
+**步骤5** 使用`addQuadCurve(to:control:)`方法绘制贝塞尔曲线，让六边形的角变的更圆润些。
 
 ![badge hexagonal](/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-hexagonal.png?width=40pc)
 
@@ -60,7 +60,7 @@ weight: 1
 
 ![geometry reader](/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-geometry-reader.png?width=40pc)
 
-**步骤7** 使用`xScale`和`xOffset`参数调整变量，把徽章几何绘图区域居中绘制出来
+**步骤7** 使用`xScale`和`xOffset`参数调整变量，把徽章几何绘图区域居中绘制出来
 
 ![badge square](/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-square.png?width=40pc)
 
@@ -68,7 +68,7 @@ weight: 1
 
 ![badge gradient](/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-gradient.png?width=50pc)
 
-**步骤9** 渐变色上再使用`aspectRatio(_:contentMode:)`修改器，让渐变色按内容宽高比进行成比例渐变填充。保持`1:1`的长宽比，徽章背景可以保持居中在徽章视图中，不管徽章视图本身是不是正方形
+**步骤9** 渐变色上再使用`aspectRatio(_:contentMode:)`修改器，让渐变色按内容宽高比进行成比例渐变填充。保持`1:1`的长宽比，徽章背景可以保持居中在徽章视图中，不管徽章视图本身是不是正方形
 
 ![badge center](/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-center.png?width=50pc)
 
@@ -90,7 +90,7 @@ weight: 1
 
 ![badge symbol](/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-symbol-create.png?width=50pc)
 
-**步骤4** 使用`path`API来绘制徽章符号的上半部分，试着调节`spacing`、`topWidth`、`topHeight`的系数，观察这些系数是怎么影响图形绘制的结果的
+**步骤4** 使用`path`API来绘制徽章符号的上半部分，试着调节`spacing`、`topWidth`、`topHeight`的系数，观察这些系数是怎么影响图形绘制的结果的
 
 ![badge symbol top](/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-symbol-top.png?width=50pc)
 
@@ -130,7 +130,7 @@ weight: 1
 
 - [ ] `GeometryReader`可以把父视图分割成网格，便于在屏幕上布局视图
 - [X] `GeometryReader`可以动态的绘制、定位、缩放视图，不需要写死它们的尺寸。这样可以在不同尺寸的屏幕上复用已经写好的视图
-- [ ] 使用`GeometryReader`可以自动识别应用视图层级上形状的类型和位置，例如: `(圆)Circle`
+- [ ] 使用`GeometryReader`可以自动识别应用视图层级上形状的类型和位置，例如: `(圆)Circle`
 
 **问题2** 下面代码段布局后是哪一个图？
 

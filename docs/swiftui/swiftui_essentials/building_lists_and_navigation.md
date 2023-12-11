@@ -6,7 +6,7 @@ weight: 2
 
 地标详情页视图已经创建完成，我们需要提供一种方式让用户可以查看完整的地标列表，并且可以查看每一个地标的详情
 
-下面会创建一个可以展示任何地标信息的视图，并动态生成一个可滚动列表，用户可以点击列表项去查看地标的详细信息。优化视图显示时，可以使用Xcode画布来渲染多个不同设备大小下的预览视图。
+下面会创建一个可以展示任何地标信息的视图，并动态生成一个可滚动列表，用户可以点击列表项去查看地标的详细信息。优化视图显示时，可以使用Xcode画布来渲染多个不同设备大小下的预览视图。
 
 下载下面的工程文件，并跟着教程一步步学习构建列表和视图间导航
 
@@ -16,7 +16,7 @@ weight: 2
 
 ### 第一节 了解样本数据
 
-前面的教程中，自定义视图所展示的信息都直接被写死在代码中，这篇教程中会学习给自定义视图传入样本数据进行展示
+前面的教程中，自定义视图所展示的信息都直接被写死在代码中，这篇教程中会学习给自定义视图传入样本数据进行展示
 
 ![swiftui-building-list](/swiftui/swiftui_essentials/images/swiftui-building-list.png?width=20pc)
 
@@ -38,7 +38,7 @@ weight: 2
 
 ![swiftui-building-list-landmark-row](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row.png?width=20pc)
 
-**步骤1** 创建一个名为`LandmarkRow.swift`的SwiftUI视图
+**步骤1** 创建一个名为`LandmarkRow.swift`的SwiftUI视图
 
 ![landmark row create](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row-create.png?width=20pc)
 
@@ -98,11 +98,11 @@ Xcode的画布会自动识别当前代码编辑器中遵循`PreviewProvider`协�
 
 ### 第五节 创建动态列表
 
-除了单独列出列表中的每个元素外，列表还可以从一个集合中动态的生成。
+除了单独列出列表中的每个元素外，列表还可以从一个集合中动态的生成。
 
 ![landmark list dynamic](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-list-dynamic.png?width=20pc)
 
-创建列表时可以传入一个集合数据和一个闭包，闭包会针对每一个数据元素返回一个视图，这个视图就是列表的行视图。
+创建列表时可以传入一个集合数据和一个闭包，闭包会针对每一个数据元素返回一个视图，这个视图就是列表的行视图。
 
 **步骤1** 从列表中移除两个静态指定的行视图，给列表初始化器传入`landmarkData`数据，列表要配合可辨别的数据类型使用。想让数据变成可辨别的数据类型有两种方法:
 
@@ -160,7 +160,7 @@ Xcode的画布会自动识别当前代码编辑器中遵循`PreviewProvider`协�
 
 ![circle image preview](/swiftui/swiftui_essentials/images/swiftui-building-list-circle-image-preview.png?width=20pc)
 
-**步骤3** 在`MapView.swift`中添加一个`coordinate`属性，并使用这个属性来替换写死的经纬度坐标
+**步骤3** 在`MapView.swift`中添加一个`coordinate`属性，并使用这个属性来替换写死的经纬度坐标
 
 ![map view data](/swiftui/swiftui_essentials/images/swiftui-building-list-map-view-data.png?width=20pc)
 

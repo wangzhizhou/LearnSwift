@@ -4,7 +4,7 @@ date: 2020-05-19T23:15:25+08:00
 weight: 1
 ---
 
-`Landmarks`应用的首页是一个纵向滚动的地标类别列表，每一个类别内部是一个横向滑动列表。随后将构建应用的页面导航，这个过程中可以学习到如果组合各种视图，并让它们适配不同的设备尺寸和设备方向。
+`Landmarks`应用的首页是一个纵向滚动的地标类别列表，每一个类别内部是一个横向滑动列表。随后将构建应用的页面导航，这个过程中可以学习到如果组合各种视图，并让它们适配不同的设备尺寸和设备方向。
 
 {{%attachments title="项目文件" style="blue" pattern=".*zip" /%}}
 
@@ -46,7 +46,7 @@ weight: 1
 
 ![section 2 step 1](/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section2-step2.png?width=50pc)
 
-### 第三节 添加针对单个类别的地标行列表
+### 第三节 添加针对单个类别的地标行列表
 
 `Landmarks`应用对每个类别下的地标采用横向滑动的行进行展示。添加一个新的视图类型用来表示这样一个地标行，然后使用这个新创建的行类型具体展示某一具体类型上的所有地标。
 
@@ -82,7 +82,7 @@ weight: 1
 
 ![section 4 step 2](/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section4-step2.png?width=50pc)
 
-**步骤3** 把视图的边距设置为0，让展示内容可以尽量贴着屏幕边沿
+**步骤3** 把视图的边距设置为0，让展示内容可以尽量贴着屏幕边沿
 
 ![section 4 step 3](/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section4-step3.png?width=50pc)
 
@@ -92,7 +92,7 @@ weight: 1
 
 ![section 5](/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section5.png?width=20pc)
 
-**步骤1** 在`CategoryRow.swift`中，把`CategoryItem`视图包裹在`NavigationLink`视图中。`CategoryItem`这时做为跳转按钮的内容，`destination`指定点击`NavigationLink`按钮时要跳转的目标视图。
+**步骤1** 在`CategoryRow.swift`中，把`CategoryItem`视图包裹在`NavigationLink`视图中。`CategoryItem`这时做为跳转按钮的内容，`destination`指定点击`NavigationLink`按钮时要跳转的目标视图。
 
 ![section 5 step 1](/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section5-step1.png?width=50pc)
 
