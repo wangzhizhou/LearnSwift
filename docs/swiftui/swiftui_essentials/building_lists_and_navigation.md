@@ -1,78 +1,115 @@
 ---
-title: "创建列表和导航"
+title: "构建列表和导航"
 date: 2023-12-11T23:46:00+08:00
 weight: 2
 ---
 
-地标详情页视图已经创建完成，我们需要提供一种方式让用户可以查看完整的地标列表，并且可以查看每一个地标的详情
+前面已经完成了地标详情视图的开发，现在需要为用户提供查看完整地标列表、查看单个地标详情信息的功能。
 
-下面会创建一个可以展示任何地标信息的视图，并动态生成一个可滚动列表，用户可以点击列表项去查看地标的详细信息。优化视图显示时，可以使用Xcode画布来渲染多个不同设备大小下的预览视图。
+下面会创建一个展示地标的列表，用户可以滚动它，并点击其中一个列表项，跳转到对应的详情页查看地标详细信息。
 
-下载下面的工程文件，并跟着教程一步步学习构建列表和视图间导航
+使用 Xcode 预览功能，可以同时渲染不同设备屏幕下的视图显示效果，观察视图在不同设备上的表现。
 
-{{%attachments title="项目文件" style="blue" pattern=".*zip" /%}}
+{{%attachments title="Xcode 15 项目文件" style="orange" pattern=".*zip" /%}}
+
+下载上面的项目文件，解压并打开 **StartingPoint** 目录下的工程，然后跟着教程一步步学习构建列表和导航
 
 ---
 
-### 第一节 了解样本数据
+### 第一节 创建数据模型
 
-前面的教程中，自定义视图所展示的信息都直接被写死在代码中，这篇教程中会学习给自定义视图传入样本数据进行展示
+> 在前面的教程中，自定义视图所展示的信息被直接写死在视图的布局代码里，
+> 本教程将创建一个数据模型，用来存储和传递数据到视图中进行展示，做到数据和视图分离
+> ![swiftui-building-list](/swiftui/swiftui_essentials/images/swiftui-building-list.png?width=25pc)
 
-![swiftui-building-list](/swiftui/swiftui_essentials/images/swiftui-building-list.png?width=20pc)
+**步骤1** 把下载项目中 **Resources** 文件夹下的 **landmarkData.json** 拖入到打开的 **StartingPoint** 工程的文件导航器中，选择 **Copy Items if need**，并把文件拷贝到 **Landmarks** 目标下，其中的 **landmarkData.json** 文件里有用于展示的地标数据集，它们以 **JSON** 格式进行组织。本教程及后续教程，都会使用这个数据文件，做为视图渲染的数据来源
 
-**步骤1** 打开项目导航器，选择**Models->Landmark.swift**文件，这个文件中声明了需要在应用中展示一个地标所需要信息的结构化名称，并通过导入`landmarkData.json`文件中的数据，生成一个地标信息数组。
+![landmark resources](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-data.gif)
 
-![building list model](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-model.png?width=50pc)
+**步骤2** 选择 **文件 -> 新建 -> 文件** 在项目中创建一个名为 **Landmark.swift** 的文件
 
-**步骤2** 在项目导航器中选择**Resources->landmarkData.json**，在后面的教程中我们都会使用这个样本数据文件
+![create landmark file](/swiftui/swiftui_essentials/images/swiftui-building-list-create-landmark.gif)
 
-![building list sample data](/swiftui/swiftui_essentials/images/swiftui-building-list-sampe-data.png?width=50pc)
+**步骤3** 在刚创建的 **Landmark.swift** 文件中定义一个名为 **Landmark** 的类型结构，类型的属性名称和 **landmarkData.json** 文件中的字段名称保持一致
 
-**步骤3** 注意，之前的`ContentView`视图，已经被改名为`LandmarkDetail`了，在本教程和后面的教程中，还会创建一些其它的视图
+![landmark model](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-model.png)
 
-![landmark detail](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-detail.png?width=20pc)
+**步骤4** 把 **Resources/Images** 目录下的图片资源拖入项目的资源目录中，Xcode 会为每一个图片创建一个图像集
+
+![landmark images](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-images.gif)
+
+**步骤5** 在 **Landmark** 类型中添加一个对应图像名称的私有属性 **imageName**, 再添加一个计算属性 **image** 将 **imageName** 转换成对应的图片资源
+
+![landmark model image](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-model-image.png)
+
+**步骤6** 向 **Landmark** 类型中添加对应地标经纬度坐标的私有属性 **coordinateds**，对应 **landmarkData.json** 数据中的坐标结构
+
+![landmark model coordinates](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-model-coordiantes.png)
+
+**步骤7** 将 **Landmark** 类型中的 **coordinates** 属性转换成 **MapKit** 框架可以使用的位置坐标属性
+
+![landmark model cllocation](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-model-cllocation.png)
+
+**步骤8** 创建一个名为 **ModelData.swift** 的文件，并在该文件中，实现  **load(_:)** 方法，将 **landmarkData.json** 文件中的 **JSON** 数据转换成为Swift语言数据模型数组
+
+{{% notice warning %}}
+下图 **loadmarkData.json** 为笔误，改为 **landmarkData.json**
+{{% /notice %}}
+
+![landmark load data](/swiftui/swiftui_essentials/images/swiftui-building-list-load-data.png)
+
+**步骤9** 整理工程文件，将它们进行分组，使工程结构更加清晰
+
+![landmark file group](/swiftui/swiftui_essentials/images/swiftui-building-list-file-group.gif)
 
 ### 第二节 创建行视图
 
-本教程中创建的第一个视图就是用来显示每个地标的行视图，行视图把地标的相关信息存储在一个属性中，一行就可以代表一个地标，稍后就会把这些行组合成为一个列表。
+> 本节创建地标列表的一个行视图，用来显示地标的简要信息，行视图把地标相关信息存储在一个属性中，属性可以从外部传入，支持显示任意地标数据，稍后会把这些行视图组合成为一个列表视图。
 
-![swiftui-building-list-landmark-row](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row.png?width=20pc)
+![swiftui-building-list-landmark-row](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row.png?width=30pc)
 
-**步骤1** 创建一个名为`LandmarkRow.swift`的SwiftUI视图
+**步骤1** 在 **Views** 分组中，创建一个名为 **LandmarkRow.swift** 的 SwiftUI 视图
 
-![landmark row create](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row-create.png?width=20pc)
+![landmark row create](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row-create.png?width=30pc)
 
-**步骤2** 如果预览视图没有出现，可以选择菜单**编辑器->画布**，打开画布，并点击**Resume**进行预览，或者使用**Command+Option+Enter**快捷键调出画面，再使用**Command+Option+P**快捷键开始预览模式
+{{% notice tip %}}
+如果预览视图没有出现，可以使用快捷键 **Command+Option+Enter** 打开画布，并使用快捷键 **Command+Option+P** 触发预览视图刷新
+{{% /notice %}}
 
-**步骤3** 添加`landmark`属性做为`LandmarkRow`视图的一个存储属性。当添加`landmark`属性后，预览视图可能会停止工作，因为`LandmarkRow`视图初始化时需要有一个`landmark`实例。要想修复预览视图，需要修改`Preview Provider`
+**步骤2** 添加 **landmark** 属性做为 **LandmarkRow** 视图的一个存储属性。当添加 **landmark** 属性后，预览视图可能会停止工作，因为 **LandmarkRow** 视图初始化时需要有一个 **landmark** 实例，所以也需要对 **#Preview** 宏作相应的调整
 
-**步骤4** 在`LandmarkRow_Previews`的静态属性`previews`中给`LandmarkRow`初始化器中传入`landmark`参数，这个参数使用`landmarkData`数组的第一个元素。预览视图当前显示`Hello, World`
+![landmark row property](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row-property.png)
 
-![landmark row layout](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row-layout.png?width=20pc)
+**步骤3** 在 **#Preview** 宏中，**LandmarkRow** 初始化器中传入 **landmark** 实例参数，这个参数使用 **ModelData** 中 **landmarks** 数组的第一个元素。目前并没有调整视图布局，预览视图当前显示 Hello, World
 
-**步骤5** 在一个`HStack`中嵌入一个`Text`
+![landmark row layout](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row-layout.png?width=30pc)
 
-**步骤6** 修改这个`Text`，让它使用`landmark`属性的`name`字段
+**步骤4** 在将现有 **Text** 嵌入 **HStack** 中，被使用 **landmark.name** 属性作为文本内容
 
-**步骤7** 在`Text`视图前面添加一个图片视图，在`Text`视图后面添加`Spacer`视图
+**步骤5** 在 **Text** 视图前面添加一个图片视图，在 **Text** 视图后面添加 **Spacer** 占位视图
 
-![landmark layout 1](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row-layout-1.png?width=50pc)
+![landmark layout 1](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row-layout1.gif)
 
 ### 第三节 自定义行预览
 
-Xcode的画布会自动识别当前代码编辑器中遵循`PreviewProvider`协议的类型，并将它们渲染并展示在画面上。一个视图预览提供者(preview provider)返回一个或多个视图，这些视图可以配置不同的大小和设备型号。
+> Xcode 会自动识别视图源文件中使用 **#Preview** 声明的任何预览，预览界面一次仅展示一个预览，但是支持在源码中定义多个预览，可以通过在预览界面里切换 Tab 来查看各预览视图
 
-可以定制从`preview provider`中返回的视图被渲染在何种场景下。
+![row preivew](/swiftui/swiftui_essentials/images/swiftui-building-list-row-preview.png?width=30pc)
 
-![row preivew](/swiftui/swiftui_essentials/images/swiftui-building-list-row-preview.png?width=20pc)
-
-**步骤1** 在`LandmarkRow_Previews`中，把`landmark`参数更新为`landmarkData`数组的第二个元素，预览视图会立即刷新反映第二个元素的渲染情况
+**步骤1** 使用 **ModelData.swift** 文件中 **landmarks** 数组的第二个元素创建第二个预览
 
 ![preivew row 2](/swiftui/swiftui_essentials/images/swiftui-building-list-preview-row-2.png?width=40pc)
 
-**步骤2** 使用`previewLayout(_:)`修改器设置一个行视图在列表中显示的尺寸大小。可以使用`Group`的方式，返回多个不同场景下的预览视图
+{{% notice tip %}}
+默认情况下，预览界面的画布标签使用 **#Preview** 宏在源文件中的行号做为区分，如果想要改变标签名称，可以给 **#Preview** 宏传入一个字符串名称
+![preview canvas tab name](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row-preview-canvas-tab.png?width=30pc)
+{{% /notice %}}
 
-![preview layout size](/swiftui/swiftui_essentials/images/swiftui-building-list-preivew-layout-size.png?width=40pc)
+**步骤2** 如果想要在同一个预览画布内看到不同版本的预览视图，需要把它们集中在一个 **Group** 视图里
+
+![preview group](/swiftui/swiftui_essentials/images/swiftui-building-list-landmark-row-preview-group.png)
+
+
 
 **步骤3** 把预览的行视图包裹在`Group`中，把之前的第一个行视图也加进去。`Group`是一个容器，它可以把视图内容组织起来，Xcode会把`Group`内的每个子视图当作画布内一个单独的预览视图处理
 
