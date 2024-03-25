@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TDD on Learn Swift</title>
+    <link>https://swift.jokerhub.cn/tdd/</link>
+    <description>Recent content in TDD on Learn Swift</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 30 Apr 2022 16:47:11 +0800</lastBuildDate><atom:link href="https://swift.jokerhub.cn/tdd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TDD 迭代循环</title>
+      <link>https://swift.jokerhub.cn/tdd/tdd_cycle/</link>
+      <pubDate>Sat, 30 Apr 2022 18:14:12 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/tdd/tdd_cycle/</guid>
+      <description>写任何业务代码前，先写一个会失败的测试用例 写最少的业务代码，让之前写的失败的测试用例通过测试 重构你的业务代码和测试用例代码 重复前面三个步骤，确何测试用例通正确通过测试 这个不断循环的开发流程被称为:Red - Green - Refactor循环
+在这个循环过程中，可以把编译失败也看做是一次测试失败来处理</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>应用设计与布局 on Learn Swift</title>
+    <link>https://swift.jokerhub.cn/swiftui/app_design_and_layout/</link>
+    <description>Recent content in 应用设计与布局 on Learn Swift</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 29 Apr 2020 02:22:36 +0800</lastBuildDate><atom:link href="https://swift.jokerhub.cn/swiftui/app_design_and_layout/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>组合复杂用户界面</title>
+      <link>https://swift.jokerhub.cn/swiftui/app_design_and_layout/composing_complex_interfaces/</link>
+      <pubDate>Tue, 19 May 2020 23:15:25 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/app_design_and_layout/composing_complex_interfaces/</guid>
+      <description>Landmarks应用的首页是一个纵向滚动的地标类别列表，每一个类别内部是一个横向滑动列表。随后将构建应用的页面导航，这个过程中可以学习到如果组合各种视图，并让它们适配不同的设备尺寸和设备方向。
+项目文件 ComposingComplexInterfaces.zip (6 MB) 第一节 添加一个首页视图 已经创建了所有在Landmarks应用中需要的视图，现在给应用创建一个首页视图，把之前创建的视图整合起来。首页不仅仅包含之前创建的视图，它还提供页面间导航的方式，同时也可以展示各种地标信息。
+步骤1 创建一个名为CategoryHome.swift的自定义视图文件
+步骤2 把应用的场景代理(scene delegate)的根视图从之前的地标列表视图更改为新创建的首页视图。现在应用启动后的每一个页面就是首页了，所以还需要添加从首页导航跳转到其它页面的方法。
+步骤3 添加NavigationView，这个NavigationView将会容纳Landmarks应用中其它不同的视图。配合使用NavigationView、NavigationLink及相关的修改器，就可以构建出应用的页面间导航结构
+步骤4 设置导航栏标题为Featured
+第二节 创建地标类别列表 Landmarks应用为了便于用户浏览各种类别的地标，将地标按类别竖向排列形成列表视图，对于每一个类别内的具体地标，又把它们按照水平方向排列，形成横向列表。组合使用垂直栈(vertical statck)和水平栈(horizontal stack)并给列表添加滚动
+步骤1 使用Dictionary结构体的初始化方法init(grouping:by:)，把地标数据的类别属性category传入作为分组依据，可以把地标数据按类别分组。工程文件中已经为每一个地标样本数据预定义了类别。
+步骤2 使用List显示地标数据的类别。Landmark.Category是枚举类型，它的值标识列表中每一种类别，可以保证类别不会有重复定义
+第三节 添加针对单个类别的地标行列表 Landmarks应用对每个类别下的地标采用横向滑动的行进行展示。添加一个新的视图类型用来表示这样一个地标行，然后使用这个新创建的行类型具体展示某一具体类型上的所有地标。
+步骤1 定义一个新的视图类型，用来展示地标类别行的内容。新建行视图需要存放地标具体类别的展示数据
+步骤2 更新CategoryHome.swift的代码，把地标类别信息传给新建的行视图类型
+步骤3 在CategoryRow.swift中使用一个HStack展示类别下的地标内容
+步骤4 为行内容指定一个高度，并把行内容嵌入到ScrollView中，以支持横向滑动。预览视图时，可以多增加几个地标数据，用来查看列表的滑动是否正常。
+第四节 组合首页 Landmarks应用的首页在用户点击查看地标详情前需要先把地标的一些简单信息展示出来。复用之前创建的视图构建具体某一类别地标的行视图
+步骤1 在CategoryRow.swift文件中，与CategoryRow类型并列，创建一个新的自定义视图类型CategoryItem，用这个新的视图类型替换CategoryRow的地标名称Text控件
+步骤2 在CategoryHome.swift中，添加一个名为FeaturedLandmarks的简单视图，这个视图用来显示地标数据中isFeatured属性为真的那些地标。在之后的教程中，会把FeaturedLandmarks这个视图修改成一个交互式轮播图。目前，这个视图仅仅展示一张缩放和剪裁后的地标图片。
+步骤3 把视图的边距设置为0，让展示内容可以尽量贴着屏幕边沿
+第五节 现在所有类别的地标都可以在首页视图中展示出来，用户还需要能够进入应用其它页面的方法。使用页面导航和相关API来实现用户从应用首页到地标详情页、收藏列表页及用户个人中心页的跳转。
+步骤1 在CategoryRow.swift中，把CategoryItem视图包裹在NavigationLink视图中。CategoryItem这时做为跳转按钮的内容，destination指定点击NavigationLink按钮时要跳转的目标视图。
+步骤2 使用renderingMode(_:)和foregroundColor(_:)这两个属性修改器来改变地标类别项的导航样式。做为NavigationLink标签的CategoryItem中的文本会使用Environment中的强调颜色，图片可能以模板图片的方式渲染，这些都可以使用属性修改器来调整，达到最佳效果。
+步骤3 在CategoryHome.swift中，添加一个模态展示的用户信息展示页，点击了用户图标时弹出展示。当状态showProfile被置为true时，展示用户信息页，当showProfile状态置为false时，用户信息页消失。
+步骤4 在导航条上添加一个按钮，用来切换showProfile状态的值：true或者false
+步骤5 在CategoryHome.swift中添加一个跳转链接，点击时跳转到全部地标的筛选页面。
+步骤6 把LandmarkList.swift中的把包裹地标列表视图的NavigationView移动到对应的预览视图中。因为在应用中，LandmarkList总是会被展示在CategoryHome.swift定义的导航视图中。
+检查是否理解 问题1 对于Landmarks这个应用来说，哪一个视图是它的根视图？
+SceneDelegate Landmarks CategoryHome 问题2 CategoryHome这个视图是如何与应用的其它视图联动起来的
+在不同地标之间复用图片资源 与其它视图使用一致的命名规范和属性修改器语法 使用导航结构把地标应用中所有视图连接在一起 问题3 下面哪段代码可以将一个普通视图转化为一个具体点击导航功能的视图</description>
+    </item>
+    
+    <item>
+      <title>玩转UI控件</title>
+      <link>https://swift.jokerhub.cn/swiftui/app_design_and_layout/working_with_ui_controls/</link>
+      <pubDate>Tue, 19 May 2020 23:15:53 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/app_design_and_layout/working_with_ui_controls/</guid>
+      <description>在Landmarks应用中，用户可以创建一个简介来描述他们自已的个人情况。为了让用户可以编辑自己的简介，我们需要添加一个编辑模式并设计一个偏好设置界面。
+这里使用多种通用控件来展示用户的各种数据，并在用户保存他们所做的数据修改时更新地标数据模型。
+按照步骤在下面的项目工程中一步步进行实践。
+项目文件 WorkingWithUIControls.zip (6 MB) 第一节 展示用户简介 Landmarks应用在本地存储了一些配置和用户偏好设置。在用户编辑这些数据前，会被展示在一个没有编辑按钮的概要视图上。
+步骤1
+在项目文件导航栏的Landmarks文件组下面新建一个名为Profile的文件组，并在这个新建的文件组下面添加一个新视图ProfileHost, 这个新视图包含一个TextView，用来展示用户名称。ProfileHost将会展示静态概要信息，同时支持编辑模式
+步骤2 用步骤1创建的ProfileHost替换Home.swift中的静态文本Text视图。现在主页中的profile按钮点击时可以调起一个用户简介页面了
+步骤3 创建一个新的视图命名为ProfileSummary，它会持有一个Profile实例，并显示一些用户的基本信息。Profile概要视图持有一个Profile对像的原因是，因为它的父视图ProfileHost管理着视图的状态，它不能与Profile进行绑定。
+步骤4 更新ProfileHost文件，显示新的概要视图
+步骤5 创建一个名为HikeBadge的新视图，这个新视图由Badge视图和一些描述性文字构成。Badge仅仅是一个图形，在HikeBadge视图中的文本与accessibility(label:)属性修改器一起，可以让这个徽章对用户更加清晰。注意frame(width:height:)的两种不同的用法用来配置徽章以不同的缩放尺寸显示。
+步骤6 更新ProfileSummary文件，添加几个不同的徽章代表用户得到的不同徽章
+步骤7 把HikeView包含在ProfileSummary页面中后，就完成了第一节的实践内容了。
+第二节 添加编辑模式 用户需要能够在浏览模式和编辑模式之间进行切换来查看或者修改用户简介的信息。通过在ProfileHost上添加一个Edit Button，然后创建一个用来编辑简介信息的页面。
+步骤1 添加一个Enviornment视图属性，用来使用\.edit模式。可以使用这个属性来读写当前编辑模式。
+步骤2 创建一个编辑按钮，可以切换编辑模式
+步骤3 更新UserData类，包含一个Profile实例，即使用户简介页面消失后也可以存储编辑后的信息
+步骤4 从环境变量中读取用户简介信息，并把数据传递给ProfileHost视图的控件上进行展示。为了在编辑状态下修改简介信息后确认修改前避免更新全局状态(例如在编辑用户名的过程中)，编辑视图在一个备份属性中进行相应的修改操作，确认修改后，才把备份属性同步到全局应用状态中。
+步骤5 添加一个条件视图，可以用来显示静态用户简介视图或者是用户简介视图的编辑模式。当前的编辑模式只支持静态文本框的编辑。
+第三节 定义简介编辑器 用户简介编辑器包含几个单独的控件用来修改对应简介信息。在简介中，一些项例如徽章是不可以编辑修改的，所以它们不会出现在简介编辑器中。为了保持简介在编辑模式和浏览模式的一致性，需要按照简介页面各项相同的顺序进行添加。
+步骤1 创建一个名为ProfileEditor的新视图，并绑定用户简介中的草稿。视图中的第一个控件是TextField，用来更新用户名字段值。创建TextField时要提供一个标签和一个绑定字符串。
+步骤2 更新ProfileHost中的条件内容，让它包含条件编辑器并把简单的绑定关系传递给简介编辑器。现在当你点击Edit按钮，简介视图就会变成编辑模式了。
+步骤3 添加一个切换开关，用来设置用户是否接收相关地标事件的推送通知。这个Toggle控件打开和关闭正好对应着布尔值的true或false。
+步骤4 把一个Picker和一个Text放在VStack结构里，让这个地标可以选择不同季节。
+步骤5 最后，在季节图片选择器下方添加一个DatePicker，用来修改地标的目标浏览日期
+第四节 延迟编辑传播 在编辑模式时，使用用户简介信息的备份进行修改，当用户确认进行修改后，再用修改的备份信息覆盖真正的用户信息。直到用户退出编辑模式前都不让编辑的备份生效。
+步骤1 在ProfileHost视图上添加一个取消按钮。不像编辑模式按钮提供的完成按钮，取消按钮不会应用修改后的简介备份信息到实际的简介数据上。
+步骤2 当用户点击完成按钮后，使用onAppear(perform:)和onDisappear(perform:)来更新或保存用户简介数据。下一次进入编辑模式时，使用上一次的用户简介数据来展示。
+检查是否理解 问题1 编辑状态改变时，怎样更新一个视图，例如，当用户编辑了用户简介信息后点击完成按钮的情况下，是怎么更新一个视图的
+问题2 什么情况下需要添加一个accessiblity标签，使用accessibility(label:)修改器?
+在应用的每一个视图都添加一个accessibility标签 当可以让用户界面元素对用户变的更清晰时，添加一个accessibility标签 只有当你没有给视图清加tag时才可以使用accessibility(label:) 问题3 模态和非模态视图展示有什么差别？
+当模态展示一个视图时，源视图设置目标视图的编辑模式 当非模态展示一个视图时，目标视图会盖住源视图并且替代当前的导航栈 当模态展示一个视图时，目标视图盖住源视图并替换当前导航栈 </description>
+    </item>
+    
+  </channel>
+</rss>

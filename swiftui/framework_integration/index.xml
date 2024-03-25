@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>框架集成 on Learn Swift</title>
+    <link>https://swift.jokerhub.cn/swiftui/framework_integration/</link>
+    <description>Recent content in 框架集成 on Learn Swift</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 29 Apr 2020 02:23:04 +0800</lastBuildDate><atom:link href="https://swift.jokerhub.cn/swiftui/framework_integration/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>与UIKit交互</title>
+      <link>https://swift.jokerhub.cn/swiftui/framework_integration/interfaceing_with_uikit/</link>
+      <pubDate>Sun, 19 Jul 2020 21:44:35 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/framework_integration/interfaceing_with_uikit/</guid>
+      <description>SwiftUI可以在苹果全平台上无缝兼容现有的UI框架。例如，可以在SwiftUI视图中嵌入UIKit视图或UIKit视图控制器，反过来在UIKit视图或UIKit视图控制器中也可以嵌入SwiftUI视图。
+本篇教程展示如何把landmark应用的主页混合使用UIPageViewController和UIPageControl。使用UIPageViewController来展示由SwiftUI视图构成的轮播图，使用状态变量和绑定来操作用户界面数据的更新。
+跟着教程一步步走，可以下载工程文件进行实践。
+项目文件 InterfacingWithUIKit.zip (9 MB) 第一节 创建一个用来展示UIPageViewController的SwiftUI视图 为了在SwiftUI视图中展示UIKit视图和UIKit视图控制器，需要创建遵循UIViewRepresentable和UIViewControllerRepresentable协议的类型。创建的自定义视图类型，用来创建和配置所要展示的UIKit类型，SwiftUI框架来管理UIKIt类型的生命周期并在适当的时机更新它们。
+步骤1 创建一个新的SwiftUI视图文件，命名为PageViewController.swift，并且声明PageViewController类型遵循UIViewControllerRepresentable。这个页面视图控制器存放一个UIViewController实例数组，数组中的每一个元素代表在地标滚动过程中的一页视图。
+下一步添加UIViewControllerRepresentable协议的两个实现, 目前因为协议方法没有完成实现，会有报错提示。
+步骤2 添加一个makeUIViewController(context:)方法，方法内部以指定的配置创建一个UIPageViewController。SwiftUI会在准备显示视图时调用一次makeUIViewController(context:)方法创建UIViewController实例，并管理它的生命周期。
+由于还缺少一个协议方法没有实现，所以目前还是会报错。
+步骤3 添加updateUIViewController(_:context:)方法，这个方法里调用setViewControllers(_:direction:animated:)方法展示数组中的第一个视图控制器
+创建另一个SwiftUI视图展示遵循UIViewControllerRepresentable协议的视图
+步骤4 创建一个名为PageView.swift的视图，声明一个PageViewController作为子视图。初始化时使用一个视图数组来初始化，并把每一个视图都嵌入在一个UIHostingController中。UIHostingController是一个UIViewController的子类，用来在UIKit环境中表示一个SwiftUI视图。
+步骤5 更新预览视图，并传入视图数组，预览视图就会开始工作了
+步骤6 在继续下面的步骤前，先把PageView的预览视图固定住，以避免在文件切换时不能实现预览到PageView的改变。
+第二节 创建视图控制器的数据源 短短几个步骤就做了很多事，PageViewController使用UIPageViewController去展示来自SwiftUI内容。现在是时候添加挥动手势进行页面之间的翻动了。
+一个展示UIKit视图控制器的SwiftUI视图可以定义一个Coordinator类型，这个Coordinator类型由SwitUI管理，用来作为视图展示的环境
+步骤1 在PageViewControlelr中定义一个嵌套类型Coordiantor。SwiftUI管理UIViewController Representable类型的coordinator，并在调用方法时把它作为环境的一部分。
+步骤2 在PageView Controller中添加另一个方法，创建coordinator。SwiftUI在调用makeUIViewController(context:)前会先调用makeCoordinator()方法，因此在配置视图控制器时是可以访问到coordiantor对象的。可以使用coordinator为实现通用的Cocoa模式,例如：代理模式、数据源以及目标-动作。
+步骤3 让Coordinator类型添加UIPageViewControllerDataSource协议遵循，并且实现两个必要方法。这两个必要方法会建立起视图控制器之间的联系，因此可以实现页面之前的前后切换。
+步骤4 把coordiantor作为UIPageViewController的数据源
+步骤5 打开实时预览，并测试一下前后页面切换的功能是否正常
+第三节 在SwiftUI视图的状态下跟踪页面 如果要添加一个自定义的UIPageControl控件，就需要一种方式能够在PageView中跟踪当前展示的页面。这就需要在PageView中声明一个@State属性，并传递一个针对该属性的绑定关系给PageViewController视图，在PageViewController中通过绑定关系更新状态属性，来反映当前展示的页面。
+步骤1 在PageViewController中添加一个绑定属性currentPage。除了使用关键字@Binding声明属性为绑定属性外，还需要更新一下函数setViewControllers(_:direction:animated:)，给它传入currentPage绑定属性
+做到这一步还不能正常运行，继续进行下一步。
+步骤2 在PageView中声明@State变量，并在创建PageViewController时把绑定属性传入。注意使用$语法创建一个针对状态变量的绑定关系。
+步骤3 通过改变PageView视图中的currentPage初始值来测试绑定关系是否正常生效。也可以做一个测试按钮，点击按钮时让第二个页面展示出来
+步骤4 添加一个TextView控件来展示状态变量currentPage的值，拖动页面切换时观察TextView上的值，目前不会发生变化。因为PageViewController内部没有在切换页面的过程中更新currentPage的值。
+步骤5 在PageViewController.swift中让coordinator作为UIPageViewController的代理，并添加pageViewController(_:didFinishAnimating:previousViewControllers:transitionCompleted completed: Bool) 方法。因为SwiftUI在页面切换动画完成时会调用这个方法，这样就可以这个方法内部获取当前正在展示的页面的下标，并同时更新绑定属性currentPage的值。
+步骤6 coordinator除了是UIPageViewController数据源外，再把它赋值为UIPageViewController的代理。由于绑定关系是双向的，所以当页面切换时，PageView视图上的Text就会实时展示当前的页码。
+第四节 添加一个自定义PageControl 我们已经为包裹在UIViewRepresentable视图中的子视图上添加了一个自定义UIPageControl
+步骤1 创建一个新的SwiftUI视图，命名为PageControl.swift，并使用PageControl类型遵循UIViewRepresentable协议。UIViewRepresentable和UIViewControllerRepresentable类型有相同的生命周期，在UIKit类型中都有对应的生命周期方法。
+步骤2 在PageView中用PageControl替换Text,并把VStack换成ZStack。因为总页数和当前页面都已经传入PageControl，所以PageControl已经可以正确的显示。
+下一步要处理PageControl与用户的交互，让它可以被用户点击任意一边进行页面间的切换。
+步骤3 在PageControl中创建一个嵌套类型Coordiantor，添加一个makeCoordinator()方法创建并返回一个coordinator实例。因为UIControl子类(包括UIPageControl)使用Target-Action模式，Coordinator实现一个@objc方法来更新currentPage绑定属性的值。</description>
+    </item>
+    
+    <item>
+      <title>创建watchOS应用</title>
+      <link>https://swift.jokerhub.cn/swiftui/framework_integration/creating_a_watchos_app/</link>
+      <pubDate>Sun, 19 Jul 2020 21:44:35 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/framework_integration/creating_a_watchos_app/</guid>
+      <description>这篇教程让我们可以应用之前所学到的SwiftUI知识，把Landmarks应用从iOS平台迁移到watchOS平台上。在拷贝可以共用的数据和视图文件之前，需要先给项目中添加一个对应watchOS的Target编译目标，assets资源保持原状，只需要调整SwiftUI视图以适应在watchOS平台上展示就可以了。
+按照下面的步骤构建工程，或者下载完成后的项目文件学习。
+项目文件 CreatingAwatchOSApp.zip (9 MB) 第一节 添加一个watchOS编译目标 要创建一个watchOS应用，第一步是给项目添加一个对应watchOS平台的编译目标。Xcode在新增Target的同时，添加一个文件组和相应的文件到工程中，同时还会新增编译运行方案，指定应用要运行的平台或模拟器。
+步骤1 选择菜单File-&amp;gt;New-&amp;gt;Target。当模板列表出现后，在watchOS选项卡下选择Watch App for iOS App模板，并点击下一步(Next)。
+选择这个模板会添加一个新的watchOS应用到工程中，嵌入到iOS应用平级。
+步骤2 在模板创建表中，输入WatchLandmarks作为产品名称，设置语言为Swift，用户界面为SwiftUI实现方式，并勾选通知应用场景，最后点击完成(Finish)。
+步骤3 如果Xcode提示激活watchOS平台编译运行方案，点击激活(Activate)。这会把编译运行方案从iOS平台切换到watchOS平台上来。
+步骤4 在扩展TargetWatchLandmarks Extensions的通用(General)选项卡下勾选Supports Running Without iOS App Installation，尽量创建一个可以独立于iOS宿主运行的watchOS应用。
+第二节 在Target间共享文件 现在watchOS平台的编译目标(Target)已经创建好，为了避免重复工作，可以复用一些之前在iOS项目中的资源。地标的数据模型文件可以复用，一些资源文件以及一些两个平台下不需要修改就可以展示的视图文件也可复用。
+步骤1 在项目导航器中，按下Command+鼠标左键的同时，选中文件：LandmarkRow.swift、Landmark.swift、UserData.swift、Data.swift、Profile.swift、Hike.swift和CircleImage.swift。
+其中Landmark.swift、UserData.swift、Data.swift、Profile.swift、Hike.swift这几个文件定义了应用的数据模型。我们不会使用这些文件中的所有内容，但为了编译通过需要这些文件。LandmarkRow.swift、 CircleImage.swift这两个文件是不需要任何修改就可以在watchOS平台上展示的视图。要注意Data.swift文件中是否导入ImageIO模块，如果没有import ImageIO这一句，编译时会有报错。
+步骤2 上一步选中需要文件的情况下，在文件检查器中，勾选WatchLandmarks Extension，让之前选中的文件也变成WatchLandmarks Extension编译时用到的文件。
+步骤3 在项目导航器中，选中Landmarks文件组下的Assets.xcassets文件，并在文件检查器中把它添加到WatchLandmarks编译运行目标中。这里的编译运行目标和上一步选中的编译运行目标不相同。WatchLandmarks Extension是用来放置应用的代码，WatchLandmarks是用来管理storyboard、图标以及相关资源的。
+步骤4 在项目导航器中，选择Resources文件夹下的所有文件，并在文件检查器中把它们添加到WatchLandmarks Extension编译目标下。
+第三节 创建详情视图 iOS编译目标下的资源可以在手表应用下使用，但我们需要创建一个专门适配手表尺寸的地标详情页来展示地标的具体信息。为了测试视图是否能适配手表展示，需要分别为最大尺寸和最小尺寸手表创建预览视图，并根据情况适当的调整圆形视图的布局来适应手表的界面大小。
+步骤1 在项目导航器中，点击WatchLandmarks Extension文件夹左边的三角形展开箭头，查看文件夹下的具体内容，并添加一个名为WatchLandmarkDetail的SwiftUI视图。
+步骤2 在结构体WatchLandmarkDetail结构体中添加userData、landmark和landmarkIndex属性。这些新增和属性与在处理用户输入时在LandmarkDetail中添加的属性是对等的。
+添加完属性后发现，Xcode会报缺少参数的错误。要修复这个错误有两种方式，一种是为属性提供一个默认值，一种是给视图的属性传入对应的值。
+步骤3 在预览视图中，创建一个用户数据的实例，并给WatchLandmarkDetail结构体的初始化器中传入一个地标对象作为参数。这里需要把用户数据设置为视图的环境对象。
+步骤4 在WatchLandmarkDetail.swift文件中，body()方法中返回一个CircleImage视图。这里的CircleImage是复用iOS项目中的视图，因为创建的图片是可缩放的，可以调用.scaleToFill()属性修改器让圆的大小添满整个手表显示屏。
+步骤5 创建最大尺寸(44mm)和最小尺寸(38mm)的手表预览视图。通过测试在最大最小尺寸上的展示情况，查看应用UI是否有问题，通常情况下，需要测试所有不同尺寸显示屏上UI展示情况是否符合预期。
+CircleImage缩放到高度完全填充显示器高度，但这种情况下适配了高度，宽度却被截断了。为了修复这个截断问题，需要把CircleImage视图嵌入到一个VStack视图容器中，并作一些调整，让CircleImage可以在所有尺寸的手表显示屏上正常展示。
+步骤6 把CircleImage嵌入到VStack中，并在图片下方显示地标名称信息。
+很明显，此时的信息一屏展示不下，所以需要把视图内容放入到ScrollView中，以获取滚动查看的功能。
+步骤7 把VStack整体嵌入到一个ScrollView中，这就让视图获取了滚动查看的能力，但同时也引入了另一个问题：CircleImage现在扩展到完全尺寸，把其它元素挤到没有地方显示。所以需要缩放CircleImage，让圆形图片和地标名称可以在一屏内同时显示出来。
+步骤8 改变scaleToFill()为scaleToFit()，这就让图片缩放按照显示器的宽度进行适配。
+步骤9</description>
+    </item>
+    
+    <item>
+      <title>创建macOS应用</title>
+      <link>https://swift.jokerhub.cn/swiftui/framework_integration/creating_a_macos_app/</link>
+      <pubDate>Sun, 19 Jul 2020 21:44:35 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/framework_integration/creating_a_macos_app/</guid>
+      <description>创建了watchOS平台的Landmarks应用后，下一步就是把Landmarks带到MacOS平台上。运用之前学到的所有知识，完成在iOS、watchOS及macOS的全平台应用。
+在项目工程中添加macOS编译目标，复用在iOS应用中的代码和资源，使用SwiftUI创建macOS平台上的列表和详情视图。
+按照步骤来编译工程，或者下载工程查看完成后的代码。
+项目文件 CreatingAmacOSApp.zip (10 MB) 第一节 项目中添加macOS编译目标 项目中添加macOS编译目标，Xcode会自动添加一个文件组与一些初始文件，还会生成一个编译运行方案。
+步骤1 选择File-&amp;gt;New-&amp;gt;Target，模板选择页面出现后，选择macOS选项卡，选中App模板并点击Next。这个模板会添加一个新的macOS编译目标到项目里。
+步骤2 在信息表中，输入MacLandmarks作为项目的名称，设置编程语言为Swift，界面构建方法为SwiftUI，然后点击Finish。
+步骤3 设置运行方案为MacLandmarks -&amp;gt; My Mac。这样就可以编译并运行macOS应用。
+这个应用的运行依赖一些特性，这些特性在早期的macOS上是不支持的，所以可能需要改变部署目标。
+步骤4 在项目导航器中，选择顶部的Xcode项目，在可用编译运行目标栏中，选择部署目标为10.15。
+步骤5 在MacLandmarks文件夹中，选择ContentView.swift文件，打开预览画布，点击恢复(Resume)，查看预览。SwiftUI会提供main视图和它的预览视图提供者，就像iOS应用，可以预览应用的主窗口。
+第二节 共享数据和资源 下一步，复用来自iOS应用的模型和资源文件到macOS应用中。
+步骤1 在项目导航器中，打开Landmarks文件夹并选中所有Models和Resources文件夹。landmarkData.json文件包含在教程的启动项目，里面包含了一个新的description字段，这是之前的教程中所没有的内容。
+步骤2 在文件检查器中，为选中的文件设置目标成员关系为MacLandmarks项目。应用编译时需要访问这些共享资源。要使用新的description字段，需要在Landmark结构体中添加一个对应的字段。
+步骤3 打开Landmark.swift文件，添加一个description属性。因为载入的数据遵循Codable协议，只需要确保属性名称和json文件中对应的字段名称一致就可以导入新增的字段数据了。
+第三节 创建行视图 对于使用SwiftUI来构建视图，一般是自底向上的方式，先创建小视图，然后用小视图组合成更大的视图。下面将创建一个列表的行视图。这个行视图包含地标的名称、地理位置、图片以及一个可选的标记，表标这个地标是否被收藏。
+步骤1 在MacLandmarks文件夹下添加一个新的SwiftUI视图，命名为LandmarkRow.swift。iOS应用下也有一个与之同名的文件，重名文件可以通过设置文件的目标成员为适合的App来解决重名的问题。
+步骤2 添加一个landmark属性到LandmarkRow结构体中，并更新预览视图，让新创建的视图可以在预览视图中展示出来。
+步骤3 用VStack包裹的地标图片视图替换占位文本Text视图。
+步骤4 添加一个包裹在VStack中的描述地标的文本视图。
+步骤5 添加一个收藏指示视图，把它和其它现有的内容用一个Spacer分割开。Spacer会把已有的视图推向左边，但是收藏指示视图要放在右边，目前是不可见状态，因为此时还没有图片资源与之对应。
+步骤6 从Resources文件夹下拖动star-filled.pdf和star-empty.pdf文件到macOS应用的Assets.xcassets文件内。
+步骤7 给行视图添加内边距，现在就能够把黄色的收藏标记显示出来了。行视图的内边距可以提高可读性，当把多个行视图集合到列表视图内时，这一点就能很明显的看出来了。
+第四节 把行视图组合进列表视图中 使用上一节创建的行视图，创建一个列表视图，用来展示用户了解的所有地标。当showFavoritesOnly属性为真时，列表中只展示那些被用户收藏的地标。
+步骤1 添加一个名为LandmarkList.swift的新的SwiftUI视图
+步骤2 添加userData属性作为环境注入对象，并更新预览视图。这样就可以让视图访问全局用户地标数据。
+步骤3 创建一个列表，行使用使用landmarkRow定义的类型。
+步骤4 让列表的行可以被用户选中，需要给列表提供一个绑定可选地标成员的关系，并用地标数据自己来标识行。之后会使用这个被选中的地标来展示地标详情页。
+步骤5 根据showFavoritesOnly的状态值以及地标数据是否被用户标记为收藏来决定列表中展示的行的内容。
+第五节 创建过滤器来管理列表的展示内容 因为用户可以标记地标为收藏状态，所以需要提供方式让用户只看到自己收藏过的地标。现在要创建一个过滤器视图，使用Toggle控件给用户提供一个勾选设置，让用户选择是否过滤列表中的非收藏地标，只展示收藏过的地标。
+为了让用户可以快速筛选出自己喜欢的地标，这里会添加一下选择器弹出按钮，让用户可以根据地标的不同类别，选择过滤展示自己收藏的地标数据。
+步骤1 添加一个名为Filter.swift的SwiftUI视图。
+步骤2 添加userData属性作为环境注入对象，并更新预览视图。</description>
+    </item>
+    
+  </channel>
+</rss>

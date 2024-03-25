@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.108.0">
+    <meta name="description" content="Swift学习">
+<meta name="author" content="王志舟">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>组合复杂用户界面 - Learn Swift</title>
+
+    
+    <link href="/css/nucleus.css?1711337756" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1711337756" rel="stylesheet">
+    <link href="/css/hybrid.css?1711337756" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1711337756" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1711337756" rel="stylesheet">
+    <link href="/css/auto-complete.css?1711337756" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1711337756" rel="stylesheet">
+    <link href="/css/theme.css?1711337756" rel="stylesheet">
+    <link href="/css/tabs.css?1711337756" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1711337756" rel="stylesheet">
+    
+    <link href="/css/theme-mine.css?1711337756" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1711337756"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/swiftui/app_design_and_layout/composing_complex_interfaces/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+    <svg id="grav-logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 448 512" xml:space="preserve">
+		<g>
+			<path fill="currentColor" d="M448 156.09c0-4.51-.08-9-.2-13.52a196.31 196.31 0 0 0-2.58-29.42 99.62 99.62 0 0 0-9.22-28A94.08 94.08 0 0 0 394.84 44a99.17 99.17 0 0 0-28-9.22 195 195 0 0 0-29.43-2.59c-4.51-.12-9-.17-13.52-.2H124.14c-4.51 0-9 .08-13.52.2-2.45.07-4.91.15-7.37.27a171.68 171.68 0 0 0-22.06 2.32 103.06 103.06 0 0 0-21.21 6.1q-3.46 1.45-6.81 3.12a94.66 94.66 0 0 0-18.39 12.32c-1.88 1.61-3.69 3.28-5.43 5A93.86 93.86 0 0 0 12 85.17a99.45 99.45 0 0 0-9.22 28 196.31 196.31 0 0 0-2.54 29.4c-.13 4.51-.18 9-.21 13.52v199.83c0 4.51.08 9 .21 13.51a196.08 196.08 0 0 0 2.58 29.42 99.3 99.3 0 0 0 9.22 28A94.31 94.31 0 0 0 53.17 468a99.47 99.47 0 0 0 28 9.21 195 195 0 0 0 29.43 2.59c4.5.12 9 .17 13.52.2H323.91c4.51 0 9-.08 13.52-.2a196.59 196.59 0 0 0 29.44-2.59 99.57 99.57 0 0 0 28-9.21A94.22 94.22 0 0 0 436 426.84a99.3 99.3 0 0 0 9.22-28 194.79 194.79 0 0 0 2.59-29.42c.12-4.5.17-9 .2-13.51V172.14c-.01-5.35-.01-10.7-.01-16.05zm-69.88 241c-20-38.93-57.23-29.27-76.31-19.47-1.72 1-3.48 2-5.25 3l-.42.25c-39.5 21-92.53 22.54-145.85-.38A234.64 234.64 0 0 1 45 290.12a230.63 230.63 0 0 0 39.17 23.37c56.36 26.4 113 24.49 153 0-57-43.85-104.6-101-141.09-147.22a197.09 197.09 0 0 1-18.78-25.9c43.7 40 112.7 90.22 137.48 104.12-52.57-55.49-98.89-123.94-96.72-121.74 82.79 83.42 159.18 130.59 159.18 130.59 2.88 1.58 5 2.85 6.73 4a127.44 127.44 0 0 0 4.16-12.47c13.22-48.33-1.66-103.58-35.31-149.2C329.61 141.75 375 229.34 356.4 303.42c-.44 1.73-.95 3.4-1.44 5.09 38.52 47.4 28.04 98.17 23.13 88.59z">
+			</path>
+		</g>
+	</svg>
+</a>
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="搜索...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1711337756"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1711337756"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/swift.jokerhub.cn";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1711337756"></script>
+
+    
+  </div>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swift/" title="Swift" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swift/">
+          <b>1. </b>Swift
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/" title="SwiftUI" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/swiftui/">
+          <b>2. </b>SwiftUI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/swiftui_essentials/" title="SwiftUI基础" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/swiftui_essentials/">
+          SwiftUI基础
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/creating_and_combining_views/" title="创建和组合视图" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/creating_and_combining_views/">
+        创建和组合视图
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/building_lists_and_navigation/" title="创建列表和导航" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/building_lists_and_navigation/">
+        创建列表和导航
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/handling_user_input/" title="处理用户输入" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/handling_user_input/">
+        处理用户输入
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/drawing_and_animation/" title="绘制和动画" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/drawing_and_animation/">
+          绘制和动画
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/drawing_and_animation/drawing_paths_and_shapes/" title="绘制路径和形状" class="dd-item ">
+        <a href="/swiftui/drawing_and_animation/drawing_paths_and_shapes/">
+        绘制路径和形状
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/drawing_and_animation/animating_views_and_transitions/" title="视图动画和转场" class="dd-item ">
+        <a href="/swiftui/drawing_and_animation/animating_views_and_transitions/">
+        视图动画和转场
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/app_design_and_layout/" title="应用设计与布局" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/swiftui/app_design_and_layout/">
+          应用设计与布局
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/app_design_and_layout/composing_complex_interfaces/" title="组合复杂用户界面" class="dd-item active">
+        <a href="/swiftui/app_design_and_layout/composing_complex_interfaces/">
+        组合复杂用户界面
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/app_design_and_layout/working_with_ui_controls/" title="玩转UI控件" class="dd-item ">
+        <a href="/swiftui/app_design_and_layout/working_with_ui_controls/">
+        玩转UI控件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/framework_integration/" title="框架集成" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/framework_integration/">
+          框架集成
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/interfaceing_with_uikit/" title="与UIKit交互" class="dd-item ">
+        <a href="/swiftui/framework_integration/interfaceing_with_uikit/">
+        与UIKit交互
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/creating_a_watchos_app/" title="创建watchOS应用" class="dd-item ">
+        <a href="/swiftui/framework_integration/creating_a_watchos_app/">
+        创建watchOS应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/creating_a_macos_app/" title="创建macOS应用" class="dd-item ">
+        <a href="/swiftui/framework_integration/creating_a_macos_app/">
+        创建macOS应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftpm/" title="SwiftPM" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftpm/">
+          <b>3. </b>SwiftPM
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/spm_in_cli/" title="命令行下的SPM" class="dd-item ">
+        <a href="/swiftpm/spm_in_cli/">
+        命令行下的SPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/spm_in_xcode/" title="Xcode中的SPM" class="dd-item ">
+        <a href="/swiftpm/spm_in_xcode/">
+        Xcode中的SPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/swiftpm_plugin/" title="Swift Package Plugin" class="dd-item ">
+        <a href="/swiftpm/swiftpm_plugin/">
+        Swift Package Plugin
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/combine/" title="Combine" class="dd-item
+        
+        
+        
+        ">
+      <a href="/combine/">
+          <b>4. </b>Combine
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/tdd/" title="TDD" class="dd-item
+        
+        
+        
+        ">
+      <a href="/tdd/">
+          <b>5. </b>TDD
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/tdd/tdd_cycle/" title="TDD 迭代循环" class="dd-item ">
+        <a href="/tdd/tdd_cycle/">
+        TDD 迭代循环
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/dp/" title="Design Pattern" class="dd-item
+        
+        
+        
+        ">
+      <a href="/dp/">
+          <b>6. </b>Design Pattern
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/dp/note/" title="高级开发者学习笔记" class="dd-item ">
+        <a href="/dp/note/">
+        高级开发者学习笔记
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li>
+                  <a class="padding" href="https://github.com/wangzhizhou/LearnSwift.git"><i class='fab fa-fw fa-github'></i> GitHub 仓库</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/videos/all-videos/?q=swiftui"><i class='fas fa-fw fa-video'></i> SwiftUI 视频</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/swiftui/"><i class='fas fa-fw fa-receipt'></i> SwiftUI 文档</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://learn.netlify.app/en/"><i class='fas fa-fw fa-book'></i> Learn 主题</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swift.jokerhub.cn/tags"><i class='fas fa-tags'></i> Tags 标签</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/tutorials/swiftui/tutorials/"><i class='fab fa-apple'></i> SwiftUI 官方教程(英文)</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://fontawesome.com/icons?d=gallery&amp;m=free"><i class='fab fa-sketch'></i> Font Awesome</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swift.org"><i class='fas fa-book-open'></i> Swift 官网</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/forums/"><i class='fas fa-question-circle'></i> Apple 官方论坛</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/sample-code"><i class='fas fa-file-code'></i> Apple 示例代码</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/"><i class='fas fa-folder'></i> Apple 官方文档</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://www.flaticon.com/"><i class='fas fa-sun'></i> flaticon</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swiftpackageindex.com/"><i class='fas fa-archive'></i> SPM 查询</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://toml.io"><i class='fas fa-paper-plane'></i> TOML 语法</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://salttiger.com"><i class='fas fa-book-reader'></i> SaltTiger 书籍下载</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/visionos"><i class='fas fa-solid fa-vr-cardboard'></i> visionOS</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <center>
+</center>
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='编辑当前页' href="https://github.com/wangzhizhou/LearnSwift/edit/master/docs/swiftui/app_design_and_layout/composing_complex_interfaces.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">编辑当前页</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Learn Swift</a> > <a href='/swiftui/'>SwiftUI</a> > <a href='/swiftui/app_design_and_layout/'>应用设计与布局</a> > 组合复杂用户界面
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#第一节-添加一个首页视图">第一节 添加一个首页视图</a></li>
+        <li><a href="#第二节-创建地标类别列表">第二节 创建地标类别列表</a></li>
+        <li><a href="#第三节-添加针对单个类别的地标行列表">第三节 添加针对单个类别的地标行列表</a></li>
+        <li><a href="#第四节-组合首页">第四节 组合首页</a></li>
+        <li><a href="#第五节">第五节</a></li>
+        <li><a href="#检查是否理解">检查是否理解</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              组合复杂用户界面
+            </h1>
+          
+
+        
+
+
+<p><code>Landmarks</code>应用的首页是一个纵向滚动的地标类别列表，每一个类别内部是一个横向滑动列表。随后将构建应用的页面导航，这个过程中可以学习到如果组合各种视图，并让它们适配不同的设备尺寸和设备方向。</p>
+<section class="attachments blue">
+  <label>
+    <i class="fas fa-paperclip" aria-hidden="true"></i>
+    项目文件
+  </label>
+  <div class="attachments-files">
+    <li>
+      <a href="/swiftui/app_design_and_layout/composing_complex_interfaces.files/ComposingComplexInterfaces.zip">ComposingComplexInterfaces.zip</a>
+      (6 MB)
+    </li>
+  </div>
+</section>
+
+<hr>
+<h3 id="第一节-添加一个首页视图">第一节 添加一个首页视图</h3>
+<p>已经创建了所有在<code>Landmarks</code>应用中需要的视图，现在给应用创建一个首页视图，把之前创建的视图整合起来。首页不仅仅包含之前创建的视图，它还提供页面间导航的方式，同时也可以展示各种地标信息。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section1.png?width=20pc" alt="section 1"></p>
+<p><strong>步骤1</strong> 创建一个名为<code>CategoryHome.swift</code>的自定义视图文件</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section1-step1.png?width=20pc" alt="section 1 step 1"></p>
+<p><strong>步骤2</strong> 把应用的场景代理(scene delegate)的根视图从之前的地标列表视图更改为新创建的首页视图。现在应用启动后的每一个页面就是首页了，所以还需要添加从首页导航跳转到其它页面的方法。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section1-step2.png?width=40pc" alt="section 1 step 2"></p>
+<p><strong>步骤3</strong> 添加<code>NavigationView</code>，这个<code>NavigationView</code>将会容纳<code>Landmarks</code>应用中其它不同的视图。配合使用<code>NavigationView</code>、<code>NavigationLink</code>及相关的修改器，就可以构建出应用的页面间导航结构</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section1-step3.png?width=50pc" alt="section 1 step 3"></p>
+<p><strong>步骤4</strong> 设置导航栏标题为<code>Featured</code></p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section1-step4.png?width=50pc" alt="section 1 step 4"></p>
+<h3 id="第二节-创建地标类别列表">第二节 创建地标类别列表</h3>
+<p><code>Landmarks</code>应用为了便于用户浏览各种类别的地标，将地标按类别竖向排列形成列表视图，对于每一个类别内的具体地标，又把它们按照水平方向排列，形成横向列表。组合使用垂直栈(vertical statck)和水平栈(horizontal stack)并给列表添加滚动</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section2.png?width=20pc" alt="section 2"></p>
+<p><strong>步骤1</strong> 使用<code>Dictionary</code>结构体的初始化方法<code>init(grouping:by:)</code>，把地标数据的类别属性<code>category</code>传入作为分组依据，可以把地标数据按类别分组。工程文件中已经为每一个地标样本数据预定义了类别。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section2-step1.png?width=30pc" alt="section 2 step 1"></p>
+<p><strong>步骤2</strong> 使用<code>List</code>显示地标数据的类别。<code>Landmark.Category</code>是枚举类型，它的值标识列表中每一种类别，可以保证类别不会有重复定义</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section2-step2.png?width=50pc" alt="section 2 step 1"></p>
+<h3 id="第三节-添加针对单个类别的地标行列表">第三节 添加针对单个类别的地标行列表</h3>
+<p><code>Landmarks</code>应用对每个类别下的地标采用横向滑动的行进行展示。添加一个新的视图类型用来表示这样一个地标行，然后使用这个新创建的行类型具体展示某一具体类型上的所有地标。</p>
+<p><img src="/swiftui/app_design_and_layout/composing_complex_interfaces.files/add-rows-landmarks.gif?width=20pc" alt="section 3"></p>
+<p><strong>步骤1</strong> 定义一个新的视图类型，用来展示地标类别行的内容。新建行视图需要存放地标具体类别的展示数据</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section3-step1.png?width=50pc" alt="section 3 step 1"></p>
+<p><strong>步骤2</strong> 更新<code>CategoryHome.swift</code>的代码，把地标类别信息传给新建的行视图类型</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section3-step2.png?width=50pc" alt="section 3 step 2"></p>
+<p><strong>步骤3</strong> 在<code>CategoryRow.swift</code>中使用一个<code>HStack</code>展示类别下的地标内容</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section3-step3.png?width=50pc" alt="section 3 step 3"></p>
+<p><strong>步骤4</strong> 为行内容指定一个高度，并把行内容嵌入到<code>ScrollView</code>中，以支持横向滑动。预览视图时，可以多增加几个地标数据，用来查看列表的滑动是否正常。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section3-step4.png?width=50pc" alt="section 3 step 4"></p>
+<h3 id="第四节-组合首页">第四节 组合首页</h3>
+<p><code>Landmarks</code>应用的首页在用户点击查看地标详情前需要先把地标的一些简单信息展示出来。复用之前创建的视图构建具体某一类别地标的行视图</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section4.png?width=20pc" alt="section 4"></p>
+<p><strong>步骤1</strong> 在<code>CategoryRow.swift</code>文件中，与<code>CategoryRow</code>类型并列，创建一个新的自定义视图类型<code>CategoryItem</code>，用这个新的视图类型替换<code>CategoryRow</code>的地标名称<code>Text</code>控件</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section4-step1.png?width=50pc" alt="section 4 step 1"></p>
+<p><strong>步骤2</strong> 在<code>CategoryHome.swift</code>中，添加一个名为<code>FeaturedLandmarks</code>的简单视图，这个视图用来显示地标数据中<code>isFeatured</code>属性为真的那些地标。在之后的教程中，会把<code>FeaturedLandmarks</code>这个视图修改成一个交互式轮播图。目前，这个视图仅仅展示一张缩放和剪裁后的地标图片。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section4-step2.png?width=50pc" alt="section 4 step 2"></p>
+<p><strong>步骤3</strong> 把视图的边距设置为0，让展示内容可以尽量贴着屏幕边沿</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section4-step3.png?width=50pc" alt="section 4 step 3"></p>
+<h3 id="第五节">第五节</h3>
+<p>现在所有类别的地标都可以在首页视图中展示出来，用户还需要能够进入应用其它页面的方法。使用页面导航和相关API来实现用户从应用首页到地标详情页、收藏列表页及用户个人中心页的跳转。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section5.png?width=20pc" alt="section 5"></p>
+<p><strong>步骤1</strong> 在<code>CategoryRow.swift</code>中，把<code>CategoryItem</code>视图包裹在<code>NavigationLink</code>视图中。<code>CategoryItem</code>这时做为跳转按钮的内容，<code>destination</code>指定点击<code>NavigationLink</code>按钮时要跳转的目标视图。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section5-step1.png?width=50pc" alt="section 5 step 1"></p>
+<p><img src="/swiftui/app_design_and_layout/composing_complex_interfaces.files/swiftui-app-design-layout-section5-step1.gif?width=20pc" alt="section 5 step 1 gif"></p>
+<p><strong>步骤2</strong> 使用<code>renderingMode(_:)</code>和<code>foregroundColor(_:)</code>这两个属性修改器来改变地标类别项的导航样式。做为<code>NavigationLink</code>标签的<code>CategoryItem</code>中的文本会使用<code>Environment</code>中的强调颜色，图片可能以模板图片的方式渲染，这些都可以使用属性修改器来调整，达到最佳效果。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section5-step2.png?width=50pc" alt="section 5 step 2"></p>
+<p><strong>步骤3</strong> 在<code>CategoryHome.swift</code>中，添加一个模态展示的用户信息展示页，点击了用户图标时弹出展示。当状态<code>showProfile</code>被置为<code>true</code>时，展示用户信息页，当<code>showProfile</code>状态置为<code>false</code>时，用户信息页消失。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section5-step3.png?width=50pc" alt="section 5 step 3"></p>
+<p><strong>步骤4</strong> 在导航条上添加一个按钮，用来切换<code>showProfile</code>状态的值：<code>true</code>或者<code>false</code></p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section5-step4.png?width=50pc" alt="section 5 step 4"></p>
+<p><img src="/swiftui/app_design_and_layout/composing_complex_interfaces.files/swiftui-app-design-layout-section5-step4.gif?width=10pc" alt="section 5 step 4 gif"></p>
+<p><strong>步骤5</strong> 在<code>CategoryHome.swift</code>中添加一个跳转链接，点击时跳转到全部地标的筛选页面。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section5-step5.png?width=50pc" alt="section 5 step 5"></p>
+<p><img src="/swiftui/app_design_and_layout/composing_complex_interfaces.files/swiftui-app-design-layout-section5-step5.gif?width=20pc" alt="section 5 step 5 gif"></p>
+<p><strong>步骤6</strong> 把<code>LandmarkList.swift</code>中的把包裹地标列表视图的<code>NavigationView</code>移动到对应的预览视图中。因为在应用中，<code>LandmarkList</code>总是会被展示在<code>CategoryHome.swift</code>定义的导航视图中。</p>
+<p><img src="/swiftui/app_design_and_layout/images/swiftui-app-design-layout-section5-step6.png?width=50pc" alt="section 5 step 6"></p>
+<h3 id="检查是否理解">检查是否理解</h3>
+<p><strong>问题1</strong> 对于<code>Landmarks</code>这个应用来说，哪一个视图是它的根视图？</p>
+<ul>
+<li><input disabled="" type="checkbox"> SceneDelegate</li>
+<li><input disabled="" type="checkbox"> Landmarks</li>
+<li><input checked="" disabled="" type="checkbox"> CategoryHome</li>
+</ul>
+<p><strong>问题2</strong> <code>CategoryHome</code>这个视图是如何与应用的其它视图联动起来的</p>
+<ul>
+<li><input disabled="" type="checkbox"> 在不同地标之间复用图片资源</li>
+<li><input disabled="" type="checkbox"> 与其它视图使用一致的命名规范和属性修改器语法</li>
+<li><input checked="" disabled="" type="checkbox"> 使用导航结构把地标应用中所有视图连接在一起</li>
+</ul>
+<p><strong>问题3</strong> 下面哪段代码可以将一个普通视图转化为一个具体点击导航功能的视图</p>
+<ul>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/app_design_and_layout/images/swiftui-drawing-animation-problem3-answer1.png?width=30pc&amp;classes=border" alt="problem 3 answer 1"></li>
+<li><input checked="" disabled="" type="checkbox"> <img src="/swiftui/app_design_and_layout/images/swiftui-drawing-animation-problem3-answer2.png?width=30pc&amp;classes=border" alt="problem 3 answer 2"></li>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/app_design_and_layout/images/swiftui-drawing-animation-problem3-answer3.png?width=30pc&amp;classes=border" alt="problem 3 answer 3"></li>
+</ul>
+
+
+<footer class="footline">
+	
+</footer>
+
+
+</div>
+
+
+</div>
+
+<div id="navigation">
+
+
+
+
+
+
+    
+        
+        
+    
+    
+
+        
+        
+            
+        
+        
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+            
+        
+        
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+
+
+
+
+
+
+
+
+
+<a class="nav nav-prev" href="/swiftui/app_design_and_layout/" title="应用设计与布局"> <i class="fa fa-chevron-left"></i></a>
+
+
+<a class="nav nav-next" href="/swiftui/app_design_and_layout/working_with_ui_controls/" title="玩转UI控件" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+
+
+</div>
+
+</section>
+
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+<div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>
+<script src="/js/clipboard.min.js?1711337756"></script>
+<script src="/js/perfect-scrollbar.min.js?1711337756"></script>
+<script src="/js/perfect-scrollbar.jquery.min.js?1711337756"></script>
+<script src="/js/jquery.sticky.js?1711337756"></script>
+<script src="/js/featherlight.min.js?1711337756"></script>
+<script src="/js/highlight.pack.js?1711337756"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/modernizr.custom-3.6.0.js?1711337756"></script>
+<script src="/js/learn.js?1711337756"></script>
+<script src="/js/hugo-learn.js?1711337756"></script>
+
+
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+
+<script>
+mermaid.initialize({ startOnLoad: true });
+</script>
+
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+</body>
+</html>

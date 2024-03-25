@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Learn Swift</title>
+    <link>https://swift.jokerhub.cn/</link>
+    <description>Recent content on Learn Swift</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 27 Apr 2020 22:14:13 +0800</lastBuildDate><atom:link href="https://swift.jokerhub.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>命令行下的SPM</title>
+      <link>https://swift.jokerhub.cn/swiftpm/spm_in_cli/</link>
+      <pubDate>Tue, 24 Nov 2020 02:22:36 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftpm/spm_in_cli/</guid>
+      <description>查看命令行帮助信息 Swift工具链安装完成后，可以在控制台下使用下面命令查看Swift Package Manager的使用方法:
+swift package --help 可以看到下面的帮助信息：
+$ swift package --help OVERVIEW: Perform operations on Swift packages SEE ALSO: swift build, swift run, swift test USAGE: swift package &amp;lt;options&amp;gt; &amp;lt;subcommand&amp;gt; OPTIONS: --package-path &amp;lt;package-path&amp;gt; Specify the package path to operate on (default current directory). This changes the working directory before any other operation --cache-path &amp;lt;cache-path&amp;gt; Specify the shared cache directory path --config-path &amp;lt;config-path&amp;gt; Specify the shared configuration directory path --security-path &amp;lt;security-path&amp;gt; Specify the shared security directory path --scratch-path &amp;lt;scratch-path&amp;gt; Specify a custom scratch directory path (default .</description>
+    </item>
+    
+    <item>
+      <title>与UIKit交互</title>
+      <link>https://swift.jokerhub.cn/swiftui/framework_integration/interfaceing_with_uikit/</link>
+      <pubDate>Sun, 19 Jul 2020 21:44:35 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/framework_integration/interfaceing_with_uikit/</guid>
+      <description>SwiftUI可以在苹果全平台上无缝兼容现有的UI框架。例如，可以在SwiftUI视图中嵌入UIKit视图或UIKit视图控制器，反过来在UIKit视图或UIKit视图控制器中也可以嵌入SwiftUI视图。
+本篇教程展示如何把landmark应用的主页混合使用UIPageViewController和UIPageControl。使用UIPageViewController来展示由SwiftUI视图构成的轮播图，使用状态变量和绑定来操作用户界面数据的更新。
+跟着教程一步步走，可以下载工程文件进行实践。
+项目文件 InterfacingWithUIKit.zip (9 MB) 第一节 创建一个用来展示UIPageViewController的SwiftUI视图 为了在SwiftUI视图中展示UIKit视图和UIKit视图控制器，需要创建遵循UIViewRepresentable和UIViewControllerRepresentable协议的类型。创建的自定义视图类型，用来创建和配置所要展示的UIKit类型，SwiftUI框架来管理UIKIt类型的生命周期并在适当的时机更新它们。
+步骤1 创建一个新的SwiftUI视图文件，命名为PageViewController.swift，并且声明PageViewController类型遵循UIViewControllerRepresentable。这个页面视图控制器存放一个UIViewController实例数组，数组中的每一个元素代表在地标滚动过程中的一页视图。
+下一步添加UIViewControllerRepresentable协议的两个实现, 目前因为协议方法没有完成实现，会有报错提示。
+步骤2 添加一个makeUIViewController(context:)方法，方法内部以指定的配置创建一个UIPageViewController。SwiftUI会在准备显示视图时调用一次makeUIViewController(context:)方法创建UIViewController实例，并管理它的生命周期。
+由于还缺少一个协议方法没有实现，所以目前还是会报错。
+步骤3 添加updateUIViewController(_:context:)方法，这个方法里调用setViewControllers(_:direction:animated:)方法展示数组中的第一个视图控制器
+创建另一个SwiftUI视图展示遵循UIViewControllerRepresentable协议的视图
+步骤4 创建一个名为PageView.swift的视图，声明一个PageViewController作为子视图。初始化时使用一个视图数组来初始化，并把每一个视图都嵌入在一个UIHostingController中。UIHostingController是一个UIViewController的子类，用来在UIKit环境中表示一个SwiftUI视图。
+步骤5 更新预览视图，并传入视图数组，预览视图就会开始工作了
+步骤6 在继续下面的步骤前，先把PageView的预览视图固定住，以避免在文件切换时不能实现预览到PageView的改变。
+第二节 创建视图控制器的数据源 短短几个步骤就做了很多事，PageViewController使用UIPageViewController去展示来自SwiftUI内容。现在是时候添加挥动手势进行页面之间的翻动了。
+一个展示UIKit视图控制器的SwiftUI视图可以定义一个Coordinator类型，这个Coordinator类型由SwitUI管理，用来作为视图展示的环境
+步骤1 在PageViewControlelr中定义一个嵌套类型Coordiantor。SwiftUI管理UIViewController Representable类型的coordinator，并在调用方法时把它作为环境的一部分。
+步骤2 在PageView Controller中添加另一个方法，创建coordinator。SwiftUI在调用makeUIViewController(context:)前会先调用makeCoordinator()方法，因此在配置视图控制器时是可以访问到coordiantor对象的。可以使用coordinator为实现通用的Cocoa模式,例如：代理模式、数据源以及目标-动作。
+步骤3 让Coordinator类型添加UIPageViewControllerDataSource协议遵循，并且实现两个必要方法。这两个必要方法会建立起视图控制器之间的联系，因此可以实现页面之前的前后切换。
+步骤4 把coordiantor作为UIPageViewController的数据源
+步骤5 打开实时预览，并测试一下前后页面切换的功能是否正常
+第三节 在SwiftUI视图的状态下跟踪页面 如果要添加一个自定义的UIPageControl控件，就需要一种方式能够在PageView中跟踪当前展示的页面。这就需要在PageView中声明一个@State属性，并传递一个针对该属性的绑定关系给PageViewController视图，在PageViewController中通过绑定关系更新状态属性，来反映当前展示的页面。
+步骤1 在PageViewController中添加一个绑定属性currentPage。除了使用关键字@Binding声明属性为绑定属性外，还需要更新一下函数setViewControllers(_:direction:animated:)，给它传入currentPage绑定属性
+做到这一步还不能正常运行，继续进行下一步。
+步骤2 在PageView中声明@State变量，并在创建PageViewController时把绑定属性传入。注意使用$语法创建一个针对状态变量的绑定关系。
+步骤3 通过改变PageView视图中的currentPage初始值来测试绑定关系是否正常生效。也可以做一个测试按钮，点击按钮时让第二个页面展示出来
+步骤4 添加一个TextView控件来展示状态变量currentPage的值，拖动页面切换时观察TextView上的值，目前不会发生变化。因为PageViewController内部没有在切换页面的过程中更新currentPage的值。
+步骤5 在PageViewController.swift中让coordinator作为UIPageViewController的代理，并添加pageViewController(_:didFinishAnimating:previousViewControllers:transitionCompleted completed: Bool) 方法。因为SwiftUI在页面切换动画完成时会调用这个方法，这样就可以这个方法内部获取当前正在展示的页面的下标，并同时更新绑定属性currentPage的值。
+步骤6 coordinator除了是UIPageViewController数据源外，再把它赋值为UIPageViewController的代理。由于绑定关系是双向的，所以当页面切换时，PageView视图上的Text就会实时展示当前的页码。
+第四节 添加一个自定义PageControl 我们已经为包裹在UIViewRepresentable视图中的子视图上添加了一个自定义UIPageControl
+步骤1 创建一个新的SwiftUI视图，命名为PageControl.swift，并使用PageControl类型遵循UIViewRepresentable协议。UIViewRepresentable和UIViewControllerRepresentable类型有相同的生命周期，在UIKit类型中都有对应的生命周期方法。
+步骤2 在PageView中用PageControl替换Text,并把VStack换成ZStack。因为总页数和当前页面都已经传入PageControl，所以PageControl已经可以正确的显示。
+下一步要处理PageControl与用户的交互，让它可以被用户点击任意一边进行页面间的切换。
+步骤3 在PageControl中创建一个嵌套类型Coordiantor，添加一个makeCoordinator()方法创建并返回一个coordinator实例。因为UIControl子类(包括UIPageControl)使用Target-Action模式，Coordinator实现一个@objc方法来更新currentPage绑定属性的值。</description>
+    </item>
+    
+    <item>
+      <title>组合复杂用户界面</title>
+      <link>https://swift.jokerhub.cn/swiftui/app_design_and_layout/composing_complex_interfaces/</link>
+      <pubDate>Tue, 19 May 2020 23:15:25 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/app_design_and_layout/composing_complex_interfaces/</guid>
+      <description>Landmarks应用的首页是一个纵向滚动的地标类别列表，每一个类别内部是一个横向滑动列表。随后将构建应用的页面导航，这个过程中可以学习到如果组合各种视图，并让它们适配不同的设备尺寸和设备方向。
+项目文件 ComposingComplexInterfaces.zip (6 MB) 第一节 添加一个首页视图 已经创建了所有在Landmarks应用中需要的视图，现在给应用创建一个首页视图，把之前创建的视图整合起来。首页不仅仅包含之前创建的视图，它还提供页面间导航的方式，同时也可以展示各种地标信息。
+步骤1 创建一个名为CategoryHome.swift的自定义视图文件
+步骤2 把应用的场景代理(scene delegate)的根视图从之前的地标列表视图更改为新创建的首页视图。现在应用启动后的每一个页面就是首页了，所以还需要添加从首页导航跳转到其它页面的方法。
+步骤3 添加NavigationView，这个NavigationView将会容纳Landmarks应用中其它不同的视图。配合使用NavigationView、NavigationLink及相关的修改器，就可以构建出应用的页面间导航结构
+步骤4 设置导航栏标题为Featured
+第二节 创建地标类别列表 Landmarks应用为了便于用户浏览各种类别的地标，将地标按类别竖向排列形成列表视图，对于每一个类别内的具体地标，又把它们按照水平方向排列，形成横向列表。组合使用垂直栈(vertical statck)和水平栈(horizontal stack)并给列表添加滚动
+步骤1 使用Dictionary结构体的初始化方法init(grouping:by:)，把地标数据的类别属性category传入作为分组依据，可以把地标数据按类别分组。工程文件中已经为每一个地标样本数据预定义了类别。
+步骤2 使用List显示地标数据的类别。Landmark.Category是枚举类型，它的值标识列表中每一种类别，可以保证类别不会有重复定义
+第三节 添加针对单个类别的地标行列表 Landmarks应用对每个类别下的地标采用横向滑动的行进行展示。添加一个新的视图类型用来表示这样一个地标行，然后使用这个新创建的行类型具体展示某一具体类型上的所有地标。
+步骤1 定义一个新的视图类型，用来展示地标类别行的内容。新建行视图需要存放地标具体类别的展示数据
+步骤2 更新CategoryHome.swift的代码，把地标类别信息传给新建的行视图类型
+步骤3 在CategoryRow.swift中使用一个HStack展示类别下的地标内容
+步骤4 为行内容指定一个高度，并把行内容嵌入到ScrollView中，以支持横向滑动。预览视图时，可以多增加几个地标数据，用来查看列表的滑动是否正常。
+第四节 组合首页 Landmarks应用的首页在用户点击查看地标详情前需要先把地标的一些简单信息展示出来。复用之前创建的视图构建具体某一类别地标的行视图
+步骤1 在CategoryRow.swift文件中，与CategoryRow类型并列，创建一个新的自定义视图类型CategoryItem，用这个新的视图类型替换CategoryRow的地标名称Text控件
+步骤2 在CategoryHome.swift中，添加一个名为FeaturedLandmarks的简单视图，这个视图用来显示地标数据中isFeatured属性为真的那些地标。在之后的教程中，会把FeaturedLandmarks这个视图修改成一个交互式轮播图。目前，这个视图仅仅展示一张缩放和剪裁后的地标图片。
+步骤3 把视图的边距设置为0，让展示内容可以尽量贴着屏幕边沿
+第五节 现在所有类别的地标都可以在首页视图中展示出来，用户还需要能够进入应用其它页面的方法。使用页面导航和相关API来实现用户从应用首页到地标详情页、收藏列表页及用户个人中心页的跳转。
+步骤1 在CategoryRow.swift中，把CategoryItem视图包裹在NavigationLink视图中。CategoryItem这时做为跳转按钮的内容，destination指定点击NavigationLink按钮时要跳转的目标视图。
+步骤2 使用renderingMode(_:)和foregroundColor(_:)这两个属性修改器来改变地标类别项的导航样式。做为NavigationLink标签的CategoryItem中的文本会使用Environment中的强调颜色，图片可能以模板图片的方式渲染，这些都可以使用属性修改器来调整，达到最佳效果。
+步骤3 在CategoryHome.swift中，添加一个模态展示的用户信息展示页，点击了用户图标时弹出展示。当状态showProfile被置为true时，展示用户信息页，当showProfile状态置为false时，用户信息页消失。
+步骤4 在导航条上添加一个按钮，用来切换showProfile状态的值：true或者false
+步骤5 在CategoryHome.swift中添加一个跳转链接，点击时跳转到全部地标的筛选页面。
+步骤6 把LandmarkList.swift中的把包裹地标列表视图的NavigationView移动到对应的预览视图中。因为在应用中，LandmarkList总是会被展示在CategoryHome.swift定义的导航视图中。
+检查是否理解 问题1 对于Landmarks这个应用来说，哪一个视图是它的根视图？
+SceneDelegate Landmarks CategoryHome 问题2 CategoryHome这个视图是如何与应用的其它视图联动起来的
+在不同地标之间复用图片资源 与其它视图使用一致的命名规范和属性修改器语法 使用导航结构把地标应用中所有视图连接在一起 问题3 下面哪段代码可以将一个普通视图转化为一个具体点击导航功能的视图</description>
+    </item>
+    
+    <item>
+      <title>绘制路径和形状</title>
+      <link>https://swift.jokerhub.cn/swiftui/drawing_and_animation/drawing_paths_and_shapes/</link>
+      <pubDate>Thu, 07 May 2020 23:20:15 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/drawing_and_animation/drawing_paths_and_shapes/</guid>
+      <description>用户在浏览完一个地标后会得到一个徽章。但用户要得到徽章首先要先要创建一个徽章。本篇教程就是使用路径和形状创建徽章的过程，创建的徽章可以和其它图形组合形成位置标志。
+如果想要针对不同种类的地标创建不同的徽章，可以尝试改变徽章基本组成符号的重复次数、角度或大小。
+跟着教程一步步走，可以下载工程文件进行实践。
+项目文件 DrawingPathsAndShapes.zip (6 MB) 第一节 创建徽章视图 创建徽章前需要使用SwiftUI的矢量绘画API创建一个徽章视图
+步骤1 选择文件-&amp;gt;新建-&amp;gt;文件，然后从iOS文件模板列表中选择SwiftUI View。点击下一步(Next)，输入文件名Badge后点击创建(Create)
+步骤2 调整Badge视图，暂时先让它显示&amp;quot;Badge&amp;quot;文本，一会儿再绘制徽章的形状
+第二节 绘制徽章背景 使用SwiftUI的图形API绘制一个徽章形状
+步骤1 查看在文件HexagonParameters.swift中的代码。HexagonParameters结构体定义了绘制徽章六边形形状的控制点参数。不需要修改这些绘制相关的数据，仅仅使用这些数据指定绘制徽章形状时，线段和曲线的控制点位置。
+步骤2 在Badge.swift文件中，绘制徽章的形状并使用fill修改器给六边形填充颜色，形成一个视图。使用路径可以把多条直线、曲线或其它绘制形状的基本笔划连成一个复杂的图形，就像形成徽章六边形背景这样.
+步骤3 给路径添加起点，move(to:)方法可以把绘图光标移动到绘图中的一点，准备绘制的起点
+步骤4 使用六边形的绘制参数数据HexagonParameters，依次绘制六边形的边，形成大致轮廓.addLine(to:)方法会使用当前绘图光标所在点为起点，方法参数中指定的点为终点绘制直线。目前六边形看起来有点问题，不过不要担心，这是意料中的事，下面的步骤做完，六边形的形状就会和开头显示的徽章的六边形形状一致了
+步骤5 使用addQuadCurve(to:control:)方法绘制贝塞尔曲线，让六边形的角变的更圆润些。
+步骤6 把徽章路径包裹在一个Geometry Reader中，这样徽章可以使用容器的大小，定义自己绘制的尺寸，这样就不需要硬编码绘制尺寸了(100)。当绘制区域不是正方形时，使用绘制区域的最小边长(长宽中哪个最小使用哪个)作为绘制徽章背景的边长，并保持徽章背景的长宽比为1:1
+步骤7 使用xScale和xOffset参数调整变量，把徽章几何绘图区域居中绘制出来
+步骤8 把黑色实心填充色改为渐变色，使徽章看上去和开始设计的样式一致
+步骤9 渐变色上再使用aspectRatio(_:contentMode:)修改器，让渐变色按内容宽高比进行成比例渐变填充。保持1:1的长宽比，徽章背景可以保持居中在徽章视图中，不管徽章视图本身是不是正方形
+第三节 绘制徽章符号 地标徽章中心有一个以地标App图标中的山峰图形改造形成的标志。山峰这个符号由两个形状组成，一个是表示山顶被雪覆盖的部分，另一个是山体。这里会使用有一定间距的两个局部三角形形状绘制这个徽章符号
+步骤1 把之前的徽章视图形状抽出来单独形成一个BadgeBackground视图，并生成一个新的视图文件BadgeBackground.swift
+步骤2 把BadgeBackground放在Badge的body属性中。
+步骤3 创建名为BadgeSymbol的自定义视图，这个视图是一个山峰的形状，把这个形状复制多次并按一定角度旋转多次拼成一个徽章的图案
+步骤4 使用pathAPI来绘制徽章符号的上半部分，试着调节spacing、topWidth、topHeight的系数，观察这些系数是怎么影响图形绘制的结果的
+步骤5 绘制徽章图案的下半部分，使用move(to:)把绘图光标移到另一个图形绘制的起点，绘制新的形状
+步骤6 用紫色填充徽章符号
+第四节 组合徽章的前景符号和背景形状 徽章设计思路是在背景形状上面再绘制多个有固定旋转角度的山峰符号。定义一个新的类型用于展示旋转一定角度的徽章符号，使用ForEach生成不同旋转角度的山峰符号，绘制在徽章背景上，从而形成最终的徽章。
+步骤1 创建RotatedBadgeSymbol视图封装旋转徽章符号，调整旋转的角度，并在预览视图中查看效果
+步骤2 在Badge.swift中，使用ZStack把徽章图标放在徽章背景层上面。此时会发现，徽章符号的尺寸相比徽章背景大了许多，这不符合最初设计的预期
+步骤3 缩放符号尺寸到合适的大小
+步骤4 使用ForEach复制多个徽章图标，按360度周解均分，每一个徽章符号都比前一个多旋转45度，这种就会形成一个类似太阳和徽章图标
+检查是否理解 问题1 GeometryReader的作用是什么?
+GeometryReader可以把父视图分割成网格，便于在屏幕上布局视图 GeometryReader可以动态的绘制、定位、缩放视图，不需要写死它们的尺寸。这样可以在不同尺寸的屏幕上复用已经写好的视图 使用GeometryReader可以自动识别应用视图层级上形状的类型和位置，例如: (圆)Circle 问题2 下面代码段布局后是哪一个图？</description>
+    </item>
+    
+    <item>
+      <title>创建和组合视图</title>
+      <link>https://swift.jokerhub.cn/swiftui/swiftui_essentials/creating_and_combining_views/</link>
+      <pubDate>Thu, 30 Apr 2020 10:08:56 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/swiftui_essentials/creating_and_combining_views/</guid>
+      <description>这个教程指导你构建一个名为Landmarks(地标)的应用。这个应用的功能是可以发现并分享你喜欢的地标。首先从创建地标详情页开始。
+Landmarks使用栈来按层组合图片、文本等视图元素，从而布局页面。在视图中添加地图，需要引入MapKit组件，在你布局页面的过程中， Xcode可以提供实时的反馈，让你所做的改动立即转化成对应的代码实现。
+项目文件 CreatingAndCombiningViews.zip (785 KB) 第一节 创建新项目并体验画布 创建SwiftUI项目工程，体验画布、预览模式和SwiftUI模板代码
+要想在Xcode中预览画布中的视图或者与画布中的视图进行交互，要求你的Mac系统版本号不低于macOS Catalina 10.15
+步骤1 打开Xcode，在启动页面点击创建新工程或者在菜单中选择文件-&amp;gt;新建-&amp;gt;项目
+步骤2 在项目模板选择器中，选择iOS作为项目平台，选项单视图应用(Single View App)作为项目模板，并点击下一步(Next)
+步骤3 输入Landmarks作为项目名称，选择SwiftUI作为用户界面的创建方式，并点击下一步(Next)，在磁盘目录下选择一个位置用来存放新创建的工程项目
+步骤4 工程创建好并打开后，在文件导航器中，选择ContentView.swift文件，可以浏览一下SwiftUI视图的组成结构。默认情况下，SwiftUI的视图文件包含两个结构体(Struct) 第一个结构体遵循View协议，描述视图的内容和布局。第二个结构体声明为第一个视图的预览视图。
+步骤5 在**画布(Canvas)上，点击恢复(Resume)**按钮可以显示预览视图，也可以使用快捷键Command+Option+P
+如果工程中没有出现画布(Canvas)，可以选择菜单:编辑器(Editor) -&amp;gt; 编辑器和画布(Editor and Canvas) 打开画布进行预览
+步骤6 在body属性内部，修改文字Hello World为其它的不同的文字，当你在改变代码的同时，预览视图也会实时的更新对应的内容变化
+第二节 定制文本视图(Text View) 可能通过修改代码来改变一个视图的显示样式，也可以通过检查器获取视图可修改属性，然后再写对应的代码改变样式。在创建应用的过程中，可以同时使用源码编辑器、画布或者检查器，无论当前使用的是哪一个工具编辑视图，代码会保持和这些编辑器展示的样式一致
+下面我们使用检查器来定制视图的显示样式
+步骤1 在预览视图中，按下Command键的同时点击控件，会弹出一个编辑弹层，然后选择检查器(Inspect), 编辑弹层显示所有可以定制的视图属性，选中的控件不同，可以定制的属性集合也不相同
+步骤2 使用检查器把文字更改为Turtle Rock，也就是在应用中显示的第一个地标的名称
+步骤3 改变字体修改器为Title，使用系统字体修饰文字，可以自动按照用户在设备中设置的字体偏好大小进行调整。定制SwiftUI视图所调用的方法被称为视图修改器(Modifiers)，修改器在原视图的基础上修改部分显示样式和属性，返回一个新的视图，这样就可以让多个修改器串连进行，形成水平方向的链式调用，或者垂直方向的堆叠调用
+步骤4 手动在代码中添加foregroundColor(.green) 属性修改器，就会把文字的颜色调整为绿色。代码是决定视图样式的根本，当我们使用检查器来改变或移除一个属性修改器时，Xcode也会在代码编辑器中同步改变或移除对应的修改器代码
+步骤5 在代码编辑器中，按下Command的同时点击Text单词也可以属性弹窗，从中选择检查器后，再点击Color弹出菜单，选择继承(Inherited)，让文字的颜色恢复成原来的黑色
+步骤6 当我们移除 foregroundColor(.green) 时，Xcode会自动更新你的代码来反映视图的实际显示状况
+第三节 使用栈来组合视图 上一节创建了标题视图，接下来要添加一些文本视图来描述地标所在州及所在公园的名称等其它详细信息
+创建SwiftUI视图就是在body属性中描述视图的内容、布局及行为，但body属性只返回单个视图，这时组合多个视图时可以把它们放入一个栈中，通过水平、垂直、前后嵌套多个视图完成视图组合，做为一个整体在body属性中返回
+这一节中，使用一个垂直栈，把标题放在包含公园详情的水平栈的上方，在水平栈中，布局公园详情相关的内容
+可以使用Xcode提供的结构化布局来把视图嵌套在容器视图中
+步骤1 按下Command键的同时，点击Text视图的初始化代码打开结构化编辑弹窗，然后选择把控件嵌套在垂直栈中(Embed in VStack)，在栈中添加Text View控件可以从组件中直接拖进栈中完成
+步骤2 点击Xcode右上角的**+**号，托动一个Text控件到指定位置，代码立即就会在编辑器中补全</description>
+    </item>
+    
+    <item>
+      <title>Xcode中的SPM</title>
+      <link>https://swift.jokerhub.cn/swiftpm/spm_in_xcode/</link>
+      <pubDate>Tue, 24 Nov 2020 03:22:36 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftpm/spm_in_xcode/</guid>
+      <description>Xcode本身自带Swift工具链，从Swift 3.0开始，已经集成了Swift Package Manager功能，所以安装成功后就可以直接使用SPM相关功能
+在Xcode中使用SPM功能，主要是通过图形界面进行操作的</description>
+    </item>
+    
+    <item>
+      <title>创建watchOS应用</title>
+      <link>https://swift.jokerhub.cn/swiftui/framework_integration/creating_a_watchos_app/</link>
+      <pubDate>Sun, 19 Jul 2020 21:44:35 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/framework_integration/creating_a_watchos_app/</guid>
+      <description>这篇教程让我们可以应用之前所学到的SwiftUI知识，把Landmarks应用从iOS平台迁移到watchOS平台上。在拷贝可以共用的数据和视图文件之前，需要先给项目中添加一个对应watchOS的Target编译目标，assets资源保持原状，只需要调整SwiftUI视图以适应在watchOS平台上展示就可以了。
+按照下面的步骤构建工程，或者下载完成后的项目文件学习。
+项目文件 CreatingAwatchOSApp.zip (9 MB) 第一节 添加一个watchOS编译目标 要创建一个watchOS应用，第一步是给项目添加一个对应watchOS平台的编译目标。Xcode在新增Target的同时，添加一个文件组和相应的文件到工程中，同时还会新增编译运行方案，指定应用要运行的平台或模拟器。
+步骤1 选择菜单File-&amp;gt;New-&amp;gt;Target。当模板列表出现后，在watchOS选项卡下选择Watch App for iOS App模板，并点击下一步(Next)。
+选择这个模板会添加一个新的watchOS应用到工程中，嵌入到iOS应用平级。
+步骤2 在模板创建表中，输入WatchLandmarks作为产品名称，设置语言为Swift，用户界面为SwiftUI实现方式，并勾选通知应用场景，最后点击完成(Finish)。
+步骤3 如果Xcode提示激活watchOS平台编译运行方案，点击激活(Activate)。这会把编译运行方案从iOS平台切换到watchOS平台上来。
+步骤4 在扩展TargetWatchLandmarks Extensions的通用(General)选项卡下勾选Supports Running Without iOS App Installation，尽量创建一个可以独立于iOS宿主运行的watchOS应用。
+第二节 在Target间共享文件 现在watchOS平台的编译目标(Target)已经创建好，为了避免重复工作，可以复用一些之前在iOS项目中的资源。地标的数据模型文件可以复用，一些资源文件以及一些两个平台下不需要修改就可以展示的视图文件也可复用。
+步骤1 在项目导航器中，按下Command+鼠标左键的同时，选中文件：LandmarkRow.swift、Landmark.swift、UserData.swift、Data.swift、Profile.swift、Hike.swift和CircleImage.swift。
+其中Landmark.swift、UserData.swift、Data.swift、Profile.swift、Hike.swift这几个文件定义了应用的数据模型。我们不会使用这些文件中的所有内容，但为了编译通过需要这些文件。LandmarkRow.swift、 CircleImage.swift这两个文件是不需要任何修改就可以在watchOS平台上展示的视图。要注意Data.swift文件中是否导入ImageIO模块，如果没有import ImageIO这一句，编译时会有报错。
+步骤2 上一步选中需要文件的情况下，在文件检查器中，勾选WatchLandmarks Extension，让之前选中的文件也变成WatchLandmarks Extension编译时用到的文件。
+步骤3 在项目导航器中，选中Landmarks文件组下的Assets.xcassets文件，并在文件检查器中把它添加到WatchLandmarks编译运行目标中。这里的编译运行目标和上一步选中的编译运行目标不相同。WatchLandmarks Extension是用来放置应用的代码，WatchLandmarks是用来管理storyboard、图标以及相关资源的。
+步骤4 在项目导航器中，选择Resources文件夹下的所有文件，并在文件检查器中把它们添加到WatchLandmarks Extension编译目标下。
+第三节 创建详情视图 iOS编译目标下的资源可以在手表应用下使用，但我们需要创建一个专门适配手表尺寸的地标详情页来展示地标的具体信息。为了测试视图是否能适配手表展示，需要分别为最大尺寸和最小尺寸手表创建预览视图，并根据情况适当的调整圆形视图的布局来适应手表的界面大小。
+步骤1 在项目导航器中，点击WatchLandmarks Extension文件夹左边的三角形展开箭头，查看文件夹下的具体内容，并添加一个名为WatchLandmarkDetail的SwiftUI视图。
+步骤2 在结构体WatchLandmarkDetail结构体中添加userData、landmark和landmarkIndex属性。这些新增和属性与在处理用户输入时在LandmarkDetail中添加的属性是对等的。
+添加完属性后发现，Xcode会报缺少参数的错误。要修复这个错误有两种方式，一种是为属性提供一个默认值，一种是给视图的属性传入对应的值。
+步骤3 在预览视图中，创建一个用户数据的实例，并给WatchLandmarkDetail结构体的初始化器中传入一个地标对象作为参数。这里需要把用户数据设置为视图的环境对象。
+步骤4 在WatchLandmarkDetail.swift文件中，body()方法中返回一个CircleImage视图。这里的CircleImage是复用iOS项目中的视图，因为创建的图片是可缩放的，可以调用.scaleToFill()属性修改器让圆的大小添满整个手表显示屏。
+步骤5 创建最大尺寸(44mm)和最小尺寸(38mm)的手表预览视图。通过测试在最大最小尺寸上的展示情况，查看应用UI是否有问题，通常情况下，需要测试所有不同尺寸显示屏上UI展示情况是否符合预期。
+CircleImage缩放到高度完全填充显示器高度，但这种情况下适配了高度，宽度却被截断了。为了修复这个截断问题，需要把CircleImage视图嵌入到一个VStack视图容器中，并作一些调整，让CircleImage可以在所有尺寸的手表显示屏上正常展示。
+步骤6 把CircleImage嵌入到VStack中，并在图片下方显示地标名称信息。
+很明显，此时的信息一屏展示不下，所以需要把视图内容放入到ScrollView中，以获取滚动查看的功能。
+步骤7 把VStack整体嵌入到一个ScrollView中，这就让视图获取了滚动查看的能力，但同时也引入了另一个问题：CircleImage现在扩展到完全尺寸，把其它元素挤到没有地方显示。所以需要缩放CircleImage，让圆形图片和地标名称可以在一屏内同时显示出来。
+步骤8 改变scaleToFill()为scaleToFit()，这就让图片缩放按照显示器的宽度进行适配。
+步骤9</description>
+    </item>
+    
+    <item>
+      <title>玩转UI控件</title>
+      <link>https://swift.jokerhub.cn/swiftui/app_design_and_layout/working_with_ui_controls/</link>
+      <pubDate>Tue, 19 May 2020 23:15:53 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/app_design_and_layout/working_with_ui_controls/</guid>
+      <description>在Landmarks应用中，用户可以创建一个简介来描述他们自已的个人情况。为了让用户可以编辑自己的简介，我们需要添加一个编辑模式并设计一个偏好设置界面。
+这里使用多种通用控件来展示用户的各种数据，并在用户保存他们所做的数据修改时更新地标数据模型。
+按照步骤在下面的项目工程中一步步进行实践。
+项目文件 WorkingWithUIControls.zip (6 MB) 第一节 展示用户简介 Landmarks应用在本地存储了一些配置和用户偏好设置。在用户编辑这些数据前，会被展示在一个没有编辑按钮的概要视图上。
+步骤1
+在项目文件导航栏的Landmarks文件组下面新建一个名为Profile的文件组，并在这个新建的文件组下面添加一个新视图ProfileHost, 这个新视图包含一个TextView，用来展示用户名称。ProfileHost将会展示静态概要信息，同时支持编辑模式
+步骤2 用步骤1创建的ProfileHost替换Home.swift中的静态文本Text视图。现在主页中的profile按钮点击时可以调起一个用户简介页面了
+步骤3 创建一个新的视图命名为ProfileSummary，它会持有一个Profile实例，并显示一些用户的基本信息。Profile概要视图持有一个Profile对像的原因是，因为它的父视图ProfileHost管理着视图的状态，它不能与Profile进行绑定。
+步骤4 更新ProfileHost文件，显示新的概要视图
+步骤5 创建一个名为HikeBadge的新视图，这个新视图由Badge视图和一些描述性文字构成。Badge仅仅是一个图形，在HikeBadge视图中的文本与accessibility(label:)属性修改器一起，可以让这个徽章对用户更加清晰。注意frame(width:height:)的两种不同的用法用来配置徽章以不同的缩放尺寸显示。
+步骤6 更新ProfileSummary文件，添加几个不同的徽章代表用户得到的不同徽章
+步骤7 把HikeView包含在ProfileSummary页面中后，就完成了第一节的实践内容了。
+第二节 添加编辑模式 用户需要能够在浏览模式和编辑模式之间进行切换来查看或者修改用户简介的信息。通过在ProfileHost上添加一个Edit Button，然后创建一个用来编辑简介信息的页面。
+步骤1 添加一个Enviornment视图属性，用来使用\.edit模式。可以使用这个属性来读写当前编辑模式。
+步骤2 创建一个编辑按钮，可以切换编辑模式
+步骤3 更新UserData类，包含一个Profile实例，即使用户简介页面消失后也可以存储编辑后的信息
+步骤4 从环境变量中读取用户简介信息，并把数据传递给ProfileHost视图的控件上进行展示。为了在编辑状态下修改简介信息后确认修改前避免更新全局状态(例如在编辑用户名的过程中)，编辑视图在一个备份属性中进行相应的修改操作，确认修改后，才把备份属性同步到全局应用状态中。
+步骤5 添加一个条件视图，可以用来显示静态用户简介视图或者是用户简介视图的编辑模式。当前的编辑模式只支持静态文本框的编辑。
+第三节 定义简介编辑器 用户简介编辑器包含几个单独的控件用来修改对应简介信息。在简介中，一些项例如徽章是不可以编辑修改的，所以它们不会出现在简介编辑器中。为了保持简介在编辑模式和浏览模式的一致性，需要按照简介页面各项相同的顺序进行添加。
+步骤1 创建一个名为ProfileEditor的新视图，并绑定用户简介中的草稿。视图中的第一个控件是TextField，用来更新用户名字段值。创建TextField时要提供一个标签和一个绑定字符串。
+步骤2 更新ProfileHost中的条件内容，让它包含条件编辑器并把简单的绑定关系传递给简介编辑器。现在当你点击Edit按钮，简介视图就会变成编辑模式了。
+步骤3 添加一个切换开关，用来设置用户是否接收相关地标事件的推送通知。这个Toggle控件打开和关闭正好对应着布尔值的true或false。
+步骤4 把一个Picker和一个Text放在VStack结构里，让这个地标可以选择不同季节。
+步骤5 最后，在季节图片选择器下方添加一个DatePicker，用来修改地标的目标浏览日期
+第四节 延迟编辑传播 在编辑模式时，使用用户简介信息的备份进行修改，当用户确认进行修改后，再用修改的备份信息覆盖真正的用户信息。直到用户退出编辑模式前都不让编辑的备份生效。
+步骤1 在ProfileHost视图上添加一个取消按钮。不像编辑模式按钮提供的完成按钮，取消按钮不会应用修改后的简介备份信息到实际的简介数据上。
+步骤2 当用户点击完成按钮后，使用onAppear(perform:)和onDisappear(perform:)来更新或保存用户简介数据。下一次进入编辑模式时，使用上一次的用户简介数据来展示。
+检查是否理解 问题1 编辑状态改变时，怎样更新一个视图，例如，当用户编辑了用户简介信息后点击完成按钮的情况下，是怎么更新一个视图的
+问题2 什么情况下需要添加一个accessiblity标签，使用accessibility(label:)修改器?
+在应用的每一个视图都添加一个accessibility标签 当可以让用户界面元素对用户变的更清晰时，添加一个accessibility标签 只有当你没有给视图清加tag时才可以使用accessibility(label:) 问题3 模态和非模态视图展示有什么差别？
+当模态展示一个视图时，源视图设置目标视图的编辑模式 当非模态展示一个视图时，目标视图会盖住源视图并且替代当前的导航栈 当模态展示一个视图时，目标视图盖住源视图并替换当前导航栈 </description>
+    </item>
+    
+    <item>
+      <title>视图动画和转场</title>
+      <link>https://swift.jokerhub.cn/swiftui/drawing_and_animation/animating_views_and_transitions/</link>
+      <pubDate>Thu, 07 May 2020 23:20:35 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/drawing_and_animation/animating_views_and_transitions/</guid>
+      <description>使用SwiftUI可以把视图状态的改变转成动画过程，SwiftUI会处理所有复杂的动画细节
+在这篇中，会给跟踪用户徒步的图表视图添加动画。使用animation(_:)修改器给一个视图添加动画效果非常容易
+下载起步项目并跟着本篇教程一步步实践，或者查看本篇完成状态时的工程代码去学习
+项目文件 AnimatingViewsAndTransitions.zip (6 MB) 第一节 给每个视图单独添加动画 在视图上使用animation(_:)修改器时，SwiftUI会在视图的任何可进行动画的属性发生改变时产生对应的动画效果。视图的颜色、不透明度、旋转角度、大小及一些其它属性都是可进行动画的
+步骤1 在HikeView.swift中，打开实时预览，体验一下图表的打开和隐藏，此时的状态改变时是没有添加动画效果的。在本篇的实践中，保持实时预览一直打开，每一步修改的效果就可以实时的看到
+步骤2 给显示/隐藏切换的箭头按钮添加旋转动画，会发现现在按钮点击时的旋转有一个动画过渡的效果了
+步骤3 当视图从隐藏到展示时，让切换按钮变大1.5倍
+步骤4 把动画的类型从easeInOut改为spring()。SwiftUI包含一些预设或可自定义的动画类型，像弹簧(spring)动画和类型液体(fluid)动画类型。可以调整动画开始前的等待时长、动画的速度也可以指定让动画循环重复的进行
+步骤5 如果只想让按钮具有缩放动画而不进行旋转动画，可以在scaleEffect添加animation(nil)来实现。可以在这里做一些实验，如果把其它的一些动画效果结合在一起，会怎么样
+步骤6 学下一节之前，把本节中添加的animation(_:)修改器都去掉
+第二节 把视图的状态改态转化成动画效果 已经学会了给单个视图添加动画的方法，现在可以学习怎么在视图的状态发生改变时添加动画效果。当用户点击按钮时会切换showDetail状态的值，在视图变化过程中添加动画效果。
+步骤1 把showDetail.toggle()包裹在withAnimation函数调用块中。showDetail的改变影响了视图HikeDetail和详情切换按钮，在显示/隐藏详情的过程中都有了过滤动画效果。
+放慢动画速度，可以观察SwiftUI动画在被中断下是怎么运作的
+步骤2 给withAnimation传入一个时长4秒的基本动画参数.easeInOut(duration:4)，可以指定动画过程时长，给withAnimation传入的动画参数与.animation(_:)修改器可用参数一致。
+步骤3 在动画过程进行中点击按钮切换视图状态，查看对应的动画被中断时的效果
+步骤4 读下一节之前，把动画时长参数(.easeInOut(duration: 4))去掉，让动画不再缓慢进行。
+第三节 定制视图转场动画 默值情况下，视图离屏和入屏时的动画效果是渐隐/渐现， 这个默认的转场效果可以使用transition(_:)修改器进行定制。
+步骤1 给HikeView视图添加transition(_:)修改器，并定制转场参数为.slide，转场动画为滑入/滑出
+步骤2 可以把滑入/滑出这种转场动画封装起来，方便其它视图复用同样的转场效果
+步骤3 在moveAndFade转场效果的定义中使用move(edge:)，让滑入/滑出从屏幕的同一边进行
+步骤4 使用asymmetric(insertion:removal:)修改器来定制视图显示/消失时的转场动画效果
+第四节 组合复杂的动画效果 点击图表下面的三个按钮，会在三个不同的数据集间进行切换并展示。本节中会使用组合动画，让图表在不同数据集间切换时的转换动画流畅自然。
+步骤1 把showDetail的默认值改为true，并把HikeView的预览模式视图固定在画布上。这样可以在编辑其它文件时，依然看到动画效果的变化。
+步骤2 在HikeGraph.swift中定义了一个新的波动动画，并把它与滑入/滑出动画一起应用到图表视图上。
+步骤3 把动画切换为弹簧动画(spring)，并设置弹簧阻尼系数为0.5，动画过程中产生了逐渐回弹效果
+步骤4 加速弹簧动画的执行速度，缩短切换图表的时间
+步骤5 以当条形在图表中的位置为参数，添加延迟效果，图表中的每个条形会顺序动起来
+步骤6 观察一下自定义波动(rippling)效果是怎么作用在视图转场中的
+检查是否理解 问题1 怎样从一串动画效果调用中，去掉其中的一种动画效果。以下面的代码为例，怎样去掉旋转动画
+问题2 当你开发动画的过程上，为什么要把预览视图固定在画布上？
+为了固定动画过程中的当前帧 为了在多个设备配置开发中预览动画效果 为了在切换到其它不同文件时，固定显示当前视图的预览 问题3 在视图状态改变时，如何快速测试一个动画在被中断时的表现</description>
+    </item>
+    
+    <item>
+      <title>创建列表和导航</title>
+      <link>https://swift.jokerhub.cn/swiftui/swiftui_essentials/building_lists_and_navigation/</link>
+      <pubDate>Thu, 30 Apr 2020 10:09:35 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/swiftui_essentials/building_lists_and_navigation/</guid>
+      <description>地标详情页视图已经创建完成，我们需要提供一种方式让用户可以查看完整的地标列表，并且可以查看每一个地标的详情
+下面会创建一个可以展示任何地标信息的视图，并动态生成一个可滚动列表，用户可以点击列表项去查看地标的详细信息。优化视图显示时，可以使用Xcode画布来渲染多个不同设备大小下的预览视图。
+下载下面的工程文件，并跟着教程一步步学习构建列表和视图间导航
+项目文件 BuildingListsAndNavigation.zip (6 MB) 第一节 了解样本数据 前面的教程中，自定义视图所展示的信息都直接被写死在代码中，这篇教程中会学习给自定义视图传入样本数据进行展示
+步骤1 打开项目导航器，选择Models-&amp;gt;Landmark.swift文件，这个文件中声明了需要在应用中展示一个地标所需要信息的结构化名称，并通过导入landmarkData.json文件中的数据，生成一个地标信息数组。
+步骤2 在项目导航器中选择Resources-&amp;gt;landmarkData.json，在后面的教程中我们都会使用这个样本数据文件
+步骤3 注意，之前的ContentView视图，已经被改名为LandmarkDetail了，在本教程和后面的教程中，还会创建一些其它的视图
+第二节 创建行视图 本教程中创建的第一个视图就是用来显示每个地标的行视图，行视图把地标的相关信息存储在一个属性中，一行就可以代表一个地标，稍后就会把这些行组合成为一个列表。
+步骤1 创建一个名为LandmarkRow.swift的SwiftUI视图
+步骤2 如果预览视图没有出现，可以选择菜单编辑器-&amp;gt;画布，打开画布，并点击Resume进行预览，或者使用Command+Option+Enter快捷键调出画面，再使用Command+Option+P快捷键开始预览模式
+步骤3 添加landmark属性做为LandmarkRow视图的一个存储属性。当添加landmark属性后，预览视图可能会停止工作，因为LandmarkRow视图初始化时需要有一个landmark实例。要想修复预览视图，需要修改Preview Provider
+步骤4 在LandmarkRow_Previews的静态属性previews中给LandmarkRow初始化器中传入landmark参数，这个参数使用landmarkData数组的第一个元素。预览视图当前显示Hello, World
+步骤5 在一个HStack中嵌入一个Text
+步骤6 修改这个Text，让它使用landmark属性的name字段
+步骤7 在Text视图前面添加一个图片视图，在Text视图后面添加Spacer视图
+第三节 自定义行预览 Xcode的画布会自动识别当前代码编辑器中遵循PreviewProvider协议的类型，并将它们渲染并展示在画面上。一个视图预览提供者(preview provider)返回一个或多个视图，这些视图可以配置不同的大小和设备型号。
+可以定制从preview provider中返回的视图被渲染在何种场景下。
+步骤1 在LandmarkRow_Previews中，把landmark参数更新为landmarkData数组的第二个元素，预览视图会立即刷新反映第二个元素的渲染情况
+步骤2 使用previewLayout(_:)修改器设置一个行视图在列表中显示的尺寸大小。可以使用Group的方式，返回多个不同场景下的预览视图
+步骤3 把预览的行视图包裹在Group中，把之前的第一个行视图也加进去。Group是一个容器，它可以把视图内容组织起来，Xcode会把Group内的每个子视图当作画布内一个单独的预览视图处理
+步骤4 为了简化代码，可以把previewLayout(_:)这个修改器应用到外层的Group上，Group的每一个子视图会继承自己所处环境的配置。对preivew provider的修改只会影响预览画布的表现，对实际的应用不会产生影响。
+第四节 创建地标列表 使用SwiftUI列表类型可以展示平台相关的列表视图。列表的元素可以是静态的，类似于栈内部的子视图，也可以是动态生成的视图，也可以混合动态和静态的视图。
+步骤1 创建SwiftUI视图，命名为LandmarkList.swift
+步骤2 用List替换默认创建的Text，并将前两个LandmarkRow实例做为列表的子元素，预览视图中会以列表的形式展示出两个地标
+第五节 创建动态列表 除了单独列出列表中的每个元素外，列表还可以从一个集合中动态的生成。
+创建列表时可以传入一个集合数据和一个闭包，闭包会针对每一个数据元素返回一个视图，这个视图就是列表的行视图。
+步骤1 从列表中移除两个静态指定的行视图，给列表初始化器传入landmarkData数据，列表要配合可辨别的数据类型使用。想让数据变成可辨别的数据类型有两种方法:
+传入一个keypath指定数据中哪一个字段用来唯一标识这个数据元素。
+让数据遵循Identifiable协议
+步骤2 在闭包中返回一个LandmarkRow视图，List初始化器中指定数据集合landmarkData和唯一标识符keypath:\.id，这样列表就会动态生成，如下图所示
+步骤3 切换到文件Landmark.swfit，声明Landmark类型遵循Identifiable协议，因为Landmark类型已经定义了id属性，正好满足Identifiable协议，所以不需要添加其它代码
+步骤4 现在切换回文件LandmarkList.</description>
+    </item>
+    
+    <item>
+      <title>创建macOS应用</title>
+      <link>https://swift.jokerhub.cn/swiftui/framework_integration/creating_a_macos_app/</link>
+      <pubDate>Sun, 19 Jul 2020 21:44:35 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/framework_integration/creating_a_macos_app/</guid>
+      <description>创建了watchOS平台的Landmarks应用后，下一步就是把Landmarks带到MacOS平台上。运用之前学到的所有知识，完成在iOS、watchOS及macOS的全平台应用。
+在项目工程中添加macOS编译目标，复用在iOS应用中的代码和资源，使用SwiftUI创建macOS平台上的列表和详情视图。
+按照步骤来编译工程，或者下载工程查看完成后的代码。
+项目文件 CreatingAmacOSApp.zip (10 MB) 第一节 项目中添加macOS编译目标 项目中添加macOS编译目标，Xcode会自动添加一个文件组与一些初始文件，还会生成一个编译运行方案。
+步骤1 选择File-&amp;gt;New-&amp;gt;Target，模板选择页面出现后，选择macOS选项卡，选中App模板并点击Next。这个模板会添加一个新的macOS编译目标到项目里。
+步骤2 在信息表中，输入MacLandmarks作为项目的名称，设置编程语言为Swift，界面构建方法为SwiftUI，然后点击Finish。
+步骤3 设置运行方案为MacLandmarks -&amp;gt; My Mac。这样就可以编译并运行macOS应用。
+这个应用的运行依赖一些特性，这些特性在早期的macOS上是不支持的，所以可能需要改变部署目标。
+步骤4 在项目导航器中，选择顶部的Xcode项目，在可用编译运行目标栏中，选择部署目标为10.15。
+步骤5 在MacLandmarks文件夹中，选择ContentView.swift文件，打开预览画布，点击恢复(Resume)，查看预览。SwiftUI会提供main视图和它的预览视图提供者，就像iOS应用，可以预览应用的主窗口。
+第二节 共享数据和资源 下一步，复用来自iOS应用的模型和资源文件到macOS应用中。
+步骤1 在项目导航器中，打开Landmarks文件夹并选中所有Models和Resources文件夹。landmarkData.json文件包含在教程的启动项目，里面包含了一个新的description字段，这是之前的教程中所没有的内容。
+步骤2 在文件检查器中，为选中的文件设置目标成员关系为MacLandmarks项目。应用编译时需要访问这些共享资源。要使用新的description字段，需要在Landmark结构体中添加一个对应的字段。
+步骤3 打开Landmark.swift文件，添加一个description属性。因为载入的数据遵循Codable协议，只需要确保属性名称和json文件中对应的字段名称一致就可以导入新增的字段数据了。
+第三节 创建行视图 对于使用SwiftUI来构建视图，一般是自底向上的方式，先创建小视图，然后用小视图组合成更大的视图。下面将创建一个列表的行视图。这个行视图包含地标的名称、地理位置、图片以及一个可选的标记，表标这个地标是否被收藏。
+步骤1 在MacLandmarks文件夹下添加一个新的SwiftUI视图，命名为LandmarkRow.swift。iOS应用下也有一个与之同名的文件，重名文件可以通过设置文件的目标成员为适合的App来解决重名的问题。
+步骤2 添加一个landmark属性到LandmarkRow结构体中，并更新预览视图，让新创建的视图可以在预览视图中展示出来。
+步骤3 用VStack包裹的地标图片视图替换占位文本Text视图。
+步骤4 添加一个包裹在VStack中的描述地标的文本视图。
+步骤5 添加一个收藏指示视图，把它和其它现有的内容用一个Spacer分割开。Spacer会把已有的视图推向左边，但是收藏指示视图要放在右边，目前是不可见状态，因为此时还没有图片资源与之对应。
+步骤6 从Resources文件夹下拖动star-filled.pdf和star-empty.pdf文件到macOS应用的Assets.xcassets文件内。
+步骤7 给行视图添加内边距，现在就能够把黄色的收藏标记显示出来了。行视图的内边距可以提高可读性，当把多个行视图集合到列表视图内时，这一点就能很明显的看出来了。
+第四节 把行视图组合进列表视图中 使用上一节创建的行视图，创建一个列表视图，用来展示用户了解的所有地标。当showFavoritesOnly属性为真时，列表中只展示那些被用户收藏的地标。
+步骤1 添加一个名为LandmarkList.swift的新的SwiftUI视图
+步骤2 添加userData属性作为环境注入对象，并更新预览视图。这样就可以让视图访问全局用户地标数据。
+步骤3 创建一个列表，行使用使用landmarkRow定义的类型。
+步骤4 让列表的行可以被用户选中，需要给列表提供一个绑定可选地标成员的关系，并用地标数据自己来标识行。之后会使用这个被选中的地标来展示地标详情页。
+步骤5 根据showFavoritesOnly的状态值以及地标数据是否被用户标记为收藏来决定列表中展示的行的内容。
+第五节 创建过滤器来管理列表的展示内容 因为用户可以标记地标为收藏状态，所以需要提供方式让用户只看到自己收藏过的地标。现在要创建一个过滤器视图，使用Toggle控件给用户提供一个勾选设置，让用户选择是否过滤列表中的非收藏地标，只展示收藏过的地标。
+为了让用户可以快速筛选出自己喜欢的地标，这里会添加一下选择器弹出按钮，让用户可以根据地标的不同类别，选择过滤展示自己收藏的地标数据。
+步骤1 添加一个名为Filter.swift的SwiftUI视图。
+步骤2 添加userData属性作为环境注入对象，并更新预览视图。</description>
+    </item>
+    
+    <item>
+      <title>处理用户输入</title>
+      <link>https://swift.jokerhub.cn/swiftui/swiftui_essentials/handling_user_input/</link>
+      <pubDate>Thu, 30 Apr 2020 10:09:51 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/swiftui_essentials/handling_user_input/</guid>
+      <description>在Landmark应用中，标记喜爱的地方，过滤地标列表，只显示喜欢的地标。要增加这些特性，首先要在列表上添加一个开关，用来过滤用户喜欢的地标。在地标上添加一个星标按钮，用户可以点击它来标记这个地标为自己喜欢的。
+下载工程文件并且跟着下面的教程实践
+项目文件 HandlingUserInput.zip (6 MB) 第一节 标记用户最喜欢的地标 给地标列表的每一行添加一个星标用来表示用户是否标记该地标为自己喜欢的
+步骤1 打开工程项目，在项目导航下选择LandmarkRow.swift文件
+步骤2 在空白占位后面添加一个if表达式，if表达式判断是否当前地标是用户喜欢的，如果用户标记当前地标为喜欢就显示星标。可以在SwitUI的代码块中使用if语句来条件包含视图
+步骤3 由于系统图片是矢量类型的，可以使用foregroundColor(_:)来改变它的颜色。当地标landmark的isFavorite属性为真时，星标显示，稍后会讲怎么修改属性值。
+第二节 过滤列表 可以定制地标列表，让它只显示用户喜欢的地标，或者显示所有的地标。要实现这个功能，需要给LandmarkList视图类型添加一些状态变量。
+状态(State)是一个值或者一个值的集合，会随着时间而改变，同时会影响视图的内容、行为或布局。在属性前面加上@State修饰词就是给视图添加了一个状态值
+步骤1 选择LandmarkList.swift文件，并给LandmarkList添加一个名为showFavoritesOnly的状态，初始值设置为false
+步骤2 点击Resume按钮或快捷键Command+Option+P刷新画布。当对视图进行添加或修改属性等结构性改变时，需要手动刷新画布
+步骤3 代码中通过检查showFavoritesOnly属性和每一个地标的isFavorite属性值来过滤地标列表所展示的内容
+第三节 添加控件来切换状态 为了让用户控制地标列表的过滤器，需要添加一个可以修改showFavoritesOnly值的控件，传递一个绑定关系给toggle控件可以实现
+一个绑定关系(binding)是对可变状态的引用。当用户点击toggle控件，从开到关或从关到开，toggle控件会通过绑定关系对应的更新视图的状态
+步骤1 创建一个嵌套的ForEach组来把地标数据转换成地标行视图。在一个列表中组合静态和动态视图，或者组合两个甚至多个不同的动态视图组，使用ForEach类型动态生成而不是给列表传入数据集合生成列表视图
+步骤2 添加一个Toggle视图作为列表的每一个子视图，传入一个showFavoritesOnly的绑定关系。使用$前缀来获得一个状态变量或属性的绑定关系
+步骤3 实时预览模式下，点击Toggle控件来验证过滤器的功能
+第四节 使用可观察对象来存储数据 要实现用户标记哪个地标为自己喜爱的地标这个功能，需要使用可观察对象(observalble object)存放地标数据
+可观察对象是一种可以绑定到具体SwifUI视图环境中的数据对象。SwiftUI可以察觉它影响视图展示的任何变化，并在这种变化发生后及时更新对应视图的展示内容
+步骤1 创建一个名为UserData.swift的文件
+步骤2 声明一个遵循ObservableObject协议的新数据模型，ObservableObject协议来自响应式框架Combine。SwiftUI可以订阅可观察对象，并在数据发生改变时更新视图的显示内容
+步骤3 添加存储属性showFavoritesOnly和landmarks，并赋予初始值。可观察对象需要对外公布内部数据的任何改动，因此订阅此可观察对象的订阅者就可以获得对应的数据改动信息
+步骤4 给新建的数据模型的每一个属性添加@Published属性修饰词
+第五节 视图中适配数据模型对象 已经创建了UserData可观察对象，现在要改造视图，让它使用这个新的数据模型来存储视图内容数据
+步骤1 在LandmarkList.swift文件中，使用@EnvironmentObject修饰的userData属性来替换原来的showFavoritesOnly状态属性，并对预览视图调用environmentObject(_:)修改器。只要environmentObject(_:)修改器应用在视图的父视图上，userData就能够自动获取它的值。
+步骤2 替换原来使用showFavoritesOnly状态属性的地方，改为使用userData中的对应属性。与@State修饰的属性一样，也可以使用$前缀访问userData对象的成员绑定引用
+步骤3 创建ForEach实例时使用userData.landmarks做为数据源
+步骤4 在SceneDelegate.swift中，对LandmarkList视图调用environmentObject修改器，这样可以把UserData的数据对象绑定到LandmarkList视图的环境变量中，子视图可以获得父视图环境中的变量。此时如果在模拟器或者真机上运行应用，也可以正常展示视图内容
+步骤5 更新LandmarkDetail视图，让它从父视图的环境变量中取要展示的数据。之后在更新地标的用户喜爱状态时，会用到landmarkIndex这个变量
+步骤6 切换到LandmarkList.swift文件，并打开实时预览视图去验证所添加的功能是否正常工作
+第六节 为每一个地标创建一个喜爱按钮 Landmark这个应用可以在喜欢和不喜欢的地标列表间进行切换了，但喜欢的地标列表还是硬编码形成的，为了让用户可以自己标记哪个地标是自己喜欢的，需要在地标详情页添加一个标记喜欢的按钮
+步骤1 在LandmarkDetail.swift的HStack中添加地标名称的Text
+步骤2 在地标名称的Text控件旁边添加一个新的按钮控件。使用if-else条件语句设置不同的图片显示状态表示这个地标是否被用户标记为喜欢。在Button的动作闭包中，使用了landmarkIndex去修改userData中对应地标的数据。</description>
+    </item>
+    
+    <item>
+      <title>TDD 迭代循环</title>
+      <link>https://swift.jokerhub.cn/tdd/tdd_cycle/</link>
+      <pubDate>Sat, 30 Apr 2022 18:14:12 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/tdd/tdd_cycle/</guid>
+      <description>写任何业务代码前，先写一个会失败的测试用例 写最少的业务代码，让之前写的失败的测试用例通过测试 重构你的业务代码和测试用例代码 重复前面三个步骤，确何测试用例通正确通过测试 这个不断循环的开发流程被称为:Red - Green - Refactor循环
+在这个循环过程中，可以把编译失败也看做是一次测试失败来处理</description>
+    </item>
+    
+    <item>
+      <title>Swift Package Plugin</title>
+      <link>https://swift.jokerhub.cn/swiftpm/swiftpm_plugin/</link>
+      <pubDate>Sun, 16 Apr 2023 16:56:08 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftpm/swiftpm_plugin/</guid>
+      <description>Xcode 11 引入了Swift Package, 它提供了一种将库作为源代码发布的好方法，Xcode 14将这种方法进行了扩展，让它可以使用插件来执行操作。例如构建过程中生成源码、自动完成发布任务。
+什么是包插件(Package Plugin) 包插件是一种可以对软件包或者Xcode项目执行操作的Swift脚本，包插件使用Xcode专门提供的API，以软件包(Swift Package)的形式实现。一个软件包可以只包含一个插件，也可以包含多个插件。一个插件可以由多个Swift源文件构成。
+一个软件包(Swift Package)中不仅可以包含库(.library)、产品(.product)、可执行文件(.executable)，也可以包含插件(package plugins)
+软件包中定义的插件可以只限制在当前软件包中使用，也可以作为产品，提供给其它依赖方使用。与正常软件包被依赖的方式不同的时，插件的运行时内容不会带入App，但它可以访问项目所在构建机器上的相关工具或者目录。
+Xcode 14中支持了两种插件类型：Command Plugin和Build Tool Plugin
+命令插件可以执行类似代码格式化、更新git仓库贡献者列表或者一些预发布操作，有一些插件需要获取文件访问权限(例如代码格式化操作)，其它的插件可能不需要操作文件内容
+构建工具插件可以作用于每一个需要它们的编译Target，可以在项目构建过程中生成源码或者处理相关资源
+如果一个包插件在一个软件包中已经实现并允许被依赖，那么依赖包插件的方式和正常使用软件包的方式相关，只需要将插件所在的软件包添加到项目依赖中即可。
+要执行包插件，可以在Xcode中的包名上右键选择弹出的包插件菜单项，也可以用命令行的方式运行包插件。如果包插件定义了用户可输入的参数，在执行时也可以接受用户输入参数。
+包插件在Xcode中运行时，会弹窗提示用户需要针对哪些Target运行，如果插件运行涉及到获取文件访问权限，Xcode也会提示用户，并可以跳转到插件中实际申请文件访问权限的代码位置。
+包插件是如何工作的? 包插件是根据需要进行编译运行的Swift脚本，每一个包插件都在一个单独的进程中运行。包插件可以获取到运行所在软件包的相关信息、机器的命令行工具、操作文件系统、调用基础库能力去完成工作。
+包插件是在阻止访问网络的沙盒环境中运行的，默认可以直接读写指定的几个文件系统位置。命令插件需要访问其它文件系统位置，需要额外请求对应的权限。
+包插件也可以将执行结果发给Xcode，让Xcode展示一些提示信息、警告或者错误。
+包插件的实现依赖Xcode中PackagePlugin模块提供的API。下面是一个插件定义的简化示例：
+import PackagePlugin @main struct MyPlugin: CommandPlugin { // 入口函数的定义，依赖于插件的具体类型 } 命令插件(Command Plugin) 命令插件扩展了开发工作流程，它直接作用于软件包，不在项目构建期间运行。并非所有的命令插件都需要文件系统权限，但如果命令插件确实需要申请文件系统权限，需要在包清单文件中指明相关权限申请项信息。有申请权限的命令插件，在运行之前，Xcode会提示用户是否授权命令插件需要的对应权限，只有用户允许对应的权限，插件才能运行。
+插件通常很小，依赖其它工具完成任务，依赖项可以是源码，也可以二进制文件，在插件运行之前，Xcode会对相关依赖工具的源码进行编译。
+一个命令插件的定义框架示例：
+import PackagePlugin @main struct MyPlugin: CommandPlugin { // 入口函数的定义，依赖于插件的具体类型 func performCommand(context: PluginContext, arguments: [String]) throws { // 执行插件逻辑 } } 除了在Xcode中使用GUI的方式调用插件运行外，还可以使用命令行工具运行插件。Swift Package Manager 5.6时提供了和插件相关的子命令，swift package plugin --list可以用来查看所有插件。涉及到需要获取额外文件系统权限申请的命令插件时，使用命令行方式运行，也会有对应的权限提示，询问用户是否授与对应插件相应的权限。如果在命令行运行插件时想到默认直接允许权限申请时，可以使用--allow-writing-to-package-directory选项。命令行运行时，也可以给插件传入对应的参数。</description>
+    </item>
+    
+    <item>
+      <title>高级开发者学习笔记</title>
+      <link>https://swift.jokerhub.cn/dp/note/</link>
+      <pubDate>Fri, 24 Feb 2023 00:01:05 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/dp/note/</guid>
+      <description>单例和全局可变状态 Singleton: 完整的单例，一个类型只有一个实例 singleton: 不完整单例，一个类型有一个公用实例，但也可以根据需求创建其它实例 global mutable state: 全局可变状态会对单元测试造成阻碍，应该尽量避免 依赖反转(倒置) 注入方法 通过闭包：单个的闭包可以看作是只有一个接口声明的协议，它们可以相互转换 通过协议：是一组接口的包装 注入方式 初始化构造器注入 属性成员注入 方法注入 依赖图 依赖图是一种交流工具，设计工具
+实线空箭头: 表示类继承关系 实线实箭头: 表示成员强依赖关系 虚线空箭头: 表示协议遵循关系 虚线实箭头: 表示成员弱依赖关系 方框加类名表示类型 方框类名尖括号包裹表示协议类型，即接口。 类型组合 可以把不同的类型组合成一个新的类型
+开闭原则+依赖倒置 模块化设计 模块化设计后，一些和特定平台无关的模块，可以单独进行测试，平台解藕也可以实现。 例如：原来在iOS模拟器跑的模块测试可以转移到Mac设备上进行，从而提升效率
+模块化设计后，不同的模块开发工作可以合理的并行开发，节省时间成本，提高开发效率
+所有的架构都是好的，区别只在于需要解决问题时的具体选择。选择最合适的架构优雅的解决问题才是目的
+好的架构是由良好的沟通中产生的
+建立良好的需求开发流程
+BDD-&amp;gt;TDD-&amp;gt;UserCases-&amp;gt;Architecture-&amp;gt;ModularDesign
+沟通是关键，明确需求，细化实现，降低风险
+尽量少用单例模式，通常单例模式是反模式的，不利于维护，我们使用单例大部分场景，只是为了更方便的调用，仅此而已，但这不利于代码的模块化设计，因为会造成很多耦合点
+写单元测试 SUT(System Under Test) 测试方法命名：test_method_expectation 单元测试涉及的四个术语：
+Stubbing Spying Mock dummy 善用Result类型，可以简化分支数量
+测试网络请求的方法 端到端：通过检查客户端-服务端之间真实的请求进行，由于依赖真实的网络请求，所以效率比较低，无法单独进行测试。 子类Mock：不适合对我们不清楚的类进行子类化 协议Mock：UR Loading System 请求拦截：URLProtocol/registerClass(AnyClass)/unregisterClass(AnyClass) </description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://swift.jokerhub.cn/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/about/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

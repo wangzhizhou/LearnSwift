@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.108.0">
+    <meta name="description" content="Swift学习">
+<meta name="author" content="王志舟">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Swift Package Plugin - Learn Swift</title>
+
+    
+    <link href="/css/nucleus.css?1711337756" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1711337756" rel="stylesheet">
+    <link href="/css/hybrid.css?1711337756" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1711337756" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1711337756" rel="stylesheet">
+    <link href="/css/auto-complete.css?1711337756" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1711337756" rel="stylesheet">
+    <link href="/css/theme.css?1711337756" rel="stylesheet">
+    <link href="/css/tabs.css?1711337756" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1711337756" rel="stylesheet">
+    
+    <link href="/css/theme-mine.css?1711337756" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1711337756"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/swiftpm/swiftpm_plugin/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+    <svg id="grav-logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 448 512" xml:space="preserve">
+		<g>
+			<path fill="currentColor" d="M448 156.09c0-4.51-.08-9-.2-13.52a196.31 196.31 0 0 0-2.58-29.42 99.62 99.62 0 0 0-9.22-28A94.08 94.08 0 0 0 394.84 44a99.17 99.17 0 0 0-28-9.22 195 195 0 0 0-29.43-2.59c-4.51-.12-9-.17-13.52-.2H124.14c-4.51 0-9 .08-13.52.2-2.45.07-4.91.15-7.37.27a171.68 171.68 0 0 0-22.06 2.32 103.06 103.06 0 0 0-21.21 6.1q-3.46 1.45-6.81 3.12a94.66 94.66 0 0 0-18.39 12.32c-1.88 1.61-3.69 3.28-5.43 5A93.86 93.86 0 0 0 12 85.17a99.45 99.45 0 0 0-9.22 28 196.31 196.31 0 0 0-2.54 29.4c-.13 4.51-.18 9-.21 13.52v199.83c0 4.51.08 9 .21 13.51a196.08 196.08 0 0 0 2.58 29.42 99.3 99.3 0 0 0 9.22 28A94.31 94.31 0 0 0 53.17 468a99.47 99.47 0 0 0 28 9.21 195 195 0 0 0 29.43 2.59c4.5.12 9 .17 13.52.2H323.91c4.51 0 9-.08 13.52-.2a196.59 196.59 0 0 0 29.44-2.59 99.57 99.57 0 0 0 28-9.21A94.22 94.22 0 0 0 436 426.84a99.3 99.3 0 0 0 9.22-28 194.79 194.79 0 0 0 2.59-29.42c.12-4.5.17-9 .2-13.51V172.14c-.01-5.35-.01-10.7-.01-16.05zm-69.88 241c-20-38.93-57.23-29.27-76.31-19.47-1.72 1-3.48 2-5.25 3l-.42.25c-39.5 21-92.53 22.54-145.85-.38A234.64 234.64 0 0 1 45 290.12a230.63 230.63 0 0 0 39.17 23.37c56.36 26.4 113 24.49 153 0-57-43.85-104.6-101-141.09-147.22a197.09 197.09 0 0 1-18.78-25.9c43.7 40 112.7 90.22 137.48 104.12-52.57-55.49-98.89-123.94-96.72-121.74 82.79 83.42 159.18 130.59 159.18 130.59 2.88 1.58 5 2.85 6.73 4a127.44 127.44 0 0 0 4.16-12.47c13.22-48.33-1.66-103.58-35.31-149.2C329.61 141.75 375 229.34 356.4 303.42c-.44 1.73-.95 3.4-1.44 5.09 38.52 47.4 28.04 98.17 23.13 88.59z">
+			</path>
+		</g>
+	</svg>
+</a>
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="搜索...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1711337756"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1711337756"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/swift.jokerhub.cn";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1711337756"></script>
+
+    
+  </div>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swift/" title="Swift" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swift/">
+          <b>1. </b>Swift
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/" title="SwiftUI" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/">
+          <b>2. </b>SwiftUI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/swiftui_essentials/" title="SwiftUI基础" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/swiftui_essentials/">
+          SwiftUI基础
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/creating_and_combining_views/" title="创建和组合视图" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/creating_and_combining_views/">
+        创建和组合视图
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/building_lists_and_navigation/" title="创建列表和导航" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/building_lists_and_navigation/">
+        创建列表和导航
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/handling_user_input/" title="处理用户输入" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/handling_user_input/">
+        处理用户输入
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/drawing_and_animation/" title="绘制和动画" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/drawing_and_animation/">
+          绘制和动画
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/drawing_and_animation/drawing_paths_and_shapes/" title="绘制路径和形状" class="dd-item ">
+        <a href="/swiftui/drawing_and_animation/drawing_paths_and_shapes/">
+        绘制路径和形状
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/drawing_and_animation/animating_views_and_transitions/" title="视图动画和转场" class="dd-item ">
+        <a href="/swiftui/drawing_and_animation/animating_views_and_transitions/">
+        视图动画和转场
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/app_design_and_layout/" title="应用设计与布局" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/app_design_and_layout/">
+          应用设计与布局
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/app_design_and_layout/composing_complex_interfaces/" title="组合复杂用户界面" class="dd-item ">
+        <a href="/swiftui/app_design_and_layout/composing_complex_interfaces/">
+        组合复杂用户界面
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/app_design_and_layout/working_with_ui_controls/" title="玩转UI控件" class="dd-item ">
+        <a href="/swiftui/app_design_and_layout/working_with_ui_controls/">
+        玩转UI控件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/framework_integration/" title="框架集成" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/framework_integration/">
+          框架集成
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/interfaceing_with_uikit/" title="与UIKit交互" class="dd-item ">
+        <a href="/swiftui/framework_integration/interfaceing_with_uikit/">
+        与UIKit交互
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/creating_a_watchos_app/" title="创建watchOS应用" class="dd-item ">
+        <a href="/swiftui/framework_integration/creating_a_watchos_app/">
+        创建watchOS应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/creating_a_macos_app/" title="创建macOS应用" class="dd-item ">
+        <a href="/swiftui/framework_integration/creating_a_macos_app/">
+        创建macOS应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftpm/" title="SwiftPM" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/swiftpm/">
+          <b>3. </b>SwiftPM
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/spm_in_cli/" title="命令行下的SPM" class="dd-item ">
+        <a href="/swiftpm/spm_in_cli/">
+        命令行下的SPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/spm_in_xcode/" title="Xcode中的SPM" class="dd-item ">
+        <a href="/swiftpm/spm_in_xcode/">
+        Xcode中的SPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/swiftpm_plugin/" title="Swift Package Plugin" class="dd-item active">
+        <a href="/swiftpm/swiftpm_plugin/">
+        Swift Package Plugin
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/combine/" title="Combine" class="dd-item
+        
+        
+        
+        ">
+      <a href="/combine/">
+          <b>4. </b>Combine
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/tdd/" title="TDD" class="dd-item
+        
+        
+        
+        ">
+      <a href="/tdd/">
+          <b>5. </b>TDD
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/tdd/tdd_cycle/" title="TDD 迭代循环" class="dd-item ">
+        <a href="/tdd/tdd_cycle/">
+        TDD 迭代循环
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/dp/" title="Design Pattern" class="dd-item
+        
+        
+        
+        ">
+      <a href="/dp/">
+          <b>6. </b>Design Pattern
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/dp/note/" title="高级开发者学习笔记" class="dd-item ">
+        <a href="/dp/note/">
+        高级开发者学习笔记
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li>
+                  <a class="padding" href="https://github.com/wangzhizhou/LearnSwift.git"><i class='fab fa-fw fa-github'></i> GitHub 仓库</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/videos/all-videos/?q=swiftui"><i class='fas fa-fw fa-video'></i> SwiftUI 视频</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/swiftui/"><i class='fas fa-fw fa-receipt'></i> SwiftUI 文档</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://learn.netlify.app/en/"><i class='fas fa-fw fa-book'></i> Learn 主题</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swift.jokerhub.cn/tags"><i class='fas fa-tags'></i> Tags 标签</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/tutorials/swiftui/tutorials/"><i class='fab fa-apple'></i> SwiftUI 官方教程(英文)</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://fontawesome.com/icons?d=gallery&amp;m=free"><i class='fab fa-sketch'></i> Font Awesome</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swift.org"><i class='fas fa-book-open'></i> Swift 官网</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/forums/"><i class='fas fa-question-circle'></i> Apple 官方论坛</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/sample-code"><i class='fas fa-file-code'></i> Apple 示例代码</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/"><i class='fas fa-folder'></i> Apple 官方文档</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://www.flaticon.com/"><i class='fas fa-sun'></i> flaticon</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swiftpackageindex.com/"><i class='fas fa-archive'></i> SPM 查询</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://toml.io"><i class='fas fa-paper-plane'></i> TOML 语法</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://salttiger.com"><i class='fas fa-book-reader'></i> SaltTiger 书籍下载</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/visionos"><i class='fas fa-solid fa-vr-cardboard'></i> visionOS</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <center>
+</center>
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='编辑当前页' href="https://github.com/wangzhizhou/LearnSwift/edit/master/docs/swiftpm/swiftpm_plugin.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">编辑当前页</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Learn Swift</a> > <a href='/swiftpm/'>SwiftPM</a> > Swift Package Plugin
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#什么是包插件package-plugin">什么是包插件(Package Plugin)</a></li>
+        <li><a href="#包插件是如何工作的">包插件是如何工作的?</a></li>
+        <li><a href="#命令插件command-plugin">命令插件(Command Plugin)</a></li>
+        <li><a href="#构建工具插件build-tool-plugin">构建工具插件(Build Tool Plugin)</a></li>
+        <li><a href="#创建包插件swift-packag-plugins">创建包插件(Swift Packag Plugins)</a></li>
+        <li><a href="#相关参考资料">相关参考资料</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Swift Package Plugin
+            </h1>
+          
+
+        
+
+
+<p>Xcode 11 引入了Swift Package, 它提供了一种将库作为源代码发布的好方法，Xcode 14将这种方法进行了扩展，让它可以使用插件来执行操作。例如构建过程中生成源码、自动完成发布任务。</p>
+<h3 id="什么是包插件package-plugin">什么是包插件(Package Plugin)</h3>
+<p>包插件是一种可以对软件包或者Xcode项目执行操作的Swift脚本，包插件使用Xcode专门提供的API，以软件包(Swift Package)的形式实现。一个软件包可以只包含一个插件，也可以包含多个插件。一个插件可以由多个Swift源文件构成。</p>
+<p>一个软件包(Swift Package)中不仅可以包含库(.library)、产品(.product)、可执行文件(.executable)，也可以包含插件(package plugins)</p>
+<p>软件包中定义的插件可以只限制在当前软件包中使用，也可以作为产品，提供给其它依赖方使用。与正常软件包被依赖的方式不同的时，插件的运行时内容不会带入App，但它可以访问项目所在构建机器上的相关工具或者目录。</p>
+<p>Xcode 14中支持了两种插件类型：<code>Command Plugin</code>和<code>Build Tool Plugin</code></p>
+<ul>
+<li>
+<p>命令插件可以执行类似代码格式化、更新git仓库贡献者列表或者一些预发布操作，有一些插件需要获取文件访问权限(例如代码格式化操作)，其它的插件可能不需要操作文件内容</p>
+</li>
+<li>
+<p>构建工具插件可以作用于每一个需要它们的编译Target，可以在项目构建过程中生成源码或者处理相关资源</p>
+</li>
+</ul>
+<p>如果一个包插件在一个软件包中已经实现并允许被依赖，那么依赖包插件的方式和正常使用软件包的方式相关，只需要将插件所在的软件包添加到项目依赖中即可。</p>
+<p>要执行包插件，可以在Xcode中的包名上右键选择弹出的包插件菜单项，也可以用命令行的方式运行包插件。如果包插件定义了用户可输入的参数，在执行时也可以接受用户输入参数。</p>
+<p>包插件在Xcode中运行时，会弹窗提示用户需要针对哪些Target运行，如果插件运行涉及到获取文件访问权限，Xcode也会提示用户，并可以跳转到插件中实际申请文件访问权限的代码位置。</p>
+<h3 id="包插件是如何工作的">包插件是如何工作的?</h3>
+<p>包插件是根据需要进行编译运行的Swift脚本，每一个包插件都在一个单独的进程中运行。包插件可以获取到运行所在软件包的相关信息、机器的命令行工具、操作文件系统、调用基础库能力去完成工作。</p>
+<p>包插件是在阻止访问网络的沙盒环境中运行的，默认可以直接读写指定的几个文件系统位置。命令插件需要访问其它文件系统位置，需要额外请求对应的权限。</p>
+<p>包插件也可以将执行结果发给Xcode，让Xcode展示一些提示信息、警告或者错误。</p>
+<p>包插件的实现依赖Xcode中<code>PackagePlugin</code>模块提供的API。下面是一个插件定义的简化示例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">PackagePlugin</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@main
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MyPlugin</span>: CommandPlugin {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 入口函数的定义，依赖于插件的具体类型</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="命令插件command-plugin">命令插件(Command Plugin)</h3>
+<p>命令插件扩展了开发工作流程，它直接作用于软件包，不在项目构建期间运行。并非所有的命令插件都需要文件系统权限，但如果命令插件确实需要申请文件系统权限，需要在包清单文件中指明相关权限申请项信息。有申请权限的命令插件，在运行之前，Xcode会提示用户是否授权命令插件需要的对应权限，只有用户允许对应的权限，插件才能运行。</p>
+<p>插件通常很小，依赖其它工具完成任务，依赖项可以是源码，也可以二进制文件，在插件运行之前，Xcode会对相关依赖工具的源码进行编译。</p>
+<p>一个命令插件的定义框架示例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">PackagePlugin</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@main
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MyPlugin</span>: CommandPlugin {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 入口函数的定义，依赖于插件的具体类型</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">performCommand</span>(context: PluginContext, arguments: [String]) <span style="color:#66d9ef">throws</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 执行插件逻辑</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>除了在Xcode中使用GUI的方式调用插件运行外，还可以使用命令行工具运行插件。Swift Package Manager 5.6时提供了和插件相关的子命令，<code>swift package plugin --list</code>可以用来查看所有插件。涉及到需要获取额外文件系统权限申请的命令插件时，使用命令行方式运行，也会有对应的权限提示，询问用户是否授与对应插件相应的权限。如果在命令行运行插件时想到默认直接允许权限申请时，可以使用<code>--allow-writing-to-package-directory</code>选项。命令行运行时，也可以给插件传入对应的参数。</p>
+<h3 id="构建工具插件build-tool-plugin">构建工具插件(Build Tool Plugin)</h3>
+<p>构建工具插件在调用时不会立即完成任务，它只是为构建系统提供对应时机的回调，以便在项目构建的对应时机执行预先定义好的行为。</p>
+<p>构建工具插件在阻止网络访问的沙盒中运行，它不能对包做任何修改。一个构建工具插件的定义框架发示例如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">PackagePlugin</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@main
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">MyPlugin</span>: BuildToolPlugin {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 入口函数的定义，依赖于插件的具体类型</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createBuildCommands</span>(context: PluginContext, target: Target) <span style="color:#66d9ef">throws</span> -&gt; [Command] {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 配置并返回构建命令</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>构建工具插件可以定义两种类型的构建命令：</p>
+<ol>
+<li>预构建命令：构建开始之前执行的命令</li>
+<li>普通构建命令：指定输入/输出路径，只用在输出路径缺失或者输入路径发生变化时执行</li>
+</ol>
+<h3 id="创建包插件swift-packag-plugins">创建包插件(Swift Packag Plugins)</h3>
+<p>软件包插件是一种使用 <code>PackagePlugin API</code> 的类似于软件包清单的Swift代码，插件可以通过定义明确的扩展点扩展 Xcode或Swift软件包管理器的功能。</p>
+<p>Swift工具链版本需要在5.6版本及以上才支持包插件功能。Swift清单文件中需要指定工具链版本至少是5.6，清单文件中定义插件的示例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span>.plugin(
+</span></span><span style="display:flex;"><span>    name: <span style="color:#e6db74">&#34;GenerateContributors&#34;</span>,
+</span></span><span style="display:flex;"><span>    capability:.command(
+</span></span><span style="display:flex;"><span>        intent: .custom(
+</span></span><span style="display:flex;"><span>            verb: <span style="color:#e6db74">&#34;regenerate-contributors-list&#34;</span>,
+</span></span><span style="display:flex;"><span>            description: <span style="color:#e6db74">&#34;Generates the CONSTRIBUTORS.txt file based on Git logs&#34;</span>
+</span></span><span style="display:flex;"><span>        ),
+</span></span><span style="display:flex;"><span>        permissions: [
+</span></span><span style="display:flex;"><span>            .writeToPackageDirectory(reason: <span style="color:#e6db74">&#34;Writes CONTRIBUTORS.txt to the source root.&#34;</span>)
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>如果在Xcode中右键包名时，菜单里没有出现插件项时，重启Xcode可以解决。</p>
+<p>在软件包根目录中创建<code>Plugins/GenerateContributors/</code>目录，并新建<code>plugin.swift</code>文件，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Foundation</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">PackagePlugin</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@main
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">GenerateContributors</span>: CommandPlugin {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">performCommand</span>(context: PackagePlugin.PluginContext, arguments: [String]) async <span style="color:#66d9ef">throws</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> process = Process()
+</span></span><span style="display:flex;"><span>        process.executableURL = URL(fileURLWithPath: <span style="color:#e6db74">&#34;/usr/bin/git&#34;</span>)
+</span></span><span style="display:flex;"><span>        process.arguments = [<span style="color:#e6db74">&#34;log&#34;</span>, <span style="color:#e6db74">&#34;--pretty=format:- %an &lt;%ae&gt;%n&#34;</span>]
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> outputPipe = Pipe()
+</span></span><span style="display:flex;"><span>        process.standardOutput = outputPipe
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> process.run()
+</span></span><span style="display:flex;"><span>        process.waitUntilExit()
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> output = String(decoding: outputData, <span style="color:#66d9ef">as</span>: UTF8.<span style="color:#66d9ef">self</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> contributors = Set(output.components(separatedBy: CharacterSet.newlines)).sorted().filter { <span style="color:#f92672">!</span>$0.isEmpty }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> contributors.joined(separator: <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>).write(toFile: <span style="color:#e6db74">&#34;CONTRIBUTORS.txt&#34;</span>, atomically: <span style="color:#66d9ef">true</span>, encoding: .utf8)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="插件运行细节">插件运行细节</h4>
+<p>插件运行在沙盒中，网络连接以及除插件本身运行目录之外的非临时位置都会被禁止。自定义命令可以选择性声明是否写入软件包根目录，如果要包装已有的第三方工具，必须考虑如何将其限制在沙盒模式中。例如：可以通过配置生成文件的写入位置来实现</p>
+<h4 id="构建工具插件">构建工具插件</h4>
+<p>构建工具插件的两种不同类型区分的要点是工具是否定义了输出集。如果有输出集，可以创建构建时命令，输出与输入对比如果过时，构建系统会自动重新运行。如果没有输出集，可以创建构建前命令，构建前命令会在每次构建开始时运行，应该避免在构建前命令中执行耗时操作。</p>
+<h5 id="构建时命令">构建时命令</h5>
+<p>构建时命令与自定义命令的不同之处在于，除了描述可执行文件，还需要指定输入输出</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    .executableTarget(name: <span style="color:#e6db74">&#34;AssetConstantsExec&#34;</span>),
+</span></span><span style="display:flex;"><span>    .plugin(name: <span style="color:#e6db74">&#34;AssetConstants&#34;</span>, capability: .buildTool(), dependencies: [<span style="color:#e6db74">&#34;AssetConstantsExec&#34;</span>])
+</span></span></code></pre></div><p>Plugins/AssetConstants/plugin.swift文件示例如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">PackagePlugin</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">AssetConstants</span>: BuildToolPlugin {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createBuildCommands</span>(context: PluginContext, target: Target) async <span style="color:#66d9ef">throws</span> -&gt; [Command] {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">guard</span> <span style="color:#66d9ef">let</span> target = target <span style="color:#66d9ef">as</span>? SourceModuleTarget <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> []
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">try</span> target.sourceFiles(withSuffix: <span style="color:#e6db74">&#34;xcassets&#34;</span>).map { asset <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> base = asset.path.stem
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> input = asset.path
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> output = context.pluginWorkDirectory.appending([<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\(</span>base<span style="color:#e6db74">)</span><span style="color:#e6db74">.swift&#34;</span>])
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> .buildCommand(displayName: <span style="color:#e6db74">&#34;Generating constrants for </span><span style="color:#e6db74">\(</span>base<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>, executable: <span style="color:#66d9ef">try</span> context.tool(named: <span style="color:#e6db74">&#34;AssetConstantsExec&#34;</span>).path, arguments: [input.string, output.string],
+</span></span><span style="display:flex;"><span>                                 inputFiles: [input],
+</span></span><span style="display:flex;"><span>                                 outputFiles: [output]
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h5 id="预编译命令">预编译命令</h5>
+<p>与构建时命令的区别之处在于，预编译命令返回的值是<code>.prebuildCommand</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">PackagePlugin</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">AssetConstants</span>: BuildToolPlugin {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createBuildCommands</span>(context: PluginContext, target: Target) async <span style="color:#66d9ef">throws</span> -&gt; [Command] {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">guard</span> <span style="color:#66d9ef">let</span> target = target <span style="color:#66d9ef">as</span>? SourceModuleTarget <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span> []
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> resourcesDirectoryPath = context.pluginWorkDirectory
+</span></span><span style="display:flex;"><span>                    .appending(subpath: target.name)
+</span></span><span style="display:flex;"><span>                    .appending(subpath: <span style="color:#e6db74">&#34;Resources&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> localizationDirectoryPath = resourcesDirectoryPath
+</span></span><span style="display:flex;"><span>                    .appending(subpath: <span style="color:#e6db74">&#34;Base.lproj&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span> FileManager.<span style="color:#66d9ef">default</span>.createDirectory(atPath: localizationDirectoryPath.string, withIntermediateDirectories: <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> swiftSourceFiles = target.sourceFiles(withSuffix: <span style="color:#e6db74">&#34;.swift&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> inputFiles = swiftSourceFiles.map(<span style="color:#960050;background-color:#1e0010">\</span>.path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> [
+</span></span><span style="display:flex;"><span>                    .prebuildCommand(
+</span></span><span style="display:flex;"><span>                        displayName: <span style="color:#e6db74">&#34;Generating localized strings from source files&#34;</span>,
+</span></span><span style="display:flex;"><span>                        executable: .<span style="color:#66d9ef">init</span>(<span style="color:#e6db74">&#34;/usr/bin/xcrun&#34;</span>),
+</span></span><span style="display:flex;"><span>                        arguments: [
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;genstrings&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;-SwiftUI&#34;</span>,
+</span></span><span style="display:flex;"><span>                            <span style="color:#e6db74">&#34;-o&#34;</span>, localizationDirectoryPath
+</span></span><span style="display:flex;"><span>                        ] <span style="color:#f92672">+</span> inputFiles,
+</span></span><span style="display:flex;"><span>                        outputFilesDirectory: localizationDirectoryPath
+</span></span><span style="display:flex;"><span>                    )
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="相关参考资料">相关参考资料</h3>
+<ul>
+<li><a href="https://developer.apple.com/videos/play/wwdc2022/110359/">Swift 软件包插件简介</a></li>
+<li><a href="https://developer.apple.com/videos/play/wwdc2022/110401/">构建Swift软件包插件</a></li>
+</ul>
+
+
+<footer class="footline">
+	
+</footer>
+
+
+</div>
+
+
+</div>
+
+<div id="navigation">
+
+
+
+
+
+
+    
+        
+        
+    
+    
+
+        
+        
+            
+        
+        
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+            
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+
+
+
+
+
+
+
+
+
+<a class="nav nav-prev" href="/swiftpm/spm_in_xcode/" title="Xcode中的SPM"> <i class="fa fa-chevron-left"></i></a>
+
+
+<a class="nav nav-next" href="/combine/" title="Combine" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+
+
+</div>
+
+</section>
+
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+<div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>
+<script src="/js/clipboard.min.js?1711337756"></script>
+<script src="/js/perfect-scrollbar.min.js?1711337756"></script>
+<script src="/js/perfect-scrollbar.jquery.min.js?1711337756"></script>
+<script src="/js/jquery.sticky.js?1711337756"></script>
+<script src="/js/featherlight.min.js?1711337756"></script>
+<script src="/js/highlight.pack.js?1711337756"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/modernizr.custom-3.6.0.js?1711337756"></script>
+<script src="/js/learn.js?1711337756"></script>
+<script src="/js/hugo-learn.js?1711337756"></script>
+
+
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+
+<script>
+mermaid.initialize({ startOnLoad: true });
+</script>
+
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+</body>
+</html>

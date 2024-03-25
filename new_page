@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-#-*- coding: utf-8 -*-
-
-hugo new $1 \
---contentDir="docs" \

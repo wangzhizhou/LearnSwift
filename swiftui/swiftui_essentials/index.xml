@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SwiftUI基础 on Learn Swift</title>
+    <link>https://swift.jokerhub.cn/swiftui/swiftui_essentials/</link>
+    <description>Recent content in SwiftUI基础 on Learn Swift</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 29 Apr 2020 02:19:26 +0800</lastBuildDate><atom:link href="https://swift.jokerhub.cn/swiftui/swiftui_essentials/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>创建和组合视图</title>
+      <link>https://swift.jokerhub.cn/swiftui/swiftui_essentials/creating_and_combining_views/</link>
+      <pubDate>Thu, 30 Apr 2020 10:08:56 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/swiftui_essentials/creating_and_combining_views/</guid>
+      <description>这个教程指导你构建一个名为Landmarks(地标)的应用。这个应用的功能是可以发现并分享你喜欢的地标。首先从创建地标详情页开始。
+Landmarks使用栈来按层组合图片、文本等视图元素，从而布局页面。在视图中添加地图，需要引入MapKit组件，在你布局页面的过程中， Xcode可以提供实时的反馈，让你所做的改动立即转化成对应的代码实现。
+项目文件 CreatingAndCombiningViews.zip (785 KB) 第一节 创建新项目并体验画布 创建SwiftUI项目工程，体验画布、预览模式和SwiftUI模板代码
+要想在Xcode中预览画布中的视图或者与画布中的视图进行交互，要求你的Mac系统版本号不低于macOS Catalina 10.15
+步骤1 打开Xcode，在启动页面点击创建新工程或者在菜单中选择文件-&amp;gt;新建-&amp;gt;项目
+步骤2 在项目模板选择器中，选择iOS作为项目平台，选项单视图应用(Single View App)作为项目模板，并点击下一步(Next)
+步骤3 输入Landmarks作为项目名称，选择SwiftUI作为用户界面的创建方式，并点击下一步(Next)，在磁盘目录下选择一个位置用来存放新创建的工程项目
+步骤4 工程创建好并打开后，在文件导航器中，选择ContentView.swift文件，可以浏览一下SwiftUI视图的组成结构。默认情况下，SwiftUI的视图文件包含两个结构体(Struct) 第一个结构体遵循View协议，描述视图的内容和布局。第二个结构体声明为第一个视图的预览视图。
+步骤5 在**画布(Canvas)上，点击恢复(Resume)**按钮可以显示预览视图，也可以使用快捷键Command+Option+P
+如果工程中没有出现画布(Canvas)，可以选择菜单:编辑器(Editor) -&amp;gt; 编辑器和画布(Editor and Canvas) 打开画布进行预览
+步骤6 在body属性内部，修改文字Hello World为其它的不同的文字，当你在改变代码的同时，预览视图也会实时的更新对应的内容变化
+第二节 定制文本视图(Text View) 可能通过修改代码来改变一个视图的显示样式，也可以通过检查器获取视图可修改属性，然后再写对应的代码改变样式。在创建应用的过程中，可以同时使用源码编辑器、画布或者检查器，无论当前使用的是哪一个工具编辑视图，代码会保持和这些编辑器展示的样式一致
+下面我们使用检查器来定制视图的显示样式
+步骤1 在预览视图中，按下Command键的同时点击控件，会弹出一个编辑弹层，然后选择检查器(Inspect), 编辑弹层显示所有可以定制的视图属性，选中的控件不同，可以定制的属性集合也不相同
+步骤2 使用检查器把文字更改为Turtle Rock，也就是在应用中显示的第一个地标的名称
+步骤3 改变字体修改器为Title，使用系统字体修饰文字，可以自动按照用户在设备中设置的字体偏好大小进行调整。定制SwiftUI视图所调用的方法被称为视图修改器(Modifiers)，修改器在原视图的基础上修改部分显示样式和属性，返回一个新的视图，这样就可以让多个修改器串连进行，形成水平方向的链式调用，或者垂直方向的堆叠调用
+步骤4 手动在代码中添加foregroundColor(.green) 属性修改器，就会把文字的颜色调整为绿色。代码是决定视图样式的根本，当我们使用检查器来改变或移除一个属性修改器时，Xcode也会在代码编辑器中同步改变或移除对应的修改器代码
+步骤5 在代码编辑器中，按下Command的同时点击Text单词也可以属性弹窗，从中选择检查器后，再点击Color弹出菜单，选择继承(Inherited)，让文字的颜色恢复成原来的黑色
+步骤6 当我们移除 foregroundColor(.green) 时，Xcode会自动更新你的代码来反映视图的实际显示状况
+第三节 使用栈来组合视图 上一节创建了标题视图，接下来要添加一些文本视图来描述地标所在州及所在公园的名称等其它详细信息
+创建SwiftUI视图就是在body属性中描述视图的内容、布局及行为，但body属性只返回单个视图，这时组合多个视图时可以把它们放入一个栈中，通过水平、垂直、前后嵌套多个视图完成视图组合，做为一个整体在body属性中返回
+这一节中，使用一个垂直栈，把标题放在包含公园详情的水平栈的上方，在水平栈中，布局公园详情相关的内容
+可以使用Xcode提供的结构化布局来把视图嵌套在容器视图中
+步骤1 按下Command键的同时，点击Text视图的初始化代码打开结构化编辑弹窗，然后选择把控件嵌套在垂直栈中(Embed in VStack)，在栈中添加Text View控件可以从组件中直接拖进栈中完成
+步骤2 点击Xcode右上角的**+**号，托动一个Text控件到指定位置，代码立即就会在编辑器中补全</description>
+    </item>
+    
+    <item>
+      <title>创建列表和导航</title>
+      <link>https://swift.jokerhub.cn/swiftui/swiftui_essentials/building_lists_and_navigation/</link>
+      <pubDate>Thu, 30 Apr 2020 10:09:35 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/swiftui_essentials/building_lists_and_navigation/</guid>
+      <description>地标详情页视图已经创建完成，我们需要提供一种方式让用户可以查看完整的地标列表，并且可以查看每一个地标的详情
+下面会创建一个可以展示任何地标信息的视图，并动态生成一个可滚动列表，用户可以点击列表项去查看地标的详细信息。优化视图显示时，可以使用Xcode画布来渲染多个不同设备大小下的预览视图。
+下载下面的工程文件，并跟着教程一步步学习构建列表和视图间导航
+项目文件 BuildingListsAndNavigation.zip (6 MB) 第一节 了解样本数据 前面的教程中，自定义视图所展示的信息都直接被写死在代码中，这篇教程中会学习给自定义视图传入样本数据进行展示
+步骤1 打开项目导航器，选择Models-&amp;gt;Landmark.swift文件，这个文件中声明了需要在应用中展示一个地标所需要信息的结构化名称，并通过导入landmarkData.json文件中的数据，生成一个地标信息数组。
+步骤2 在项目导航器中选择Resources-&amp;gt;landmarkData.json，在后面的教程中我们都会使用这个样本数据文件
+步骤3 注意，之前的ContentView视图，已经被改名为LandmarkDetail了，在本教程和后面的教程中，还会创建一些其它的视图
+第二节 创建行视图 本教程中创建的第一个视图就是用来显示每个地标的行视图，行视图把地标的相关信息存储在一个属性中，一行就可以代表一个地标，稍后就会把这些行组合成为一个列表。
+步骤1 创建一个名为LandmarkRow.swift的SwiftUI视图
+步骤2 如果预览视图没有出现，可以选择菜单编辑器-&amp;gt;画布，打开画布，并点击Resume进行预览，或者使用Command+Option+Enter快捷键调出画面，再使用Command+Option+P快捷键开始预览模式
+步骤3 添加landmark属性做为LandmarkRow视图的一个存储属性。当添加landmark属性后，预览视图可能会停止工作，因为LandmarkRow视图初始化时需要有一个landmark实例。要想修复预览视图，需要修改Preview Provider
+步骤4 在LandmarkRow_Previews的静态属性previews中给LandmarkRow初始化器中传入landmark参数，这个参数使用landmarkData数组的第一个元素。预览视图当前显示Hello, World
+步骤5 在一个HStack中嵌入一个Text
+步骤6 修改这个Text，让它使用landmark属性的name字段
+步骤7 在Text视图前面添加一个图片视图，在Text视图后面添加Spacer视图
+第三节 自定义行预览 Xcode的画布会自动识别当前代码编辑器中遵循PreviewProvider协议的类型，并将它们渲染并展示在画面上。一个视图预览提供者(preview provider)返回一个或多个视图，这些视图可以配置不同的大小和设备型号。
+可以定制从preview provider中返回的视图被渲染在何种场景下。
+步骤1 在LandmarkRow_Previews中，把landmark参数更新为landmarkData数组的第二个元素，预览视图会立即刷新反映第二个元素的渲染情况
+步骤2 使用previewLayout(_:)修改器设置一个行视图在列表中显示的尺寸大小。可以使用Group的方式，返回多个不同场景下的预览视图
+步骤3 把预览的行视图包裹在Group中，把之前的第一个行视图也加进去。Group是一个容器，它可以把视图内容组织起来，Xcode会把Group内的每个子视图当作画布内一个单独的预览视图处理
+步骤4 为了简化代码，可以把previewLayout(_:)这个修改器应用到外层的Group上，Group的每一个子视图会继承自己所处环境的配置。对preivew provider的修改只会影响预览画布的表现，对实际的应用不会产生影响。
+第四节 创建地标列表 使用SwiftUI列表类型可以展示平台相关的列表视图。列表的元素可以是静态的，类似于栈内部的子视图，也可以是动态生成的视图，也可以混合动态和静态的视图。
+步骤1 创建SwiftUI视图，命名为LandmarkList.swift
+步骤2 用List替换默认创建的Text，并将前两个LandmarkRow实例做为列表的子元素，预览视图中会以列表的形式展示出两个地标
+第五节 创建动态列表 除了单独列出列表中的每个元素外，列表还可以从一个集合中动态的生成。
+创建列表时可以传入一个集合数据和一个闭包，闭包会针对每一个数据元素返回一个视图，这个视图就是列表的行视图。
+步骤1 从列表中移除两个静态指定的行视图，给列表初始化器传入landmarkData数据，列表要配合可辨别的数据类型使用。想让数据变成可辨别的数据类型有两种方法:
+传入一个keypath指定数据中哪一个字段用来唯一标识这个数据元素。
+让数据遵循Identifiable协议
+步骤2 在闭包中返回一个LandmarkRow视图，List初始化器中指定数据集合landmarkData和唯一标识符keypath:\.id，这样列表就会动态生成，如下图所示
+步骤3 切换到文件Landmark.swfit，声明Landmark类型遵循Identifiable协议，因为Landmark类型已经定义了id属性，正好满足Identifiable协议，所以不需要添加其它代码
+步骤4 现在切换回文件LandmarkList.</description>
+    </item>
+    
+    <item>
+      <title>处理用户输入</title>
+      <link>https://swift.jokerhub.cn/swiftui/swiftui_essentials/handling_user_input/</link>
+      <pubDate>Thu, 30 Apr 2020 10:09:51 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/swiftui_essentials/handling_user_input/</guid>
+      <description>在Landmark应用中，标记喜爱的地方，过滤地标列表，只显示喜欢的地标。要增加这些特性，首先要在列表上添加一个开关，用来过滤用户喜欢的地标。在地标上添加一个星标按钮，用户可以点击它来标记这个地标为自己喜欢的。
+下载工程文件并且跟着下面的教程实践
+项目文件 HandlingUserInput.zip (6 MB) 第一节 标记用户最喜欢的地标 给地标列表的每一行添加一个星标用来表示用户是否标记该地标为自己喜欢的
+步骤1 打开工程项目，在项目导航下选择LandmarkRow.swift文件
+步骤2 在空白占位后面添加一个if表达式，if表达式判断是否当前地标是用户喜欢的，如果用户标记当前地标为喜欢就显示星标。可以在SwitUI的代码块中使用if语句来条件包含视图
+步骤3 由于系统图片是矢量类型的，可以使用foregroundColor(_:)来改变它的颜色。当地标landmark的isFavorite属性为真时，星标显示，稍后会讲怎么修改属性值。
+第二节 过滤列表 可以定制地标列表，让它只显示用户喜欢的地标，或者显示所有的地标。要实现这个功能，需要给LandmarkList视图类型添加一些状态变量。
+状态(State)是一个值或者一个值的集合，会随着时间而改变，同时会影响视图的内容、行为或布局。在属性前面加上@State修饰词就是给视图添加了一个状态值
+步骤1 选择LandmarkList.swift文件，并给LandmarkList添加一个名为showFavoritesOnly的状态，初始值设置为false
+步骤2 点击Resume按钮或快捷键Command+Option+P刷新画布。当对视图进行添加或修改属性等结构性改变时，需要手动刷新画布
+步骤3 代码中通过检查showFavoritesOnly属性和每一个地标的isFavorite属性值来过滤地标列表所展示的内容
+第三节 添加控件来切换状态 为了让用户控制地标列表的过滤器，需要添加一个可以修改showFavoritesOnly值的控件，传递一个绑定关系给toggle控件可以实现
+一个绑定关系(binding)是对可变状态的引用。当用户点击toggle控件，从开到关或从关到开，toggle控件会通过绑定关系对应的更新视图的状态
+步骤1 创建一个嵌套的ForEach组来把地标数据转换成地标行视图。在一个列表中组合静态和动态视图，或者组合两个甚至多个不同的动态视图组，使用ForEach类型动态生成而不是给列表传入数据集合生成列表视图
+步骤2 添加一个Toggle视图作为列表的每一个子视图，传入一个showFavoritesOnly的绑定关系。使用$前缀来获得一个状态变量或属性的绑定关系
+步骤3 实时预览模式下，点击Toggle控件来验证过滤器的功能
+第四节 使用可观察对象来存储数据 要实现用户标记哪个地标为自己喜爱的地标这个功能，需要使用可观察对象(observalble object)存放地标数据
+可观察对象是一种可以绑定到具体SwifUI视图环境中的数据对象。SwiftUI可以察觉它影响视图展示的任何变化，并在这种变化发生后及时更新对应视图的展示内容
+步骤1 创建一个名为UserData.swift的文件
+步骤2 声明一个遵循ObservableObject协议的新数据模型，ObservableObject协议来自响应式框架Combine。SwiftUI可以订阅可观察对象，并在数据发生改变时更新视图的显示内容
+步骤3 添加存储属性showFavoritesOnly和landmarks，并赋予初始值。可观察对象需要对外公布内部数据的任何改动，因此订阅此可观察对象的订阅者就可以获得对应的数据改动信息
+步骤4 给新建的数据模型的每一个属性添加@Published属性修饰词
+第五节 视图中适配数据模型对象 已经创建了UserData可观察对象，现在要改造视图，让它使用这个新的数据模型来存储视图内容数据
+步骤1 在LandmarkList.swift文件中，使用@EnvironmentObject修饰的userData属性来替换原来的showFavoritesOnly状态属性，并对预览视图调用environmentObject(_:)修改器。只要environmentObject(_:)修改器应用在视图的父视图上，userData就能够自动获取它的值。
+步骤2 替换原来使用showFavoritesOnly状态属性的地方，改为使用userData中的对应属性。与@State修饰的属性一样，也可以使用$前缀访问userData对象的成员绑定引用
+步骤3 创建ForEach实例时使用userData.landmarks做为数据源
+步骤4 在SceneDelegate.swift中，对LandmarkList视图调用environmentObject修改器，这样可以把UserData的数据对象绑定到LandmarkList视图的环境变量中，子视图可以获得父视图环境中的变量。此时如果在模拟器或者真机上运行应用，也可以正常展示视图内容
+步骤5 更新LandmarkDetail视图，让它从父视图的环境变量中取要展示的数据。之后在更新地标的用户喜爱状态时，会用到landmarkIndex这个变量
+步骤6 切换到LandmarkList.swift文件，并打开实时预览视图去验证所添加的功能是否正常工作
+第六节 为每一个地标创建一个喜爱按钮 Landmark这个应用可以在喜欢和不喜欢的地标列表间进行切换了，但喜欢的地标列表还是硬编码形成的，为了让用户可以自己标记哪个地标是自己喜欢的，需要在地标详情页添加一个标记喜欢的按钮
+步骤1 在LandmarkDetail.swift的HStack中添加地标名称的Text
+步骤2 在地标名称的Text控件旁边添加一个新的按钮控件。使用if-else条件语句设置不同的图片显示状态表示这个地标是否被用户标记为喜欢。在Button的动作闭包中，使用了landmarkIndex去修改userData中对应地标的数据。</description>
+    </item>
+    
+  </channel>
+</rss>

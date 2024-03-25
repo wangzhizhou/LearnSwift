@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.108.0">
+    <meta name="description" content="Swift学习">
+<meta name="author" content="王志舟">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>创建和组合视图 - Learn Swift</title>
+
+    
+    <link href="/css/nucleus.css?1711337756" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1711337756" rel="stylesheet">
+    <link href="/css/hybrid.css?1711337756" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1711337756" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1711337756" rel="stylesheet">
+    <link href="/css/auto-complete.css?1711337756" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1711337756" rel="stylesheet">
+    <link href="/css/theme.css?1711337756" rel="stylesheet">
+    <link href="/css/tabs.css?1711337756" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1711337756" rel="stylesheet">
+    
+    <link href="/css/theme-mine.css?1711337756" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1711337756"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/swiftui/swiftui_essentials/creating_and_combining_views/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+    <svg id="grav-logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 448 512" xml:space="preserve">
+		<g>
+			<path fill="currentColor" d="M448 156.09c0-4.51-.08-9-.2-13.52a196.31 196.31 0 0 0-2.58-29.42 99.62 99.62 0 0 0-9.22-28A94.08 94.08 0 0 0 394.84 44a99.17 99.17 0 0 0-28-9.22 195 195 0 0 0-29.43-2.59c-4.51-.12-9-.17-13.52-.2H124.14c-4.51 0-9 .08-13.52.2-2.45.07-4.91.15-7.37.27a171.68 171.68 0 0 0-22.06 2.32 103.06 103.06 0 0 0-21.21 6.1q-3.46 1.45-6.81 3.12a94.66 94.66 0 0 0-18.39 12.32c-1.88 1.61-3.69 3.28-5.43 5A93.86 93.86 0 0 0 12 85.17a99.45 99.45 0 0 0-9.22 28 196.31 196.31 0 0 0-2.54 29.4c-.13 4.51-.18 9-.21 13.52v199.83c0 4.51.08 9 .21 13.51a196.08 196.08 0 0 0 2.58 29.42 99.3 99.3 0 0 0 9.22 28A94.31 94.31 0 0 0 53.17 468a99.47 99.47 0 0 0 28 9.21 195 195 0 0 0 29.43 2.59c4.5.12 9 .17 13.52.2H323.91c4.51 0 9-.08 13.52-.2a196.59 196.59 0 0 0 29.44-2.59 99.57 99.57 0 0 0 28-9.21A94.22 94.22 0 0 0 436 426.84a99.3 99.3 0 0 0 9.22-28 194.79 194.79 0 0 0 2.59-29.42c.12-4.5.17-9 .2-13.51V172.14c-.01-5.35-.01-10.7-.01-16.05zm-69.88 241c-20-38.93-57.23-29.27-76.31-19.47-1.72 1-3.48 2-5.25 3l-.42.25c-39.5 21-92.53 22.54-145.85-.38A234.64 234.64 0 0 1 45 290.12a230.63 230.63 0 0 0 39.17 23.37c56.36 26.4 113 24.49 153 0-57-43.85-104.6-101-141.09-147.22a197.09 197.09 0 0 1-18.78-25.9c43.7 40 112.7 90.22 137.48 104.12-52.57-55.49-98.89-123.94-96.72-121.74 82.79 83.42 159.18 130.59 159.18 130.59 2.88 1.58 5 2.85 6.73 4a127.44 127.44 0 0 0 4.16-12.47c13.22-48.33-1.66-103.58-35.31-149.2C329.61 141.75 375 229.34 356.4 303.42c-.44 1.73-.95 3.4-1.44 5.09 38.52 47.4 28.04 98.17 23.13 88.59z">
+			</path>
+		</g>
+	</svg>
+</a>
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="搜索...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1711337756"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1711337756"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/swift.jokerhub.cn";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1711337756"></script>
+
+    
+  </div>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swift/" title="Swift" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swift/">
+          <b>1. </b>Swift
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/" title="SwiftUI" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/swiftui/">
+          <b>2. </b>SwiftUI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/swiftui_essentials/" title="SwiftUI基础" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/swiftui/swiftui_essentials/">
+          SwiftUI基础
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/creating_and_combining_views/" title="创建和组合视图" class="dd-item active">
+        <a href="/swiftui/swiftui_essentials/creating_and_combining_views/">
+        创建和组合视图
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/building_lists_and_navigation/" title="创建列表和导航" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/building_lists_and_navigation/">
+        创建列表和导航
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/handling_user_input/" title="处理用户输入" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/handling_user_input/">
+        处理用户输入
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/drawing_and_animation/" title="绘制和动画" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/drawing_and_animation/">
+          绘制和动画
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/drawing_and_animation/drawing_paths_and_shapes/" title="绘制路径和形状" class="dd-item ">
+        <a href="/swiftui/drawing_and_animation/drawing_paths_and_shapes/">
+        绘制路径和形状
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/drawing_and_animation/animating_views_and_transitions/" title="视图动画和转场" class="dd-item ">
+        <a href="/swiftui/drawing_and_animation/animating_views_and_transitions/">
+        视图动画和转场
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/app_design_and_layout/" title="应用设计与布局" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/app_design_and_layout/">
+          应用设计与布局
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/app_design_and_layout/composing_complex_interfaces/" title="组合复杂用户界面" class="dd-item ">
+        <a href="/swiftui/app_design_and_layout/composing_complex_interfaces/">
+        组合复杂用户界面
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/app_design_and_layout/working_with_ui_controls/" title="玩转UI控件" class="dd-item ">
+        <a href="/swiftui/app_design_and_layout/working_with_ui_controls/">
+        玩转UI控件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/framework_integration/" title="框架集成" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/framework_integration/">
+          框架集成
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/interfaceing_with_uikit/" title="与UIKit交互" class="dd-item ">
+        <a href="/swiftui/framework_integration/interfaceing_with_uikit/">
+        与UIKit交互
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/creating_a_watchos_app/" title="创建watchOS应用" class="dd-item ">
+        <a href="/swiftui/framework_integration/creating_a_watchos_app/">
+        创建watchOS应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/creating_a_macos_app/" title="创建macOS应用" class="dd-item ">
+        <a href="/swiftui/framework_integration/creating_a_macos_app/">
+        创建macOS应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftpm/" title="SwiftPM" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftpm/">
+          <b>3. </b>SwiftPM
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/spm_in_cli/" title="命令行下的SPM" class="dd-item ">
+        <a href="/swiftpm/spm_in_cli/">
+        命令行下的SPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/spm_in_xcode/" title="Xcode中的SPM" class="dd-item ">
+        <a href="/swiftpm/spm_in_xcode/">
+        Xcode中的SPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/swiftpm_plugin/" title="Swift Package Plugin" class="dd-item ">
+        <a href="/swiftpm/swiftpm_plugin/">
+        Swift Package Plugin
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/combine/" title="Combine" class="dd-item
+        
+        
+        
+        ">
+      <a href="/combine/">
+          <b>4. </b>Combine
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/tdd/" title="TDD" class="dd-item
+        
+        
+        
+        ">
+      <a href="/tdd/">
+          <b>5. </b>TDD
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/tdd/tdd_cycle/" title="TDD 迭代循环" class="dd-item ">
+        <a href="/tdd/tdd_cycle/">
+        TDD 迭代循环
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/dp/" title="Design Pattern" class="dd-item
+        
+        
+        
+        ">
+      <a href="/dp/">
+          <b>6. </b>Design Pattern
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/dp/note/" title="高级开发者学习笔记" class="dd-item ">
+        <a href="/dp/note/">
+        高级开发者学习笔记
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li>
+                  <a class="padding" href="https://github.com/wangzhizhou/LearnSwift.git"><i class='fab fa-fw fa-github'></i> GitHub 仓库</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/videos/all-videos/?q=swiftui"><i class='fas fa-fw fa-video'></i> SwiftUI 视频</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/swiftui/"><i class='fas fa-fw fa-receipt'></i> SwiftUI 文档</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://learn.netlify.app/en/"><i class='fas fa-fw fa-book'></i> Learn 主题</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swift.jokerhub.cn/tags"><i class='fas fa-tags'></i> Tags 标签</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/tutorials/swiftui/tutorials/"><i class='fab fa-apple'></i> SwiftUI 官方教程(英文)</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://fontawesome.com/icons?d=gallery&amp;m=free"><i class='fab fa-sketch'></i> Font Awesome</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swift.org"><i class='fas fa-book-open'></i> Swift 官网</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/forums/"><i class='fas fa-question-circle'></i> Apple 官方论坛</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/sample-code"><i class='fas fa-file-code'></i> Apple 示例代码</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/"><i class='fas fa-folder'></i> Apple 官方文档</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://www.flaticon.com/"><i class='fas fa-sun'></i> flaticon</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swiftpackageindex.com/"><i class='fas fa-archive'></i> SPM 查询</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://toml.io"><i class='fas fa-paper-plane'></i> TOML 语法</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://salttiger.com"><i class='fas fa-book-reader'></i> SaltTiger 书籍下载</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/visionos"><i class='fas fa-solid fa-vr-cardboard'></i> visionOS</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <center>
+</center>
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='编辑当前页' href="https://github.com/wangzhizhou/LearnSwift/edit/master/docs/swiftui/swiftui_essentials/creating_and_combining_views.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">编辑当前页</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Learn Swift</a> > <a href='/swiftui/'>SwiftUI</a> > <a href='/swiftui/swiftui_essentials/'>SwiftUI基础</a> > 创建和组合视图
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#第一节-创建新项目并体验画布">第一节 创建新项目并体验画布</a></li>
+        <li><a href="#第二节-定制文本视图text-view">第二节 定制文本视图(Text View)</a></li>
+        <li><a href="#第三节-使用栈来组合视图">第三节 使用栈来组合视图</a></li>
+        <li><a href="#第四节-创建自定义图像视图image">第四节 创建自定义图像视图(Image)</a></li>
+        <li><a href="#第五节-uikit视图与swiftui视图混合使用">第五节 UIKit视图与SwiftUI视图混合使用</a></li>
+        <li><a href="#第六节-组合地标详情页">第六节 组合地标详情页</a></li>
+        <li><a href="#检查是否理解">检查是否理解</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              创建和组合视图
+            </h1>
+          
+
+        
+
+
+<p>这个教程指导你构建一个名为<code>Landmarks(地标)</code>的应用。这个应用的功能是可以发现并分享你喜欢的地标。首先从创建地标详情页开始。</p>
+<p>Landmarks使用栈来按层组合图片、文本等视图元素，从而布局页面。在视图中添加地图，需要引入<code>MapKit</code>组件，在你布局页面的过程中，
+Xcode可以提供实时的反馈，让你所做的改动立即转化成对应的代码实现。</p>
+<section class="attachments blue">
+  <label>
+    <i class="fas fa-paperclip" aria-hidden="true"></i>
+    项目文件
+  </label>
+  <div class="attachments-files">
+    <li>
+      <a href="/swiftui/swiftui_essentials/creating_and_combining_views.files/CreatingAndCombiningViews.zip">CreatingAndCombiningViews.zip</a>
+      (785 KB)
+    </li>
+  </div>
+</section>
+
+<hr>
+<h3 id="第一节-创建新项目并体验画布">第一节 创建新项目并体验画布</h3>
+<p>创建SwiftUI项目工程，体验画布、预览模式和SwiftUI模板代码</p>
+<p>要想在Xcode中预览画布中的视图或者与画布中的视图进行交互，要求你的Mac系统版本号不低于<code>macOS Catalina 10.15</code></p>
+<p><img src="/swiftui/swiftui_essentials/creating_and_combining_views.files/create-new-project.gif?height=30pc" alt="create new project"></p>
+<p><strong>步骤1</strong> 打开Xcode，在启动页面点击<strong>创建新工程</strong>或者在菜单中选择<strong>文件-&gt;新建-&gt;项目</strong></p>
+<p><img src="/swiftui/swiftui_essentials/images/create-new-project-xcode.png?width=20pc" alt="create new project xcode"></p>
+<p><img src="/swiftui/swiftui_essentials/images/create-new-project-xcode-menu.png?width=20pc" alt="create new project xcode menu"></p>
+<p><strong>步骤2</strong> 在项目模板选择器中，选择<code>iOS</code>作为项目平台，选项<strong>单视图应用(Single View App)<strong>作为项目模板，并点击</strong>下一步(Next)</strong></p>
+<p><img src="/swiftui/swiftui_essentials/images/create-new-project-app-template.png?width=30pc" alt="create new project app template"></p>
+<p><strong>步骤3</strong> 输入<code>Landmarks</code>作为项目名称，选择<code>SwiftUI</code>作为用户界面的创建方式，并点击<strong>下一步(Next)</strong>，在磁盘目录下选择一个位置用来存放新创建的工程项目</p>
+<p><img src="/swiftui/swiftui_essentials/images/create-new-project-info.png?width=30pc" alt="create new project info"></p>
+<p><strong>步骤4</strong> 工程创建好并打开后，在文件导航器中，选择<code>ContentView.swift</code>文件，可以浏览一下<code>SwiftUI</code>视图的组成结构。默认情况下，<code>SwiftUI</code>的视图文件包含两个结构体(<strong>Struct</strong>)
+第一个结构体遵循<code>View</code>协议，描述视图的内容和布局。第二个结构体声明为第一个视图的预览视图。</p>
+<p><strong>步骤5</strong> 在**画布(Canvas)<strong>上，点击</strong>恢复(Resume)**按钮可以显示预览视图，也可以使用快捷键<code>Command+Option+P</code></p>
+
+<div class="notices tip" ><p>如果工程中没有出现<strong>画布(Canvas)</strong>，可以选择菜单:<strong>编辑器(Editor) -&gt; 编辑器和画布(Editor and Canvas)</strong> 打开画布进行预览</p>
+</div>
+
+<p><img src="/swiftui/swiftui_essentials/images/create-new-project-completed.png?width=40pc" alt="create new project completed"></p>
+<p><strong>步骤6</strong> 在<strong>body</strong>属性内部，修改文字<code>Hello World</code>为其它的不同的文字，当你在改变代码的同时，预览视图也会实时的更新对应的内容变化</p>
+<p><img src="/swiftui/swiftui_essentials/creating_and_combining_views.files/xcode-live-preview.gif?width=40pc" alt="creating and combining views"></p>
+<h3 id="第二节-定制文本视图text-view">第二节 定制文本视图(Text View)</h3>
+<p>可能通过修改代码来改变一个视图的显示样式，也可以通过检查器获取视图可修改属性，然后再写对应的代码改变样式。在创建应用的过程中，可以同时使用<strong>源码编辑器、画布或者检查器</strong>，无论当前使用的是哪一个工具编辑视图，代码会保持和这些编辑器展示的样式一致</p>
+<p><img src="/swiftui/swiftui_essentials/creating_and_combining_views.files/customize-text-view.gif?width=30pc" alt="customize text view"></p>
+<p>下面我们使用<strong>检查器</strong>来定制视图的显示样式</p>
+<p><strong>步骤1</strong> 在预览视图中，按下<code>Command</code>键的同时点击控件，会弹出一个编辑弹层，然后选择<strong>检查器(Inspect)</strong>, 编辑弹层显示所有可以定制的视图属性，选中的控件不同，可以定制的属性集合也不相同</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-preview-inspector.png?width=20pc" alt="swift preview inspectror"></p>
+<p><strong>步骤2</strong> 使用检查器把文字更改为<strong>Turtle Rock</strong>，也就是在应用中显示的第一个地标的名称</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-preview-inspector-change-text.png?width=20pc" alt="swiftui preivew inspector change text"></p>
+<p><strong>步骤3</strong> 改变字体修改器为<strong>Title</strong>，使用系统字体修饰文字，可以自动按照用户在设备中设置的字体偏好大小进行调整。定制SwiftUI视图所调用的方法被称为视图<strong>修改器(Modifiers)</strong>，修改器在原视图的基础上修改部分显示样式和属性，返回一个新的视图，这样就可以让多个修改器串连进行，形成水平方向的链式调用，或者垂直方向的堆叠调用</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-preview-inspector-change-font.png?width=20pc" alt="swiftui preview inspector change font"></p>
+<p><strong>步骤4</strong> 手动在代码中添加<strong>foregroundColor(.green)</strong> 属性修改器，就会把文字的颜色调整为绿色。代码是决定视图样式的根本，当我们使用检查器来改变或移除一个属性修改器时，Xcode也会在代码编辑器中同步改变或移除对应的修改器代码</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-code-chage-foreground-color.png?width=40pc" alt="swiftui code change foreground color"></p>
+<p><strong>步骤5</strong> 在代码编辑器中，按下<strong>Command</strong>的同时点击<strong>Text</strong>单词也可以属性弹窗，从中选择检查器后，再点击<strong>Color</strong>弹出菜单，选择<strong>继承(Inherited)</strong>，让文字的颜色恢复成原来的黑色</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-code-inspector-resume-font.png?width=20pc" alt="swiftui code inspector resume font"></p>
+<p><strong>步骤6</strong> 当我们移除 <strong>foregroundColor(.green)</strong> 时，Xcode会自动更新你的代码来反映视图的实际显示状况</p>
+<p><img src="/swiftui/swiftui_essentials/images/swfitui-xcode-resume.png?width=40pc" alt="swiftui xcode resume"></p>
+<h3 id="第三节-使用栈来组合视图">第三节 使用栈来组合视图</h3>
+<p>上一节创建了标题视图，接下来要添加一些文本视图来描述地标所在州及所在公园的名称等其它详细信息</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-layout-stack.png?width=20pc" alt="swiftui layout stack"></p>
+<p>创建SwiftUI视图就是在<code>body</code>属性中描述视图的内容、布局及行为，但<code>body</code>属性只返回单个视图，这时组合多个视图时可以把它们放入一个栈中，通过水平、垂直、前后嵌套多个视图完成视图组合，做为一个整体在<code>body</code>属性中返回</p>
+<p>这一节中，使用一个垂直栈，把标题放在包含公园详情的水平栈的上方，在水平栈中，布局公园详情相关的内容</p>
+<p>可以使用Xcode提供的结构化布局来把视图嵌套在容器视图中</p>
+<p><strong>步骤1</strong> 按下<code>Command</code>键的同时，点击<code>Text</code>视图的初始化代码打开结构化编辑弹窗，然后选择把控件嵌套在<strong>垂直栈中(Embed in VStack)</strong>，在栈中添加<code>Text View</code>控件可以从组件中直接拖进栈中完成</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-view-embed-in-vertical-stack.png?width=20pc" alt="swiftui view embed in vertical stack"></p>
+<p><strong>步骤2</strong> 点击Xcode右上角的**+**号，托动一个<code>Text</code>控件到指定位置，代码立即就会在编辑器中补全</p>
+<p><strong>步骤3</strong> 把<code>Text</code>视图的占位文本修改为<code>Joshua Tree Nation Park</code>，视图会自动调整位置布局</p>
+<p><strong>步骤4</strong> 设置位置控件的字体为子标题样式</p>
+<p><img src="/swiftui/swiftui_essentials/creating_and_combining_views.files/swiftui-inspector-add-text-view.gif?width=50pc" alt="swiftui inspector add text view"></p>
+<p><strong>步骤5</strong> 设置<code>VStack</code>初始化参数为左对齐内部的子视图。默认情况下，栈会把内部视图在自己的主轴上居中对齐，并自动计算各子视图的间距。下一步要添加一个<code>Text</code>控制用来描述公园的状态，它水平排列在位置信息的右边。</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-vstack-leading-alignment.png?width=50pc" alt="swiftui vstack leadng alignment"></p>
+<p><strong>步骤6</strong> 在画布内，<code>command</code>按下的同时点击位置视图，在弹出的菜单中选择<strong>嵌入到水平栈中(Embed in HStack)</strong></p>
+<p><strong>步骤7</strong> 在位置控件的后面加一个公园状态的<code>Text</code>视图，并把占位文字改为<code>California</code>，字体设置为子标题样式</p>
+<p><strong>步骤8</strong> 为了水平布局使用整个屏幕宽度，在位置控件和公园状态控件中间添加一个<code>Spacer</code>控件，用来填充两个控件中间的空白部分，并把两个控件分别顶向屏幕的两侧。<code>Spacer</code>是一个可以伸缩的空白控件，他负责占用其它控件布局完成后剩下的所有空间。</p>
+<p><strong>步骤9</strong> 使用<code>padding()</code>修改器给地标信息内容视图整体加内边距</p>
+<p><img src="/swiftui/swiftui_essentials/creating_and_combining_views.files/swiftui-embed-in-hstack.gif?width=50pc" alt="swiftui embed in hstack"></p>
+<h3 id="第四节-创建自定义图像视图image">第四节 创建自定义图像视图(Image)</h3>
+<p>有了地标名称、地标位置及状态视图，下一步再添加一个地标图片视图。这个图片视图将自定义遮罩(mask)、边框(border)和阴影(shadow)</p>
+<p>从控件加中拖一个<code>Image</code>到画布，或直接写代码到代码编辑器中</p>
+<p><strong>步骤1</strong> 在项目资源文件中找到<code>turtlerock.png</code>图片，把它拖入资源编辑器(asset catalog editor)中，Xcode会创建一个新的图片集来存放这个图片，然后创建一个<code>SwiftUI</code>视图</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-assets-catalog-editor.png?width=50pc" alt="swiftui assets catalog editor"></p>
+<p><strong>步骤2</strong> 选择<strong>文件-&gt;新建-&gt;文件</strong>，打开模板选择器。在用户界面(User Interface)板块下，选择<code>SwiftUI View</code>并点击下一步，命名为<code>CircleImage.swift</code>，并点击创建(Create)。现在你已经准备好插入图片并修改布局来满足设计目标</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-create-swiftui-file.png?width=30pc" alt="swiftui create swiftui file"></p>
+<p><img src="/swiftui/swiftui_essentials/images/swifui-create-circle-image.png?width=20pc" alt="swiftui create circle image"></p>
+<p><strong>步骤3</strong> 用<code>Image</code>替换<code>Text</code>，并使用<code>turtlerock</code>图片初始化<code>Image</code>视图</p>
+<p><strong>步骤4</strong> 添加<code>clipShape(Circle())</code>修改器到<code>Image</code>，给图片添加圆形剪切效果。<code>Circle</code>是一个形状，它可以被用作遮罩、也可以是圆圈，还可以是圆形填充视图。</p>
+<p><strong>步骤5</strong> 创建另一个灰色的圆圈并把它作为一个浮层添加到图片上，相当于给图片加了一个灰色边框</p>
+<p><strong>步骤6</strong> 给视图添加半径为<code>10</code>的阴影</p>
+<p><img src="/swiftui/swiftui_essentials/images/swifui-turtlerock-overlay.png?width=50pc" alt="swiftui turtlerock overlay"></p>
+<p><strong>步骤7</strong> 把圆形边框的颜色改成白色，就完成了自定义图片视图的创建。</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-circle-image-completed.png?width=50pc" alt="swiftui circle image completed"></p>
+<h3 id="第五节-uikit视图与swiftui视图混合使用">第五节 UIKit视图与SwiftUI视图混合使用</h3>
+<p>现在要创建一个地图视图，可以使用MapKit中的MKMapView视图类来渲染地图。要在SwiftUI中使用UIView及其子类，需要把这些UIView包裹在一个遵循<code>UIViewRepresentable</code>协议的SwiftUI视图中，SwiftUI中也包含适配<code>WatchKit</code>和<code>AppKit</code>的类似的协议。</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-uikit-swiftui-combine.png?width=20pc" alt="swiftui uikit swiftui combine"></p>
+<p>首先需要创建一个自定义视图用来容纳和显示<code>MKMapView</code></p>
+<p><strong>步骤1</strong> 选择<strong>文件-&gt;新建-&gt;文件</strong>，选择<code>iOS</code>平台，选择<code>SwiftUI View</code>模板，并点击下一步(Next)，命名文件为<code>MapView.swift</code>，并点击创建(Create)</p>
+<p><strong>步骤2</strong> 代码中导入MapKit引用，声明<code>MapView</code>遵循<code>UIViewRepresentable</code>协议。<code>UIViewRepresentable</code>协议要求实现两个方法<code>makeUIView(context:)</code>和<code>updateUIView(_:context:)</code>，第一个方法用来创建MKMapView，第二个方法用来配置视图响应状态变化</p>
+<p><strong>步骤3</strong> 替换<code>body</code>，用<code>makeUIView(context:)</code>方法来代替，创建并返回一个空的<code>MKMapView</code></p>
+<p><strong>步骤4</strong> 创建方法<code>updateUIView(_:context:)</code>，在方法内部设置地图视图的坐标为<code>Turle Rock</code>的中心。在静态模式下预览时，只会渲染<code>swiftUI</code>视图的部分，因为<code>MKMapView</code>是<code>UIView</code>的子类，所以需要切换到实时预览模式下才能看到地图被完全渲染出来</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-mapview-mkmapview-wrapper.png?width=40pc" alt="swiftui mapview mkmapview wrapper"></p>
+<p><strong>步骤5</strong> 点击<code>Live Preview(实时预览)</code>按钮，可能需要点击<code>Try Again</code>和<code>Resume</code>按钮来激活预览模式的切换。切换到实时预览模式下不久就可以看到指定地标所在的地图位置了</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-mkmapview-live-preview.png?width=20pc" alt="swiftui mkmapview live preview"></p>
+<h3 id="第六节-组合地标详情页">第六节 组合地标详情页</h3>
+<p>前面我们创建了个地标详情页所需要的各种子视图元素：名称、地点、圆形图片以及位置地图，现在可以把这些视图元素组合在一起形成地标详情页的整个视图</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-begin.png?width=20pc" alt="swiftui combine view begin"></p>
+<ol>
+<li>
+<p>在项目工程浏览器中选择<code>ContentView.swift</code>文件</p>
+</li>
+<li>
+<p><code>body</code>属性中嵌入一个<code>VStack</code>视图，它内部包含另一个<code>VStack</code>视图，内部的<code>VStack</code>视图又包含三个<code>Text</code>视图</p>
+</li>
+<li>
+<p>在外层<code>VStack</code>的顶部添加自定义的地图视图<code>MapView</code>，并使用<code>frame(width:height:)</code>设置视图大小。当只指定高度时，宽度会自动计算为父视图的宽度，在这里就是屏幕宽度</p>
+</li>
+<li>
+<p>点击<code>Live Preview</code>按钮进入实时预览模式，查看地图渲染情况。在实时预览模式下可以编辑视图，最新的改动也可以实时的刷新出来。</p>
+</li>
+<li>
+<p>在<code>MapView</code>后面再添加一个<code>CircleImage</code>视图</p>
+</li>
+<li>
+<p>为了让图片视图叠放在地图视图的上面，可以设置图片视图的垂直偏移量为<code>-130</code>，图片视图的底部内边距也为<code>-130</code>，这个效果就是把图片垂直上移了130，同时和下面的文字区域留出了130的空白分隔区</p>
+</li>
+<li>
+<p>在外层<code>VStack</code>内部的最下面加上<code>Spacer</code>，可以让上面的视图内容顶到屏幕的上边</p>
+</li>
+<li>
+<p>为了让地图的视图内容显示在状态栏的下方，可以给<code>MapView</code>添加<code>edgesIgnoringSafeArea(.top)</code>修改器，这可以让它在布局时忽略顶部的安全区域边距</p>
+</li>
+</ol>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-completed.png?width=50pc" alt="swiftui combine view completed"></p>
+<h3 id="检查是否理解">检查是否理解</h3>
+<p><strong>问题1</strong> 在声明自定义SwiftUI视图时，视图布局要声明的在哪里？</p>
+<ul>
+<li><input disabled="" type="checkbox"> 在视图初始化器中</li>
+<li><input checked="" disabled="" type="checkbox"> <code>body</code>属性中</li>
+<li><input disabled="" type="checkbox"> <code>layoutSubviews</code>方法中</li>
+</ul>
+<p><code>View</code>协议中要求实现<code>body</code>属性，每一个SwiftUI视图都遵循<code>View</code>协议</p>
+<p><strong>问题2</strong> 代码布局的视图是以下哪个？</p>
+<p><img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-problem2.png?width=30pc&amp;classes=border" alt="swiftui combine view problem2"></p>
+<ul>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-problem2-1.png?width=30pc&amp;classes=border" alt="swiftui combine view problem2-1"></li>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-problem2-2.png?width=30pc&amp;classes=border" alt="swiftui combine view problem2-2"></li>
+<li><input checked="" disabled="" type="checkbox"> <img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-problem2-3.png?width=30pc&amp;classes=border" alt="swiftui combine view problem2-3"></li>
+</ul>
+<p><strong>问题3</strong> 下面哪种方法是从body属性中返回三个视图的正确方法？</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-problem3-1.png?width=30pc&amp;classes=border" alt="swiftui combine view problem3-1"></li>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-problem3-2.png?width=30pc&amp;classes=border" alt="swiftui combine view problem3-2"></li>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-problem3-3.png?width=30pc&amp;classes=border" alt="swiftui combine view problem3-3"></li>
+</ul>
+<p><strong>问题4</strong> 配置视图时，下面哪种是正确使用修改器的方式？</p>
+<ul>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-problem4-1.png?width=30pc&amp;classes=border" alt="swiftui combine view problem4-1"></li>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-problem4-2.png?width=30pc&amp;classes=border" alt="swiftui combine view problem4-2"></li>
+<li><input checked="" disabled="" type="checkbox"> <img src="/swiftui/swiftui_essentials/images/swiftui-combine-view-problem4-3.png?width=30pc&amp;classes=border" alt="swiftui combine view problem4-3"></li>
+</ul>
+<p>修改器每次都是返回一个新的对象，所以多个修改器可以通过链式调用</p>
+
+
+<footer class="footline">
+	
+</footer>
+
+
+</div>
+
+
+</div>
+
+<div id="navigation">
+
+
+
+
+
+
+    
+        
+        
+    
+    
+
+        
+        
+            
+        
+        
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+            
+        
+        
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+
+
+
+
+
+
+
+
+
+<a class="nav nav-prev" href="/swiftui/swiftui_essentials/" title="SwiftUI基础"> <i class="fa fa-chevron-left"></i></a>
+
+
+<a class="nav nav-next" href="/swiftui/swiftui_essentials/building_lists_and_navigation/" title="创建列表和导航" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+
+
+</div>
+
+</section>
+
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+<div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>
+<script src="/js/clipboard.min.js?1711337756"></script>
+<script src="/js/perfect-scrollbar.min.js?1711337756"></script>
+<script src="/js/perfect-scrollbar.jquery.min.js?1711337756"></script>
+<script src="/js/jquery.sticky.js?1711337756"></script>
+<script src="/js/featherlight.min.js?1711337756"></script>
+<script src="/js/highlight.pack.js?1711337756"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/modernizr.custom-3.6.0.js?1711337756"></script>
+<script src="/js/learn.js?1711337756"></script>
+<script src="/js/hugo-learn.js?1711337756"></script>
+
+
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+
+<script>
+mermaid.initialize({ startOnLoad: true });
+</script>
+
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.108.0">
+    <meta name="description" content="Swift学习">
+<meta name="author" content="王志舟">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>创建watchOS应用 - Learn Swift</title>
+
+    
+    <link href="/css/nucleus.css?1711337756" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1711337756" rel="stylesheet">
+    <link href="/css/hybrid.css?1711337756" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1711337756" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1711337756" rel="stylesheet">
+    <link href="/css/auto-complete.css?1711337756" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1711337756" rel="stylesheet">
+    <link href="/css/theme.css?1711337756" rel="stylesheet">
+    <link href="/css/tabs.css?1711337756" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1711337756" rel="stylesheet">
+    
+    <link href="/css/theme-mine.css?1711337756" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1711337756"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/swiftui/framework_integration/creating_a_watchos_app/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+    <svg id="grav-logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 448 512" xml:space="preserve">
+		<g>
+			<path fill="currentColor" d="M448 156.09c0-4.51-.08-9-.2-13.52a196.31 196.31 0 0 0-2.58-29.42 99.62 99.62 0 0 0-9.22-28A94.08 94.08 0 0 0 394.84 44a99.17 99.17 0 0 0-28-9.22 195 195 0 0 0-29.43-2.59c-4.51-.12-9-.17-13.52-.2H124.14c-4.51 0-9 .08-13.52.2-2.45.07-4.91.15-7.37.27a171.68 171.68 0 0 0-22.06 2.32 103.06 103.06 0 0 0-21.21 6.1q-3.46 1.45-6.81 3.12a94.66 94.66 0 0 0-18.39 12.32c-1.88 1.61-3.69 3.28-5.43 5A93.86 93.86 0 0 0 12 85.17a99.45 99.45 0 0 0-9.22 28 196.31 196.31 0 0 0-2.54 29.4c-.13 4.51-.18 9-.21 13.52v199.83c0 4.51.08 9 .21 13.51a196.08 196.08 0 0 0 2.58 29.42 99.3 99.3 0 0 0 9.22 28A94.31 94.31 0 0 0 53.17 468a99.47 99.47 0 0 0 28 9.21 195 195 0 0 0 29.43 2.59c4.5.12 9 .17 13.52.2H323.91c4.51 0 9-.08 13.52-.2a196.59 196.59 0 0 0 29.44-2.59 99.57 99.57 0 0 0 28-9.21A94.22 94.22 0 0 0 436 426.84a99.3 99.3 0 0 0 9.22-28 194.79 194.79 0 0 0 2.59-29.42c.12-4.5.17-9 .2-13.51V172.14c-.01-5.35-.01-10.7-.01-16.05zm-69.88 241c-20-38.93-57.23-29.27-76.31-19.47-1.72 1-3.48 2-5.25 3l-.42.25c-39.5 21-92.53 22.54-145.85-.38A234.64 234.64 0 0 1 45 290.12a230.63 230.63 0 0 0 39.17 23.37c56.36 26.4 113 24.49 153 0-57-43.85-104.6-101-141.09-147.22a197.09 197.09 0 0 1-18.78-25.9c43.7 40 112.7 90.22 137.48 104.12-52.57-55.49-98.89-123.94-96.72-121.74 82.79 83.42 159.18 130.59 159.18 130.59 2.88 1.58 5 2.85 6.73 4a127.44 127.44 0 0 0 4.16-12.47c13.22-48.33-1.66-103.58-35.31-149.2C329.61 141.75 375 229.34 356.4 303.42c-.44 1.73-.95 3.4-1.44 5.09 38.52 47.4 28.04 98.17 23.13 88.59z">
+			</path>
+		</g>
+	</svg>
+</a>
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="搜索...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1711337756"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1711337756"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/swift.jokerhub.cn";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1711337756"></script>
+
+    
+  </div>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swift/" title="Swift" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swift/">
+          <b>1. </b>Swift
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/" title="SwiftUI" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/swiftui/">
+          <b>2. </b>SwiftUI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/swiftui_essentials/" title="SwiftUI基础" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/swiftui_essentials/">
+          SwiftUI基础
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/creating_and_combining_views/" title="创建和组合视图" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/creating_and_combining_views/">
+        创建和组合视图
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/building_lists_and_navigation/" title="创建列表和导航" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/building_lists_and_navigation/">
+        创建列表和导航
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/handling_user_input/" title="处理用户输入" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/handling_user_input/">
+        处理用户输入
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/drawing_and_animation/" title="绘制和动画" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/drawing_and_animation/">
+          绘制和动画
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/drawing_and_animation/drawing_paths_and_shapes/" title="绘制路径和形状" class="dd-item ">
+        <a href="/swiftui/drawing_and_animation/drawing_paths_and_shapes/">
+        绘制路径和形状
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/drawing_and_animation/animating_views_and_transitions/" title="视图动画和转场" class="dd-item ">
+        <a href="/swiftui/drawing_and_animation/animating_views_and_transitions/">
+        视图动画和转场
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/app_design_and_layout/" title="应用设计与布局" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/app_design_and_layout/">
+          应用设计与布局
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/app_design_and_layout/composing_complex_interfaces/" title="组合复杂用户界面" class="dd-item ">
+        <a href="/swiftui/app_design_and_layout/composing_complex_interfaces/">
+        组合复杂用户界面
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/app_design_and_layout/working_with_ui_controls/" title="玩转UI控件" class="dd-item ">
+        <a href="/swiftui/app_design_and_layout/working_with_ui_controls/">
+        玩转UI控件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/framework_integration/" title="框架集成" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/swiftui/framework_integration/">
+          框架集成
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/interfaceing_with_uikit/" title="与UIKit交互" class="dd-item ">
+        <a href="/swiftui/framework_integration/interfaceing_with_uikit/">
+        与UIKit交互
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/creating_a_watchos_app/" title="创建watchOS应用" class="dd-item active">
+        <a href="/swiftui/framework_integration/creating_a_watchos_app/">
+        创建watchOS应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/creating_a_macos_app/" title="创建macOS应用" class="dd-item ">
+        <a href="/swiftui/framework_integration/creating_a_macos_app/">
+        创建macOS应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftpm/" title="SwiftPM" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftpm/">
+          <b>3. </b>SwiftPM
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/spm_in_cli/" title="命令行下的SPM" class="dd-item ">
+        <a href="/swiftpm/spm_in_cli/">
+        命令行下的SPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/spm_in_xcode/" title="Xcode中的SPM" class="dd-item ">
+        <a href="/swiftpm/spm_in_xcode/">
+        Xcode中的SPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/swiftpm_plugin/" title="Swift Package Plugin" class="dd-item ">
+        <a href="/swiftpm/swiftpm_plugin/">
+        Swift Package Plugin
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/combine/" title="Combine" class="dd-item
+        
+        
+        
+        ">
+      <a href="/combine/">
+          <b>4. </b>Combine
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/tdd/" title="TDD" class="dd-item
+        
+        
+        
+        ">
+      <a href="/tdd/">
+          <b>5. </b>TDD
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/tdd/tdd_cycle/" title="TDD 迭代循环" class="dd-item ">
+        <a href="/tdd/tdd_cycle/">
+        TDD 迭代循环
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/dp/" title="Design Pattern" class="dd-item
+        
+        
+        
+        ">
+      <a href="/dp/">
+          <b>6. </b>Design Pattern
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/dp/note/" title="高级开发者学习笔记" class="dd-item ">
+        <a href="/dp/note/">
+        高级开发者学习笔记
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li>
+                  <a class="padding" href="https://github.com/wangzhizhou/LearnSwift.git"><i class='fab fa-fw fa-github'></i> GitHub 仓库</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/videos/all-videos/?q=swiftui"><i class='fas fa-fw fa-video'></i> SwiftUI 视频</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/swiftui/"><i class='fas fa-fw fa-receipt'></i> SwiftUI 文档</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://learn.netlify.app/en/"><i class='fas fa-fw fa-book'></i> Learn 主题</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swift.jokerhub.cn/tags"><i class='fas fa-tags'></i> Tags 标签</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/tutorials/swiftui/tutorials/"><i class='fab fa-apple'></i> SwiftUI 官方教程(英文)</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://fontawesome.com/icons?d=gallery&amp;m=free"><i class='fab fa-sketch'></i> Font Awesome</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swift.org"><i class='fas fa-book-open'></i> Swift 官网</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/forums/"><i class='fas fa-question-circle'></i> Apple 官方论坛</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/sample-code"><i class='fas fa-file-code'></i> Apple 示例代码</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/"><i class='fas fa-folder'></i> Apple 官方文档</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://www.flaticon.com/"><i class='fas fa-sun'></i> flaticon</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swiftpackageindex.com/"><i class='fas fa-archive'></i> SPM 查询</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://toml.io"><i class='fas fa-paper-plane'></i> TOML 语法</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://salttiger.com"><i class='fas fa-book-reader'></i> SaltTiger 书籍下载</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/visionos"><i class='fas fa-solid fa-vr-cardboard'></i> visionOS</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <center>
+</center>
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='编辑当前页' href="https://github.com/wangzhizhou/LearnSwift/edit/master/docs/swiftui/framework_integration/creating_a_watchOS_App.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">编辑当前页</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Learn Swift</a> > <a href='/swiftui/'>SwiftUI</a> > <a href='/swiftui/framework_integration/'>框架集成</a> > 创建watchOS应用
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#第一节-添加一个watchos编译目标">第一节 添加一个<code>watchOS</code>编译目标</a></li>
+        <li><a href="#第二节-在target间共享文件">第二节 在<code>Target</code>间共享文件</a></li>
+        <li><a href="#第三节-创建详情视图">第三节 创建详情视图</a></li>
+        <li><a href="#第四节-添加一个watchos地图视图">第四节 添加一个<code>watchOS</code>地图视图</a></li>
+        <li><a href="#第五节-创建跨平台列表视图">第五节 创建跨平台列表视图</a></li>
+        <li><a href="#第六节-添加地标列表">第六节 添加地标列表</a></li>
+        <li><a href="#第七节-创建自定义通知界面">第七节 创建自定义通知界面</a></li>
+        <li><a href="#检查是否理解">检查是否理解</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              创建watchOS应用
+            </h1>
+          
+
+        
+
+
+<p>这篇教程让我们可以应用之前所学到的<code>SwiftUI</code>知识，把<code>Landmarks</code>应用从<code>iOS</code>平台迁移到<code>watchOS</code>平台上。在拷贝可以共用的数据和视图文件之前，需要先给项目中添加一个对应<code>watchOS</code>的<code>Target</code>编译目标，<code>assets</code>资源保持原状，只需要调整<code>SwiftUI</code>视图以适应在<code>watchOS</code>平台上展示就可以了。</p>
+<p>按照下面的步骤构建工程，或者下载完成后的项目文件学习。</p>
+<section class="attachments blue">
+  <label>
+    <i class="fas fa-paperclip" aria-hidden="true"></i>
+    项目文件
+  </label>
+  <div class="attachments-files">
+    <li>
+      <a href="/swiftui/framework_integration/creating_a_watchOS_App.files/CreatingAwatchOSApp.zip">CreatingAwatchOSApp.zip</a>
+      (9 MB)
+    </li>
+  </div>
+</section>
+
+<hr>
+<h3 id="第一节-添加一个watchos编译目标">第一节 添加一个<code>watchOS</code>编译目标</h3>
+<p>要创建一个<code>watchOS</code>应用，第一步是给项目添加一个对应<code>watchOS</code>平台的编译目标。<code>Xcode</code>在新增<code>Target</code>的同时，添加一个文件组和相应的文件到工程中，同时还会新增编译运行方案，指定应用要运行的平台或模拟器。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section1.png?width=30pc" alt="section 1"></p>
+<p><strong>步骤1</strong> 选择菜单<code>File</code>-&gt;<code>New</code>-&gt;<code>Target</code>。当模板列表出现后，在<code>watchOS</code>选项卡下选择<code>Watch App for iOS App</code>模板，并点击下一步(Next)。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section1_step1_1.png?width=30pc" alt="section 1 step 1 1"></p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section1_step1_2.png?width=30pc" alt="section 1 step 1 2"></p>
+<p>选择这个模板会添加一个新的<code>watchOS</code>应用到工程中，嵌入到<code>iOS</code>应用平级。</p>
+<p><strong>步骤2</strong> 在模板创建表中，输入<code>WatchLandmarks</code>作为产品名称，设置语言为<code>Swift</code>，用户界面为<code>SwiftUI</code>实现方式，并勾选通知应用场景，最后点击完成(Finish)。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section1_step2_1.png?width=30pc" alt="section 1 step 2 1"></p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section1_step2_2.png?width=30pc" alt="section 2 step 2 2"></p>
+<p><strong>步骤3</strong> 如果<code>Xcode</code>提示激活<code>watchOS</code>平台编译运行方案，点击激活(Activate)。这会把编译运行方案从iOS平台切换到<code>watchOS</code>平台上来。</p>
+<p><strong>步骤4</strong> 在扩展<code>Target</code><strong>WatchLandmarks Extensions</strong>的通用(<code>General</code>)选项卡下勾选<code>Supports Running Without iOS App Installation</code>，尽量创建一个可以独立于<code>iOS宿主</code>运行的<code>watchOS</code>应用。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section1_step4.png?width=40pc" alt="section 2 step 4"></p>
+<h3 id="第二节-在target间共享文件">第二节 在<code>Target</code>间共享文件</h3>
+<p>现在<code>watchOS</code>平台的编译目标(Target)已经创建好，为了避免重复工作，可以复用一些之前在<code>iOS</code>项目中的资源。地标的数据模型文件可以复用，一些资源文件以及一些两个平台下不需要修改就可以展示的视图文件也可复用。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section2.png?width=20pc" alt="section 2"></p>
+<p><strong>步骤1</strong> 在项目导航器中，按下<code>Command+鼠标左键</code>的同时，选中文件：<code>LandmarkRow.swift</code>、<code>Landmark.swift</code>、<code>UserData.swift</code>、<code>Data.swift</code>、<code>Profile.swift</code>、<code>Hike.swift</code>和<code>CircleImage.swift</code>。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section2_step1.png?width=20pc" alt="section 2 step 1"></p>
+<p>其中<code>Landmark.swift</code>、<code>UserData.swift</code>、<code>Data.swift</code>、<code>Profile.swift</code>、<code>Hike.swift</code>这几个文件定义了应用的数据模型。我们不会使用这些文件中的所有内容，但为了编译通过需要这些文件。<code>LandmarkRow.swift</code>、
+<code>CircleImage.swift</code>这两个文件是不需要任何修改就可以在<code>watchOS</code>平台上展示的视图。要注意<code>Data.swift</code>文件中是否导入<code>ImageIO</code>模块，如果没有<code>import ImageIO</code>这一句，编译时会有报错。</p>
+<p><strong>步骤2</strong> 上一步选中需要文件的情况下，在文件检查器中，勾选<code>WatchLandmarks Extension</code>，让之前选中的文件也变成<code>WatchLandmarks Extension</code>编译时用到的文件。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section2_step2.png?width=50pc" alt="section 2 step 2"></p>
+<p><strong>步骤3</strong> 在项目导航器中，选中<code>Landmarks</code>文件组下的<code>Assets.xcassets</code>文件，并在文件检查器中把它添加到<code>WatchLandmarks</code>编译运行目标中。这里的编译运行目标和上一步选中的编译运行目标不相同。<code>WatchLandmarks Extension</code>是用来放置应用的代码，<code>WatchLandmarks</code>是用来管理<code>storyboard</code>、图标以及相关资源的。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section2_step3.png?width=50pc" alt="section 2 step 3"></p>
+<p><strong>步骤4</strong> 在项目导航器中，选择<code>Resources</code>文件夹下的所有文件，并在文件检查器中把它们添加到<code>WatchLandmarks Extension</code>编译目标下。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section2_step4.png?width=50pc" alt="section 2 step 4"></p>
+<h3 id="第三节-创建详情视图">第三节 创建详情视图</h3>
+<p>iOS编译目标下的资源可以在手表应用下使用，但我们需要创建一个专门适配手表尺寸的地标详情页来展示地标的具体信息。为了测试视图是否能适配手表展示，需要分别为最大尺寸和最小尺寸手表创建预览视图，并根据情况适当的调整圆形视图的布局来适应手表的界面大小。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3.png?width=20pc" alt="section 3"></p>
+<p><strong>步骤1</strong> 在项目导航器中，点击<code>WatchLandmarks Extension</code>文件夹左边的三角形展开箭头，查看文件夹下的具体内容，并添加一个名为<code>WatchLandmarkDetail</code>的<code>SwiftUI</code>视图。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3_step1.png?width=50pc" alt="section 3 step 1"></p>
+<p><strong>步骤2</strong> 在结构体<code>WatchLandmarkDetail</code>结构体中添加<code>userData</code>、<code>landmark</code>和<code>landmarkIndex</code>属性。这些新增和属性与在处理用户输入时在<code>LandmarkDetail</code>中添加的属性是对等的。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3_step2.png?width=50pc" alt="section 3 step 2"></p>
+<p>添加完属性后发现，Xcode会报缺少参数的错误。要修复这个错误有两种方式，一种是为属性提供一个默认值，一种是给视图的属性传入对应的值。</p>
+<p><strong>步骤3</strong> 在预览视图中，创建一个用户数据的实例，并给<code>WatchLandmarkDetail</code>结构体的初始化器中传入一个地标对象作为参数。这里需要把用户数据设置为视图的环境对象。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3_step3.png?width=50pc" alt="section 3 step 3"></p>
+<p><strong>步骤4</strong> 在<code>WatchLandmarkDetail.swift</code>文件中，body()方法中返回一个<code>CircleImage</code>视图。这里的<code>CircleImage</code>是复用iOS项目中的视图，因为创建的图片是可缩放的，可以调用<code>.scaleToFill()</code>属性修改器让圆的大小添满整个手表显示屏。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3_step4.png?width=50pc" alt="section 3 step 4"></p>
+<p><strong>步骤5</strong> 创建最大尺寸(44mm)和最小尺寸(38mm)的手表预览视图。通过测试在最大最小尺寸上的展示情况，查看应用UI是否有问题，通常情况下，需要测试所有不同尺寸显示屏上UI展示情况是否符合预期。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3_step5.png?width=50pc" alt="section 3 step 5"></p>
+<p><code>CircleImage</code>缩放到高度完全填充显示器高度，但这种情况下适配了高度，宽度却被截断了。为了修复这个截断问题，需要把<code>CircleImage</code>视图嵌入到一个<code>VStack</code>视图容器中，并作一些调整，让<code>CircleImage</code>可以在所有尺寸的手表显示屏上正常展示。</p>
+<p><strong>步骤6</strong> 把<code>CircleImage</code>嵌入到<code>VStack</code>中，并在图片下方显示地标名称信息。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3_step6.png?width=50pc" alt="section 3 step 6"></p>
+<p>很明显，此时的信息一屏展示不下，所以需要把视图内容放入到<code>ScrollView</code>中，以获取滚动查看的功能。</p>
+<p><strong>步骤7</strong> 把<code>VStack</code>整体嵌入到一个<code>ScrollView</code>中，这就让视图获取了滚动查看的能力，但同时也引入了另一个问题：<code>CircleImage</code>现在扩展到完全尺寸，把其它元素挤到没有地方显示。所以需要缩放<code>CircleImage</code>，让圆形图片和地标名称可以在一屏内同时显示出来。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3_step7.png?width=50pc" alt="section 3 step 7"></p>
+<p><strong>步骤8</strong> 改变<code>scaleToFill()</code>为<code>scaleToFit()</code>，这就让图片缩放按照显示器的宽度进行适配。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3_step8.png?width=40pc" alt="section 3 step 8"></p>
+<p><strong>步骤9</strong></p>
+<p>为了让地标名称在地标图片的下面展示了来，添加<code>padding</code>量来解决。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3_step9.png?width=40pc" alt="section 3 step 9"></p>
+<p><strong>步骤10</strong> 给返回按钮添加一个标题文本。这个返回按钮是看不见的，只有把<code>LandmarksList</code>视图加上后，才会出现返回按钮。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section3_step10.png?width=40pc" alt="section 3 step 10"></p>
+<h3 id="第四节-添加一个watchos地图视图">第四节 添加一个<code>watchOS</code>地图视图</h3>
+<p>既然已经创建了详情页，现在就可以添加一个地图视图用来显示地标的地理位置了。不像<code>CircleImage</code>，这里就不能复用iOS应用的<code>MapView</code>了。需要创建一个<code>WKInterfaceObjectRepresentable</code>结构体来包装一个<code>WatchKit</code>地图。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section4.png?width=20pc" alt="section 4"></p>
+<p><strong>步骤1</strong> 在<code>WatchKit Extension</code>中添加一个名为<code>WatchMapView</code>的视图。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section4_step1.png?width=50pc" alt="section 4 step 1"></p>
+<p><strong>步骤2</strong> 让<code>WatchMapView</code>遵循<code>WKInterfaceObjectRepresentable</code>协议而不是<code>View</code>协议。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section4_step2.png?width=50pc" alt="section 4 step 2"></p>
+<p>目前，因为还没有实现协议<code>WKInterfaceObjectRepresentable</code>协议的方法，所以Xcode会报错。</p>
+<p><strong>步骤3</strong> 删除<code>body()</code>方法，并用属性<code>landmark</code>替换它。当创建一个地图视图时，需要给这个<code>landmark</code>属性传入一个值。像在预览视图中传入一个地标实例数据一样。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section4_step3.png?width=50pc" alt="section 4 step 3"></p>
+<p><strong>步骤4</strong> 实例协议<code>WKInterfaceObjectRepresentable</code>方法<code>makeWKInterfaceObject(context:)</code>。这个协议方法创建<code>WatchKit</code>地图视图<code>WatchMapView</code>。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section4_step4.png?width=50pc" alt="section 4 step 4"></p>
+<p><strong>步骤5</strong> 实现协议方法<code>updateWKInterfaceObject:(_:, context:)</code>，根据地标的坐标设置地图展示区域，现在项目可以编译通过了。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section4_step5.png?width=50pc" alt="section 4 step 5"></p>
+<p><strong>步骤6</strong> 在<code>WatchLandmarkDetail.swift</code>文件中把<code>WatchMapView</code>添加在<code>VStack</code>的底部。在地图上面添加一上分割器。使用<code>.scaledToFit()</code>和<code>.paddding()</code>来修改地图尺寸，让它更适合屏幕。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section4_step6.png?width=50pc" alt="section 4 step 6"></p>
+<h3 id="第五节-创建跨平台列表视图">第五节 创建跨平台列表视图</h3>
+<p>对于地标列表，可以复用iOS应用中列表的行元素视图，但不同的平台下需要展示适合平台的详情页。这就需要把<code>LandmarkList</code>视图转换成一个通用的列表视图。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section5.png?width=20pc" alt="section 5"></p>
+<p><strong>步骤1</strong> 在工具条中，选择<code>Landmarks</code>方案，让<code>Xcode</code>现在的编译运行方案指向iOS平台。这样做是为了确保对<code>LandmarkList</code>视图的重构不会影响原来在<code>iOS</code>平台时的表现，这样就可以在不影响<code>iOS</code>平台的条件下，把<code>LandmarkList</code>重构后应用到<code>watchOS</code>应用中。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section5_step1.png?width=30pc" alt="section 5 step 1"></p>
+<p><strong>步骤2</strong> 切换到文件<code>LandmarkList.swift</code>，把类型声明为范型。改造为范型后，当要创建一个<code>LandmarkList</code>结构的实例时，会报范型参数类型无法推断的错误。这将在下面的步骤中解决。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section5_step2.png?width=50pc" alt="section 5 step 2"></p>
+<p><strong>步骤3</strong> 添加一个闭包属性，用来创建详情视图。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section5_step3.png?width=50pc" alt="section 5 step 3"></p>
+<p><strong>步骤4</strong> 使用<code>detailViewProducer</code>属性为地标创建详情视图。当需要创建一个<code>LandmarkList</code>时，需要提供一个闭包来创建对应地标的详情视图</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section5_step4.png?width=50pc" alt="section 5 step 4"></p>
+<p><strong>步骤5</strong> 切换到<code>Home.swift</code>文件，在<code>CategoryHome</code>结构体的<code>body</code>属性中添加一个闭包用来创建详情视图。<code>Xcode</code>会根据闭包的返回值类型推断出<code>LandmarkList</code>结构体的范型参数类型。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section5_step5.png?width=50pc" alt="section 5 step 5"></p>
+<p><strong>步骤6</strong> 在<code>LandmarkList.swift</code>文件中，给预览视图添加相似的代码。为了适配不同的设备平台，这里需要使用条件编译，为不同平台编译不同的代码。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section5_step6.png?width=50pc" alt="section 5 step 6"></p>
+<h3 id="第六节-添加地标列表">第六节 添加地标列表</h3>
+<p>目前已经将<code>LandmarkList</code>视图改造为可以同时兼容<code>watchOS</code>和<code>iOS</code>两个平台，现在就可以把它应用在<code>watchOS</code>平台下的应用中了。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section6.png?width=20pc" alt="section 6"></p>
+<p><strong>步骤1</strong> 在文件检查器中，将<code>LandmarkList.swift</code>添加为<code>WatchLandmark Extension</code>编译目标的成员。现在就可以在<code>watchOS</code>的应用中使用<code>LandmarkList.swift</code>这份代码文件了。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section6_step1.png?width=20pc" alt="section 6 step 1"></p>
+<p>这一步其实在**<code>第五节步骤六</code>**已经做过了。</p>
+<p><strong>步骤2</strong> 在工具条上，切换编译方案为<code>Watch Landmarks</code></p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section6_step2.png?width=30pc" alt="section 6 step 2"></p>
+<p><strong>步骤3</strong>  打开<code>LandmarkList.swift</code>文件，并对该视图进行预览. <code>Command + Option + Enter</code>打开预览画布，<code>Command + Option + P</code>启动预览。因为现在编译方案已经切换为<code>watchOS</code>平台，所以现在预览视图里显示的是手表预览。<code>watchOS</code>平台的应用根视图是<code>ContentView</code>，目前显示的是<code>Hello, World</code>文字。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section6_step3.png?width=10pc" alt="section 6 step 3"></p>
+<p><strong>步骤4</strong> 修改<code>ContentView</code>让它显示地标列表</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section6_step4.png?width=50pc" alt="section 6 step 4"></p>
+<p><strong>步骤5</strong> 在模拟器上构建并运行<code>watchOS</code>应用。滚动地标列表，点击查看地标详情，标记地标为收藏状态，点击返回按钮从地标详情页返回到地标列表页，打开收藏开关，只查看补收藏的地标。测试一下<code>watchOS</code>应用的功能是否正常。</p>
+<p><img src="/swiftui/framework_integration/creating_a_watchOS_App.files/watch_landmark_app_test.gif?width=20pc" alt="section 6 step 5"></p>
+<h3 id="第七节-创建自定义通知界面">第七节 创建自定义通知界面</h3>
+<p><code>watchOS</code>平台的<code>Landmarks</code>应用已经接近完成了。在最后一节中，会创建一个通知界面，当用户的地理位置靠近自己收藏过的地标位置时会收到通知提示用户，通知界面展示当前正在接近的地标相关信息。本节只讲当用户收到通知时怎样显示通知界面，不涉及怎样设置和发送通知给用户的内容。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7.png?width=30pc" alt="section 7"></p>
+<p><strong>步骤1</strong> 打开<code>NotificationView.swift</code>文件并创建一个显示地标信息、标题及消息的视图。由于任何通知都可能为<code>nil</code>，预览视图会展示两种不同的通知视图。第一个展示在没有数据时按默认值显示的视图，第二个展示有标题、消息及位置数据时的视图。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7_step1.png?width=50pc" alt="section 7 step 1"></p>
+<p><strong>步骤2</strong> 打开<code>NotificationController</code>添加<code>landmark</code>、<code>title</code>和<code>message</code>属性。这些属性值存储用户收到的通知值。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7_step2.png?width=50pc" alt="section 7 step 2"></p>
+<p><strong>步骤3</strong> 更新<code>body()</code>方法，在其内部使用这些属性。在<code>body</code>方法内初始化之前创建的<code>NotificationView</code>。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7_step3.png?width=50pc" alt="section 7 step 3"></p>
+<p><strong>步骤4</strong> 在<code>NatificationController</code>中定义<code>LandmarkIndex</code>键，使用这个键从通知中提取地标的下标值。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7_step4.png?width=50pc" alt="section 7 step 4"></p>
+<p><strong>步骤5</strong> 使用<code>didReceive(_:)</code>方法从收到的通知中解析相关数据值。这个方法会更新控件器的属性值。调用这个方法后，系统会让控制器的<code>body</code>属性失效，引起导航视图更新，之后系统会把通知界面显示在<code>Apple Watch</code>上。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7_step5.png?width=50pc" alt="section 7 step 5"></p>
+<p>当<code>Apple Watch</code>接收到通知时，它会创建<code>NotificationController</code>并把它与通知的类型关联起来。为了给<code>NotificationController</code>设置类型，必须打开并编辑应用的<code>storyboard</code>。</p>
+<p><strong>步骤6</strong> 在项目导航器中，选择<code>WatchLandmarks</code>文件夹，并打开<code>Interface.storyboard</code>文件，然后选中指向静态通知界面控制器(<code>static notification interface controller</code>)的箭头。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7_step6.png?width=50pc" alt="section 7 step 6"></p>
+<p><strong>步骤7</strong> 在属性检查器中，设置通知类别的名称为<code>LandmarkNear</code></p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7_step7.png?width=50pc" alt="section 7 step 7"></p>
+<p>使用<code>LandmarkNear</code>类别配置测试数据(<code>payload</code>)，并把它传给<code>NotificationController</code></p>
+<p><strong>步骤8</strong> 项目导航器中选中<code>WatchLandmarks Extensions</code>文件夹，打开<code>Push NotificationPayload.apns</code>文件，更新<code>title</code>、<code>body</code>、<code>category</code>和<code>landmarkIndex</code>属性值。确保设置<code>category</code>为<code>LandmarkNear</code>。除此之外还需要删除所有在本教程中不需要的其它无关字段，例如<code>subtitle</code>、<code>WatchKit Simulator Actions</code>和<code>customKey</code>。Payload文件是用来模拟从服务端发送的远程推送的数据。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7_step8.png?width=50pc" alt="section 7 step 8"></p>
+<p><strong>步骤9</strong> 选择编译方案<code>WatchLandmarks(Notificaton)</code>，编译并运行应用。第一次运行通知方案时，系统会请求发送通知的权限，选择允许(<code>Allow</code>)获取发送通知的权限。模拟器会展示一个可滚动的通知：一个标识应用身份的横幅、通知视图以及一个点击按钮用来响应通知被点击后的动作。</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7_step9_1.png?width=20pc" alt="section 7 step 9 1"></p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_section7_step9_2.png?width=20pc" alt="section 7 step 9 2"></p>
+<h3 id="检查是否理解">检查是否理解</h3>
+<p><strong>问题1</strong> 当要在<code>iOS</code>工程中添加一个<code>watchOS</code>编译目标时，应该选用哪个应用模板?</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_problem1.png?width=40pc&amp;classes=border" alt="problem 1"></p>
+<ul>
+<li><input disabled="" type="checkbox"> App</li>
+<li><input checked="" disabled="" type="checkbox"> Watch App for iOS App</li>
+<li><input disabled="" type="checkbox"> Game App</li>
+</ul>
+<p><strong>问题2</strong> 下面哪一个<code>watchOS</code>应用元素可以通过使用<code>SwiftUI</code>来实现？</p>
+<ul>
+<li><input disabled="" type="checkbox"> 只用<code>watchOS</code>应用的视图可以使用<code>SwiftUI</code>实现</li>
+<li><input checked="" disabled="" type="checkbox"> <code>watchOS</code>应用的视图以及自定义通知界面</li>
+<li><input disabled="" type="checkbox"> <code>watchOS</code>应用的视图、自定义通知界面以及<code>complications</code></li>
+<li><input disabled="" type="checkbox"> <code>watchOS</code>应用的视图、自定义通知界面、<code>complicatons</code>以及<code>Siri卡片</code></li>
+</ul>
+<p><strong>问题3</strong> 为什么不能在<code>watchOS</code>平台上复用<code>LandmarkDetail</code>视图？</p>
+<ul>
+<li><input disabled="" type="checkbox"> 因为<code>LandmarkDetail</code>视图是为大屏设备设计的</li>
+<li><input disabled="" type="checkbox"> 因为<code>watchOS</code>的用户界面应该只展示最重要的信息，并提供访问额外详情的快速访问方式</li>
+<li><input disabled="" type="checkbox"> <code>MapView</code>不能在<code>watchOS</code>上使用，因为它遵循<code>UIViewRepresentable</code>协议，这个协议在<code>watchOS</code>平台上不可用</li>
+<li><input checked="" disabled="" type="checkbox"> 以上所有</li>
+</ul>
+<p><strong>问题4</strong> 为什么需要针对<code>watchOS</code>平台来修改<code>LandmarkList</code>视图？</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 当用户点击列表中的某一项时，需要改变列表展示的详情视图</li>
+<li><input disabled="" type="checkbox"> <code>LandmarkList</code>不包含任何平台相关的代码，所以要针对不同平台进行不同的布局</li>
+<li><input disabled="" type="checkbox"> 要支持多平台，必须使用范型</li>
+<li><input disabled="" type="checkbox"> 必须为每个平台重新设计视图</li>
+</ul>
+<p><strong>问题5</strong> 哪一个通知界面可以使用<code>SwiftUI</code>开发？</p>
+<p><img src="/swiftui/framework_integration/images/create_a_watchOS_app_problem5.png?width=40pc&amp;classes=border" alt="problem 5"></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 只有动态交互界面可以</li>
+<li><input disabled="" type="checkbox"> 静态和动态交互界面都可以</li>
+</ul>
+
+
+<footer class="footline">
+	
+</footer>
+
+
+</div>
+
+
+</div>
+
+<div id="navigation">
+
+
+
+
+
+
+    
+        
+        
+    
+    
+
+        
+        
+            
+        
+        
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+            
+        
+        
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+
+
+
+
+
+
+
+
+
+<a class="nav nav-prev" href="/swiftui/framework_integration/interfaceing_with_uikit/" title="与UIKit交互"> <i class="fa fa-chevron-left"></i></a>
+
+
+<a class="nav nav-next" href="/swiftui/framework_integration/creating_a_macos_app/" title="创建macOS应用" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+
+
+</div>
+
+</section>
+
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+<div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>
+<script src="/js/clipboard.min.js?1711337756"></script>
+<script src="/js/perfect-scrollbar.min.js?1711337756"></script>
+<script src="/js/perfect-scrollbar.jquery.min.js?1711337756"></script>
+<script src="/js/jquery.sticky.js?1711337756"></script>
+<script src="/js/featherlight.min.js?1711337756"></script>
+<script src="/js/highlight.pack.js?1711337756"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/modernizr.custom-3.6.0.js?1711337756"></script>
+<script src="/js/learn.js?1711337756"></script>
+<script src="/js/hugo-learn.js?1711337756"></script>
+
+
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+
+<script>
+mermaid.initialize({ startOnLoad: true });
+</script>
+
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+</body>
+</html>

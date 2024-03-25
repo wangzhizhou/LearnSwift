@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.108.0">
+    <meta name="description" content="Swift学习">
+<meta name="author" content="王志舟">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>绘制路径和形状 - Learn Swift</title>
+
+    
+    <link href="/css/nucleus.css?1711337756" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1711337756" rel="stylesheet">
+    <link href="/css/hybrid.css?1711337756" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1711337756" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1711337756" rel="stylesheet">
+    <link href="/css/auto-complete.css?1711337756" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1711337756" rel="stylesheet">
+    <link href="/css/theme.css?1711337756" rel="stylesheet">
+    <link href="/css/tabs.css?1711337756" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1711337756" rel="stylesheet">
+    
+    <link href="/css/theme-mine.css?1711337756" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1711337756"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/swiftui/drawing_and_animation/drawing_paths_and_shapes/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+    <svg id="grav-logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 448 512" xml:space="preserve">
+		<g>
+			<path fill="currentColor" d="M448 156.09c0-4.51-.08-9-.2-13.52a196.31 196.31 0 0 0-2.58-29.42 99.62 99.62 0 0 0-9.22-28A94.08 94.08 0 0 0 394.84 44a99.17 99.17 0 0 0-28-9.22 195 195 0 0 0-29.43-2.59c-4.51-.12-9-.17-13.52-.2H124.14c-4.51 0-9 .08-13.52.2-2.45.07-4.91.15-7.37.27a171.68 171.68 0 0 0-22.06 2.32 103.06 103.06 0 0 0-21.21 6.1q-3.46 1.45-6.81 3.12a94.66 94.66 0 0 0-18.39 12.32c-1.88 1.61-3.69 3.28-5.43 5A93.86 93.86 0 0 0 12 85.17a99.45 99.45 0 0 0-9.22 28 196.31 196.31 0 0 0-2.54 29.4c-.13 4.51-.18 9-.21 13.52v199.83c0 4.51.08 9 .21 13.51a196.08 196.08 0 0 0 2.58 29.42 99.3 99.3 0 0 0 9.22 28A94.31 94.31 0 0 0 53.17 468a99.47 99.47 0 0 0 28 9.21 195 195 0 0 0 29.43 2.59c4.5.12 9 .17 13.52.2H323.91c4.51 0 9-.08 13.52-.2a196.59 196.59 0 0 0 29.44-2.59 99.57 99.57 0 0 0 28-9.21A94.22 94.22 0 0 0 436 426.84a99.3 99.3 0 0 0 9.22-28 194.79 194.79 0 0 0 2.59-29.42c.12-4.5.17-9 .2-13.51V172.14c-.01-5.35-.01-10.7-.01-16.05zm-69.88 241c-20-38.93-57.23-29.27-76.31-19.47-1.72 1-3.48 2-5.25 3l-.42.25c-39.5 21-92.53 22.54-145.85-.38A234.64 234.64 0 0 1 45 290.12a230.63 230.63 0 0 0 39.17 23.37c56.36 26.4 113 24.49 153 0-57-43.85-104.6-101-141.09-147.22a197.09 197.09 0 0 1-18.78-25.9c43.7 40 112.7 90.22 137.48 104.12-52.57-55.49-98.89-123.94-96.72-121.74 82.79 83.42 159.18 130.59 159.18 130.59 2.88 1.58 5 2.85 6.73 4a127.44 127.44 0 0 0 4.16-12.47c13.22-48.33-1.66-103.58-35.31-149.2C329.61 141.75 375 229.34 356.4 303.42c-.44 1.73-.95 3.4-1.44 5.09 38.52 47.4 28.04 98.17 23.13 88.59z">
+			</path>
+		</g>
+	</svg>
+</a>
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="搜索...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1711337756"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1711337756"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/swift.jokerhub.cn";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1711337756"></script>
+
+    
+  </div>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swift/" title="Swift" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swift/">
+          <b>1. </b>Swift
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/" title="SwiftUI" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/swiftui/">
+          <b>2. </b>SwiftUI
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/swiftui_essentials/" title="SwiftUI基础" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/swiftui_essentials/">
+          SwiftUI基础
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/creating_and_combining_views/" title="创建和组合视图" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/creating_and_combining_views/">
+        创建和组合视图
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/building_lists_and_navigation/" title="创建列表和导航" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/building_lists_and_navigation/">
+        创建列表和导航
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/swiftui_essentials/handling_user_input/" title="处理用户输入" class="dd-item ">
+        <a href="/swiftui/swiftui_essentials/handling_user_input/">
+        处理用户输入
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/drawing_and_animation/" title="绘制和动画" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/swiftui/drawing_and_animation/">
+          绘制和动画
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/drawing_and_animation/drawing_paths_and_shapes/" title="绘制路径和形状" class="dd-item active">
+        <a href="/swiftui/drawing_and_animation/drawing_paths_and_shapes/">
+        绘制路径和形状
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/drawing_and_animation/animating_views_and_transitions/" title="视图动画和转场" class="dd-item ">
+        <a href="/swiftui/drawing_and_animation/animating_views_and_transitions/">
+        视图动画和转场
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/app_design_and_layout/" title="应用设计与布局" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/app_design_and_layout/">
+          应用设计与布局
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/app_design_and_layout/composing_complex_interfaces/" title="组合复杂用户界面" class="dd-item ">
+        <a href="/swiftui/app_design_and_layout/composing_complex_interfaces/">
+        组合复杂用户界面
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/app_design_and_layout/working_with_ui_controls/" title="玩转UI控件" class="dd-item ">
+        <a href="/swiftui/app_design_and_layout/working_with_ui_controls/">
+        玩转UI控件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftui/framework_integration/" title="框架集成" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftui/framework_integration/">
+          框架集成
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/interfaceing_with_uikit/" title="与UIKit交互" class="dd-item ">
+        <a href="/swiftui/framework_integration/interfaceing_with_uikit/">
+        与UIKit交互
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/creating_a_watchos_app/" title="创建watchOS应用" class="dd-item ">
+        <a href="/swiftui/framework_integration/creating_a_watchos_app/">
+        创建watchOS应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftui/framework_integration/creating_a_macos_app/" title="创建macOS应用" class="dd-item ">
+        <a href="/swiftui/framework_integration/creating_a_macos_app/">
+        创建macOS应用
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/swiftpm/" title="SwiftPM" class="dd-item
+        
+        
+        
+        ">
+      <a href="/swiftpm/">
+          <b>3. </b>SwiftPM
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/spm_in_cli/" title="命令行下的SPM" class="dd-item ">
+        <a href="/swiftpm/spm_in_cli/">
+        命令行下的SPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/spm_in_xcode/" title="Xcode中的SPM" class="dd-item ">
+        <a href="/swiftpm/spm_in_xcode/">
+        Xcode中的SPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/swiftpm/swiftpm_plugin/" title="Swift Package Plugin" class="dd-item ">
+        <a href="/swiftpm/swiftpm_plugin/">
+        Swift Package Plugin
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/combine/" title="Combine" class="dd-item
+        
+        
+        
+        ">
+      <a href="/combine/">
+          <b>4. </b>Combine
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/tdd/" title="TDD" class="dd-item
+        
+        
+        
+        ">
+      <a href="/tdd/">
+          <b>5. </b>TDD
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/tdd/tdd_cycle/" title="TDD 迭代循环" class="dd-item ">
+        <a href="/tdd/tdd_cycle/">
+        TDD 迭代循环
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/dp/" title="Design Pattern" class="dd-item
+        
+        
+        
+        ">
+      <a href="/dp/">
+          <b>6. </b>Design Pattern
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/dp/note/" title="高级开发者学习笔记" class="dd-item ">
+        <a href="/dp/note/">
+        高级开发者学习笔记
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li>
+                  <a class="padding" href="https://github.com/wangzhizhou/LearnSwift.git"><i class='fab fa-fw fa-github'></i> GitHub 仓库</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/videos/all-videos/?q=swiftui"><i class='fas fa-fw fa-video'></i> SwiftUI 视频</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/swiftui/"><i class='fas fa-fw fa-receipt'></i> SwiftUI 文档</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://learn.netlify.app/en/"><i class='fas fa-fw fa-book'></i> Learn 主题</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swift.jokerhub.cn/tags"><i class='fas fa-tags'></i> Tags 标签</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/tutorials/swiftui/tutorials/"><i class='fab fa-apple'></i> SwiftUI 官方教程(英文)</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://fontawesome.com/icons?d=gallery&amp;m=free"><i class='fab fa-sketch'></i> Font Awesome</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swift.org"><i class='fas fa-book-open'></i> Swift 官网</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/forums/"><i class='fas fa-question-circle'></i> Apple 官方论坛</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/sample-code"><i class='fas fa-file-code'></i> Apple 示例代码</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/"><i class='fas fa-folder'></i> Apple 官方文档</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://www.flaticon.com/"><i class='fas fa-sun'></i> flaticon</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://swiftpackageindex.com/"><i class='fas fa-archive'></i> SPM 查询</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://toml.io"><i class='fas fa-paper-plane'></i> TOML 语法</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://salttiger.com"><i class='fas fa-book-reader'></i> SaltTiger 书籍下载</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://developer.apple.com/documentation/visionos"><i class='fas fa-solid fa-vr-cardboard'></i> visionOS</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <center>
+</center>
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='编辑当前页' href="https://github.com/wangzhizhou/LearnSwift/edit/master/docs/swiftui/drawing_and_animation/drawing_paths_and_shapes.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">编辑当前页</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Learn Swift</a> > <a href='/swiftui/'>SwiftUI</a> > <a href='/swiftui/drawing_and_animation/'>绘制和动画</a> > 绘制路径和形状
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#第一节-创建徽章视图">第一节 创建徽章视图</a></li>
+        <li><a href="#第二节-绘制徽章背景">第二节 绘制徽章背景</a></li>
+        <li><a href="#第三节-绘制徽章符号">第三节 绘制徽章符号</a></li>
+        <li><a href="#第四节-组合徽章的前景符号和背景形状">第四节 组合徽章的前景符号和背景形状</a></li>
+        <li><a href="#检查是否理解">检查是否理解</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              绘制路径和形状
+            </h1>
+          
+
+        
+
+
+<p>用户在浏览完一个地标后会得到一个徽章。但用户要得到徽章首先要先要创建一个徽章。本篇教程就是使用路径和形状创建徽章的过程，创建的徽章可以和其它图形组合形成位置标志。</p>
+<p>如果想要针对不同种类的地标创建不同的徽章，可以尝试改变徽章基本组成符号的重复次数、角度或大小。</p>
+<p>跟着教程一步步走，可以下载工程文件进行实践。</p>
+<section class="attachments blue">
+  <label>
+    <i class="fas fa-paperclip" aria-hidden="true"></i>
+    项目文件
+  </label>
+  <div class="attachments-files">
+    <li>
+      <a href="/swiftui/drawing_and_animation/drawing_paths_and_shapes.files/DrawingPathsAndShapes.zip">DrawingPathsAndShapes.zip</a>
+      (6 MB)
+    </li>
+  </div>
+</section>
+
+<hr>
+<h3 id="第一节-创建徽章视图">第一节 创建徽章视图</h3>
+<p>创建徽章前需要使用SwiftUI的矢量绘画API创建一个徽章视图</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge.png?width=20pc" alt="badge"></p>
+<p><strong>步骤1</strong> 选择<strong>文件-&gt;新建-&gt;文件</strong>，然后从iOS文件模板列表中选择<strong>SwiftUI View</strong>。点击<strong>下一步(Next)</strong>，输入文件名<strong>Badge</strong>后点击<strong>创建(Create)</strong></p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-create-file.png?width=50pc" alt="create file"></p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-name-file.png?width=20pc" alt="name file"></p>
+<p><strong>步骤2</strong> 调整<strong>Badge</strong>视图，暂时先让它显示&quot;Badge&quot;文本，一会儿再绘制徽章的形状</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-text.png?width=40pc" alt="badge text"></p>
+<h3 id="第二节-绘制徽章背景">第二节 绘制徽章背景</h3>
+<p>使用SwiftUI的图形API绘制一个徽章形状</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-background.png?width=20pc" alt="badge background"></p>
+<p><strong>步骤1</strong> 查看在文件<code>HexagonParameters.swift</code>中的代码。<code>HexagonParameters</code>结构体定义了绘制徽章六边形形状的控制点参数。不需要修改这些绘制相关的数据，仅仅使用这些数据指定绘制徽章形状时，线段和曲线的控制点位置。</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-hexagonal-data.png?width=40pc" alt="hexagonal data"></p>
+<p><strong>步骤2</strong> 在<code>Badge.swift</code>文件中，绘制徽章的形状并使用<code>fill</code>修改器给六边形填充颜色，形成一个视图。使用路径可以把多条直线、曲线或其它绘制形状的基本笔划连成一个复杂的图形，就像形成徽章六边形背景这样.</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-path.png?width=20pc" alt="Path"></p>
+<p><strong>步骤3</strong> 给路径添加起点，<code>move(to:)</code>方法可以把绘图光标移动到绘图中的一点，准备绘制的起点</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-path-start-point.png?width=20pc" alt="path start point"></p>
+<p><strong>步骤4</strong> 使用六边形的绘制参数数据<code>HexagonParameters</code>，依次绘制六边形的边，形成大致轮廓.<code>addLine(to:)</code>方法会使用当前绘图光标所在点为起点，方法参数中指定的点为终点绘制直线。目前六边形看起来有点问题，不过不要担心，这是意料中的事，下面的步骤做完，六边形的形状就会和开头显示的徽章的六边形形状一致了</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-path-fill.png?width=40pc" alt="path fill"></p>
+<p><strong>步骤5</strong> 使用<code>addQuadCurve(to:control:)</code>方法绘制贝塞尔曲线，让六边形的角变的更圆润些。</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-hexagonal.png?width=40pc" alt="badge hexagonal"></p>
+<p><strong>步骤6</strong> 把徽章路径包裹在一个<code>Geometry Reader</code>中，这样徽章可以使用容器的大小，定义自己绘制的尺寸，这样就不需要硬编码绘制尺寸了(<strong>100</strong>)。当绘制区域不是正方形时，使用绘制区域的最小边长(长宽中哪个最小使用哪个)作为绘制徽章背景的边长，并保持徽章背景的长宽比为<code>1:1</code></p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-geometry-reader.png?width=40pc" alt="geometry reader"></p>
+<p><strong>步骤7</strong> 使用<code>xScale</code>和<code>xOffset</code>参数调整变量，把徽章几何绘图区域居中绘制出来</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-square.png?width=40pc" alt="badge square"></p>
+<p><strong>步骤8</strong> 把黑色实心填充色改为渐变色，使徽章看上去和开始设计的样式一致</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-gradient.png?width=50pc" alt="badge gradient"></p>
+<p><strong>步骤9</strong> 渐变色上再使用<code>aspectRatio(_:contentMode:)</code>修改器，让渐变色按内容宽高比进行成比例渐变填充。保持<code>1:1</code>的长宽比，徽章背景可以保持居中在徽章视图中，不管徽章视图本身是不是正方形</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-center.png?width=50pc" alt="badge center"></p>
+<h3 id="第三节-绘制徽章符号">第三节 绘制徽章符号</h3>
+<p>地标徽章中心有一个以地标App图标中的山峰图形改造形成的标志。山峰这个符号由两个形状组成，一个是表示山顶被雪覆盖的部分，另一个是山体。这里会使用有一定间距的两个局部三角形形状绘制这个徽章符号</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-symbol.png?width=20pc" alt="badge symbol"></p>
+<p><strong>步骤1</strong> 把之前的徽章视图形状抽出来单独形成一个<code>BadgeBackground</code>视图，并生成一个新的视图文件<code>BadgeBackground.swift</code></p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badgebackground.png?width=50pc" alt="badge background"></p>
+<p><strong>步骤2</strong> 把<code>BadgeBackground</code>放在<code>Badge</code>的<code>body</code>属性中。</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-refactor-background.png?width=50pc" alt="refactor badge"></p>
+<p><strong>步骤3</strong> 创建名为<code>BadgeSymbol</code>的自定义视图，这个视图是一个山峰的形状，把这个形状复制多次并按一定角度旋转多次拼成一个徽章的图案</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-symbol-create.png?width=50pc" alt="badge symbol"></p>
+<p><strong>步骤4</strong> 使用<code>path</code>API来绘制徽章符号的上半部分，试着调节<code>spacing</code>、<code>topWidth</code>、<code>topHeight</code>的系数，观察这些系数是怎么影响图形绘制的结果的</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-symbol-top.png?width=50pc" alt="badge symbol top"></p>
+<p><strong>步骤5</strong> 绘制徽章图案的下半部分，使用<code>move(to:)</code>把绘图光标移到另一个图形绘制的起点，绘制新的形状</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-symbol-bottom.png?width=50pc" alt="badge symbol bottom"></p>
+<p><strong>步骤6</strong> 用紫色填充徽章符号</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-symbol-fill.png?width=50pc" alt="badge symbol fill"></p>
+<h3 id="第四节-组合徽章的前景符号和背景形状">第四节 组合徽章的前景符号和背景形状</h3>
+<p>徽章设计思路是在背景形状上面再绘制多个有固定旋转角度的山峰符号。定义一个新的类型用于展示旋转一定角度的徽章符号，使用<code>ForEach</code>生成不同旋转角度的山峰符号，绘制在徽章背景上，从而形成最终的徽章。</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-combine.png?width=20pc" alt="badge combine"></p>
+<p><strong>步骤1</strong> 创建<code>RotatedBadgeSymbol</code>视图封装旋转徽章符号，调整旋转的角度，并在预览视图中查看效果</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-rotate-badge-5.png?width=50pc" alt="badge symbol rotate 4"></p>
+<p><strong>步骤2</strong>  在<code>Badge.swift</code>中，使用<code>ZStack</code>把徽章图标放在徽章背景层上面。此时会发现，徽章符号的尺寸相比徽章背景大了许多，这不符合最初设计的预期</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-symbols.png?width=50pc" alt="badge symbols"></p>
+<p><strong>步骤3</strong> 缩放符号尺寸到合适的大小</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-geometry-scale.png?width=50pc" alt="badge geometry scale"></p>
+<p><strong>步骤4</strong> 使用<code>ForEach</code>复制多个徽章图标，按360度周解均分，每一个徽章符号都比前一个多旋转45度，这种就会形成一个类似太阳和徽章图标</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-badge-symbol-completed.png?width=50pc" alt="badge symbol completed"></p>
+<h3 id="检查是否理解">检查是否理解</h3>
+<p><strong>问题1</strong> <code>GeometryReader</code>的作用是什么?</p>
+<ul>
+<li><input disabled="" type="checkbox"> <code>GeometryReader</code>可以把父视图分割成网格，便于在屏幕上布局视图</li>
+<li><input checked="" disabled="" type="checkbox"> <code>GeometryReader</code>可以动态的绘制、定位、缩放视图，不需要写死它们的尺寸。这样可以在不同尺寸的屏幕上复用已经写好的视图</li>
+<li><input disabled="" type="checkbox"> 使用<code>GeometryReader</code>可以自动识别应用视图层级上形状的类型和位置，例如: <code>(圆)Circle</code></li>
+</ul>
+<p><strong>问题2</strong> 下面代码段布局后是哪一个图？</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-problem2.png?width=30pc" alt="problem 2"></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-problem2-answer1.png?width=30pc&amp;classes=border" alt="answer 1"></li>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-problem2-answer2.png?width=30pc&amp;classes=border" alt="answer 2"></li>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-problem2-answer3.png?width=30pc&amp;classes=border" alt="answer 3"></li>
+</ul>
+<p><strong>问题3</strong> 下面代码绘制出哪个图？</p>
+<p><img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-problem3.png?width=30pc" alt="problem 3"></p>
+<ul>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-problem3-answer1.png?width=30pc&amp;classes=border" alt="answer 1"></li>
+<li><input disabled="" type="checkbox"> <img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-problem3-answer2.png?width=30pc&amp;classes=border" alt="answer 2"></li>
+<li><input checked="" disabled="" type="checkbox"> <img src="/swiftui/drawing_and_animation/images/swiftui-drawing-animation-problem3-answer3.png?width=30pc&amp;classes=border" alt="answer 3"></li>
+</ul>
+
+
+<footer class="footline">
+	
+</footer>
+
+
+</div>
+
+
+</div>
+
+<div id="navigation">
+
+
+
+
+
+
+    
+        
+        
+    
+    
+
+        
+        
+            
+        
+        
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+            
+        
+        
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+            
+            
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+            
+
+
+    
+        
+    
+    
+
+        
+        
+        
+
+        
+
+
+        
+
+
+        
+
+
+
+
+
+
+
+
+
+<a class="nav nav-prev" href="/swiftui/drawing_and_animation/" title="绘制和动画"> <i class="fa fa-chevron-left"></i></a>
+
+
+<a class="nav nav-next" href="/swiftui/drawing_and_animation/animating_views_and_transitions/" title="视图动画和转场" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+
+
+</div>
+
+</section>
+
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+<div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>
+<script src="/js/clipboard.min.js?1711337756"></script>
+<script src="/js/perfect-scrollbar.min.js?1711337756"></script>
+<script src="/js/perfect-scrollbar.jquery.min.js?1711337756"></script>
+<script src="/js/jquery.sticky.js?1711337756"></script>
+<script src="/js/featherlight.min.js?1711337756"></script>
+<script src="/js/highlight.pack.js?1711337756"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/modernizr.custom-3.6.0.js?1711337756"></script>
+<script src="/js/learn.js?1711337756"></script>
+<script src="/js/hugo-learn.js?1711337756"></script>
+
+
+<script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+
+<script>
+mermaid.initialize({ startOnLoad: true });
+</script>
+
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+</body>
+</html>

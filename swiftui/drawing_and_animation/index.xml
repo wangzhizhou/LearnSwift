@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>绘制和动画 on Learn Swift</title>
+    <link>https://swift.jokerhub.cn/swiftui/drawing_and_animation/</link>
+    <description>Recent content in 绘制和动画 on Learn Swift</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 29 Apr 2020 02:21:18 +0800</lastBuildDate><atom:link href="https://swift.jokerhub.cn/swiftui/drawing_and_animation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>绘制路径和形状</title>
+      <link>https://swift.jokerhub.cn/swiftui/drawing_and_animation/drawing_paths_and_shapes/</link>
+      <pubDate>Thu, 07 May 2020 23:20:15 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/drawing_and_animation/drawing_paths_and_shapes/</guid>
+      <description>用户在浏览完一个地标后会得到一个徽章。但用户要得到徽章首先要先要创建一个徽章。本篇教程就是使用路径和形状创建徽章的过程，创建的徽章可以和其它图形组合形成位置标志。
+如果想要针对不同种类的地标创建不同的徽章，可以尝试改变徽章基本组成符号的重复次数、角度或大小。
+跟着教程一步步走，可以下载工程文件进行实践。
+项目文件 DrawingPathsAndShapes.zip (6 MB) 第一节 创建徽章视图 创建徽章前需要使用SwiftUI的矢量绘画API创建一个徽章视图
+步骤1 选择文件-&amp;gt;新建-&amp;gt;文件，然后从iOS文件模板列表中选择SwiftUI View。点击下一步(Next)，输入文件名Badge后点击创建(Create)
+步骤2 调整Badge视图，暂时先让它显示&amp;quot;Badge&amp;quot;文本，一会儿再绘制徽章的形状
+第二节 绘制徽章背景 使用SwiftUI的图形API绘制一个徽章形状
+步骤1 查看在文件HexagonParameters.swift中的代码。HexagonParameters结构体定义了绘制徽章六边形形状的控制点参数。不需要修改这些绘制相关的数据，仅仅使用这些数据指定绘制徽章形状时，线段和曲线的控制点位置。
+步骤2 在Badge.swift文件中，绘制徽章的形状并使用fill修改器给六边形填充颜色，形成一个视图。使用路径可以把多条直线、曲线或其它绘制形状的基本笔划连成一个复杂的图形，就像形成徽章六边形背景这样.
+步骤3 给路径添加起点，move(to:)方法可以把绘图光标移动到绘图中的一点，准备绘制的起点
+步骤4 使用六边形的绘制参数数据HexagonParameters，依次绘制六边形的边，形成大致轮廓.addLine(to:)方法会使用当前绘图光标所在点为起点，方法参数中指定的点为终点绘制直线。目前六边形看起来有点问题，不过不要担心，这是意料中的事，下面的步骤做完，六边形的形状就会和开头显示的徽章的六边形形状一致了
+步骤5 使用addQuadCurve(to:control:)方法绘制贝塞尔曲线，让六边形的角变的更圆润些。
+步骤6 把徽章路径包裹在一个Geometry Reader中，这样徽章可以使用容器的大小，定义自己绘制的尺寸，这样就不需要硬编码绘制尺寸了(100)。当绘制区域不是正方形时，使用绘制区域的最小边长(长宽中哪个最小使用哪个)作为绘制徽章背景的边长，并保持徽章背景的长宽比为1:1
+步骤7 使用xScale和xOffset参数调整变量，把徽章几何绘图区域居中绘制出来
+步骤8 把黑色实心填充色改为渐变色，使徽章看上去和开始设计的样式一致
+步骤9 渐变色上再使用aspectRatio(_:contentMode:)修改器，让渐变色按内容宽高比进行成比例渐变填充。保持1:1的长宽比，徽章背景可以保持居中在徽章视图中，不管徽章视图本身是不是正方形
+第三节 绘制徽章符号 地标徽章中心有一个以地标App图标中的山峰图形改造形成的标志。山峰这个符号由两个形状组成，一个是表示山顶被雪覆盖的部分，另一个是山体。这里会使用有一定间距的两个局部三角形形状绘制这个徽章符号
+步骤1 把之前的徽章视图形状抽出来单独形成一个BadgeBackground视图，并生成一个新的视图文件BadgeBackground.swift
+步骤2 把BadgeBackground放在Badge的body属性中。
+步骤3 创建名为BadgeSymbol的自定义视图，这个视图是一个山峰的形状，把这个形状复制多次并按一定角度旋转多次拼成一个徽章的图案
+步骤4 使用pathAPI来绘制徽章符号的上半部分，试着调节spacing、topWidth、topHeight的系数，观察这些系数是怎么影响图形绘制的结果的
+步骤5 绘制徽章图案的下半部分，使用move(to:)把绘图光标移到另一个图形绘制的起点，绘制新的形状
+步骤6 用紫色填充徽章符号
+第四节 组合徽章的前景符号和背景形状 徽章设计思路是在背景形状上面再绘制多个有固定旋转角度的山峰符号。定义一个新的类型用于展示旋转一定角度的徽章符号，使用ForEach生成不同旋转角度的山峰符号，绘制在徽章背景上，从而形成最终的徽章。
+步骤1 创建RotatedBadgeSymbol视图封装旋转徽章符号，调整旋转的角度，并在预览视图中查看效果
+步骤2 在Badge.swift中，使用ZStack把徽章图标放在徽章背景层上面。此时会发现，徽章符号的尺寸相比徽章背景大了许多，这不符合最初设计的预期
+步骤3 缩放符号尺寸到合适的大小
+步骤4 使用ForEach复制多个徽章图标，按360度周解均分，每一个徽章符号都比前一个多旋转45度，这种就会形成一个类似太阳和徽章图标
+检查是否理解 问题1 GeometryReader的作用是什么?
+GeometryReader可以把父视图分割成网格，便于在屏幕上布局视图 GeometryReader可以动态的绘制、定位、缩放视图，不需要写死它们的尺寸。这样可以在不同尺寸的屏幕上复用已经写好的视图 使用GeometryReader可以自动识别应用视图层级上形状的类型和位置，例如: (圆)Circle 问题2 下面代码段布局后是哪一个图？</description>
+    </item>
+    
+    <item>
+      <title>视图动画和转场</title>
+      <link>https://swift.jokerhub.cn/swiftui/drawing_and_animation/animating_views_and_transitions/</link>
+      <pubDate>Thu, 07 May 2020 23:20:35 +0800</pubDate>
+      
+      <guid>https://swift.jokerhub.cn/swiftui/drawing_and_animation/animating_views_and_transitions/</guid>
+      <description>使用SwiftUI可以把视图状态的改变转成动画过程，SwiftUI会处理所有复杂的动画细节
+在这篇中，会给跟踪用户徒步的图表视图添加动画。使用animation(_:)修改器给一个视图添加动画效果非常容易
+下载起步项目并跟着本篇教程一步步实践，或者查看本篇完成状态时的工程代码去学习
+项目文件 AnimatingViewsAndTransitions.zip (6 MB) 第一节 给每个视图单独添加动画 在视图上使用animation(_:)修改器时，SwiftUI会在视图的任何可进行动画的属性发生改变时产生对应的动画效果。视图的颜色、不透明度、旋转角度、大小及一些其它属性都是可进行动画的
+步骤1 在HikeView.swift中，打开实时预览，体验一下图表的打开和隐藏，此时的状态改变时是没有添加动画效果的。在本篇的实践中，保持实时预览一直打开，每一步修改的效果就可以实时的看到
+步骤2 给显示/隐藏切换的箭头按钮添加旋转动画，会发现现在按钮点击时的旋转有一个动画过渡的效果了
+步骤3 当视图从隐藏到展示时，让切换按钮变大1.5倍
+步骤4 把动画的类型从easeInOut改为spring()。SwiftUI包含一些预设或可自定义的动画类型，像弹簧(spring)动画和类型液体(fluid)动画类型。可以调整动画开始前的等待时长、动画的速度也可以指定让动画循环重复的进行
+步骤5 如果只想让按钮具有缩放动画而不进行旋转动画，可以在scaleEffect添加animation(nil)来实现。可以在这里做一些实验，如果把其它的一些动画效果结合在一起，会怎么样
+步骤6 学下一节之前，把本节中添加的animation(_:)修改器都去掉
+第二节 把视图的状态改态转化成动画效果 已经学会了给单个视图添加动画的方法，现在可以学习怎么在视图的状态发生改变时添加动画效果。当用户点击按钮时会切换showDetail状态的值，在视图变化过程中添加动画效果。
+步骤1 把showDetail.toggle()包裹在withAnimation函数调用块中。showDetail的改变影响了视图HikeDetail和详情切换按钮，在显示/隐藏详情的过程中都有了过滤动画效果。
+放慢动画速度，可以观察SwiftUI动画在被中断下是怎么运作的
+步骤2 给withAnimation传入一个时长4秒的基本动画参数.easeInOut(duration:4)，可以指定动画过程时长，给withAnimation传入的动画参数与.animation(_:)修改器可用参数一致。
+步骤3 在动画过程进行中点击按钮切换视图状态，查看对应的动画被中断时的效果
+步骤4 读下一节之前，把动画时长参数(.easeInOut(duration: 4))去掉，让动画不再缓慢进行。
+第三节 定制视图转场动画 默值情况下，视图离屏和入屏时的动画效果是渐隐/渐现， 这个默认的转场效果可以使用transition(_:)修改器进行定制。
+步骤1 给HikeView视图添加transition(_:)修改器，并定制转场参数为.slide，转场动画为滑入/滑出
+步骤2 可以把滑入/滑出这种转场动画封装起来，方便其它视图复用同样的转场效果
+步骤3 在moveAndFade转场效果的定义中使用move(edge:)，让滑入/滑出从屏幕的同一边进行
+步骤4 使用asymmetric(insertion:removal:)修改器来定制视图显示/消失时的转场动画效果
+第四节 组合复杂的动画效果 点击图表下面的三个按钮，会在三个不同的数据集间进行切换并展示。本节中会使用组合动画，让图表在不同数据集间切换时的转换动画流畅自然。
+步骤1 把showDetail的默认值改为true，并把HikeView的预览模式视图固定在画布上。这样可以在编辑其它文件时，依然看到动画效果的变化。
+步骤2 在HikeGraph.swift中定义了一个新的波动动画，并把它与滑入/滑出动画一起应用到图表视图上。
+步骤3 把动画切换为弹簧动画(spring)，并设置弹簧阻尼系数为0.5，动画过程中产生了逐渐回弹效果
+步骤4 加速弹簧动画的执行速度，缩短切换图表的时间
+步骤5 以当条形在图表中的位置为参数，添加延迟效果，图表中的每个条形会顺序动起来
+步骤6 观察一下自定义波动(rippling)效果是怎么作用在视图转场中的
+检查是否理解 问题1 怎样从一串动画效果调用中，去掉其中的一种动画效果。以下面的代码为例，怎样去掉旋转动画
+问题2 当你开发动画的过程上，为什么要把预览视图固定在画布上？
+为了固定动画过程中的当前帧 为了在多个设备配置开发中预览动画效果 为了在切换到其它不同文件时，固定显示当前视图的预览 问题3 在视图状态改变时，如何快速测试一个动画在被中断时的表现</description>
+    </item>
+    
+  </channel>
+</rss>
